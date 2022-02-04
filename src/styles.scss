@@ -7,7 +7,7 @@ body {
 
 .app {
   @apply container max-w-md mx-auto flex flex-col justify-between items-center;
-  height: 98vh;
+  height: 90vh;
 }
 
 .title-container {
@@ -19,7 +19,7 @@ body {
 }
 
 .message-container {
-  @apply h-16;
+  @apply h-2 md:h-8;
 
   p {
     @apply bg-gray-600 rounded-lg p-2 m-0;
@@ -27,14 +27,14 @@ body {
 }
 
 .guesses-container {
-  @apply mb-8;
+  @apply mb-4;
 
   .guess-row {
     @apply flex;
   }
 
   .guess {
-    @apply w-16 h-16 border-2 border-gray-600 box-border flex justify-center items-center text-white m-1 text-3xl font-black;
+    @apply md:w-16 md:h-16 w-14 h-14 border-2 border-gray-600 box-border flex justify-center items-center text-white m-1 text-3xl font-black;
   }
 }
 
@@ -42,21 +42,25 @@ body {
   @apply w-full flex flex-wrap;
 
   .key {
-    @apply w-9 h-14 rounded-md border-0 m-1;
+    @apply md:w-9 md:h-14 w-7 h-11 rounded-md border-0 m-1 text-sm md:text-base;
     @apply bg-gray-400 text-white;
   }
 
+  .key:nth-child(1) {
+    @apply md:ml-0 ml-4;
+  }
+
   .key:nth-child(11) {
-    @apply ml-7;
+    @apply md:ml-7 ml-9;
   }
 
   .key:nth-child(20) {
-    @apply ml-2;
+    @apply ml-4;
   }
 
   .key:nth-child(20),
   .key:nth-child(28) {
-    @apply w-14;
+    @apply md:w-14 w-12;
   }
 }
 
