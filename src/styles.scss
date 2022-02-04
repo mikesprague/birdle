@@ -55,7 +55,7 @@ body {
   }
 
   .key:nth-child(20) {
-    @apply ml-4;
+    @apply md:ml-2 ml-4;
   }
 
   .key:nth-child(20),
