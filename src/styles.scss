@@ -2,20 +2,57 @@
 @tailwind components;
 
 body {
-  @apply bg-gray-50;
-  @apply dark:bg-gray-900;
-  @apply text-gray-900;
-  @apply dark:text-gray-100;
-  @apply font-sans;
+  @apply bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans p-1;
 }
 
 .app {
-  @apply container max-w-md mx-auto;
+  @apply container max-w-md mx-auto flex flex-col justify-between items-center;
+  height: 95vh;
 }
 
 .title-container {
+  @apply border-b-black dark:border-b-gray-100 border-b w-full;
+
   h1 {
-    @apply text-3xl text-center underline uppercase underline-offset-2;
+    @apply text-4xl font-extrabold text-center uppercase mb-1 tracking-widest;
+  }
+}
+
+.message-container {
+  @apply h-16;
+}
+
+.guesses-container {
+  @apply mb-8;
+
+  .guess-row {
+    @apply flex;
+  }
+
+  .guess {
+    @apply w-16 h-16 border-2 border-gray-600 box-border flex justify-center items-center text-white m-1;
+  }
+}
+
+.keyboard-container {
+  @apply w-full flex flex-wrap;
+
+  .key {
+    @apply w-9 h-14 rounded-md border-0 m-1;
+    @apply bg-gray-500 text-white;
+  }
+
+  .key:nth-child(11) {
+    @apply ml-7;
+  }
+
+  .key:nth-child(20) {
+    @apply ml-2;
+  }
+
+  .key:nth-child(20),
+  .key:nth-child(28) {
+    @apply w-14;
   }
 }
 
