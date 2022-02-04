@@ -19,9 +19,9 @@ module.exports = {
     },
     extend: {
       colors: {
-        absent: 'rgb(120, 124, 126)',
-        present: 'rgb(201, 180, 88)',
-        correct: 'rgb(106, 170, 100)',
+        absent: '#3a3a3c',
+        present: '#b59f3b',
+        correct: '#538d4e',
       },
     },
   },

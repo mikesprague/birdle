@@ -7,19 +7,23 @@ body {
 
 .app {
   @apply container max-w-md mx-auto flex flex-col justify-between items-center;
-  height: 95vh;
+  height: 98vh;
 }
 
 .title-container {
   @apply border-b-black dark:border-b-gray-100 border-b w-full;
 
   h1 {
-    @apply text-4xl font-extrabold text-center uppercase mb-1 tracking-widest;
+    @apply text-4xl font-bold text-center uppercase mb-1 tracking-widest;
   }
 }
 
 .message-container {
   @apply h-16;
+
+  p {
+    @apply bg-gray-600 rounded-lg p-2 m-0;
+  }
 }
 
 .guesses-container {
@@ -30,7 +34,7 @@ body {
   }
 
   .guess {
-    @apply w-16 h-16 border-2 border-gray-600 box-border flex justify-center items-center text-white m-1;
+    @apply w-16 h-16 border-2 border-gray-600 box-border flex justify-center items-center text-white m-1 text-3xl font-black;
   }
 }
 
@@ -39,7 +43,7 @@ body {
 
   .key {
     @apply w-9 h-14 rounded-md border-0 m-1;
-    @apply bg-gray-500 text-white;
+    @apply bg-gray-400 text-white;
   }
 
   .key:nth-child(11) {
@@ -54,6 +58,19 @@ body {
   .key:nth-child(28) {
     @apply w-14;
   }
+}
+
+.yellow-overlay {
+  background-color: #b59f3b !important;
+  border: none !important;
+}
+.green-overlay {
+  background-color: #538d4e !important;
+  border: none !important;
+}
+.grey-overlay {
+  background-color: #3a3a3c !important;
+  border: none !important;
 }
 
 @tailwind utilities;
