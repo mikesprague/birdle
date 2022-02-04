@@ -9,7 +9,6 @@ module.exports.initKeys = (keys, keyHandler) => {
     buttonEl.setAttribute('id', keyVal);
     buttonEl.addEventListener('click', keyHandler, true);
     keyboardContainer.append(buttonEl);
-    keyboardJs.bind(keyVal.toLowerCase(), (e) => console.log(e.key));
   });
 };
 

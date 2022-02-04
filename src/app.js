@@ -139,24 +139,26 @@ import {
   };
 
   const handleKey = (letter) => {
-    // console.log(letter);
-    if (letter.toLowerCase() === '<<') {
+    // console.log(typeof letter);
+    const key = typeof letter === 'object' ? letter.target.id : letter;
+    console.log(key);
+    if (key.toLowerCase() === '<<' || key.toLowerCase() === 'backspace') {
       deleteLetter();
       return;
     }
-    if (letter.toLowerCase() === 'enter') {
+    if (key.toLowerCase() === 'enter') {
       checkWord();
       return;
     }
-    if (letter.length === 1) {
-      addLetter(letter);
+    if (key.length === 1) {
+      addLetter(key);
       return;
     }
   };
 
   keys.forEach((keyVal) => {
     let letter = keyVal === '<<' ? 'backspace' : keyVal;
-    keyboardJs.bind(keyVal.toLowerCase(), (e) => handleKey(letter));
+    keyboardJs.bind(letter.toLowerCase(), (e) => handleKey(letter));
   });
 
   buildGuessesRows(guessesRows);
