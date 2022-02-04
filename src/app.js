@@ -1,16 +1,16 @@
 import 'animate.css';
 // import { setData, getData, clearData } from './lib/local-storage';
-import { keys } from './lib/keys';
-import { words } from './lib/words';
-import { isGuessValid, getBirdleOfDay, successStrings } from './lib/helpers';
+import { initKeys, keys } from './lib/keys';
+// import { words } from './lib/words';
+import {
+  isGuessValid,
+  getBirdleOfDay,
+  successStrings,
+  buildGuessesRows,
+  showMessage,
+} from './lib/helpers';
 
 (async () => {
-  // const appContainer = document.querySelector('.app');
-  // const titleContainer = document.querySelector('.title-container');
-  const messageContainer = document.querySelector('.message-container');
-  const guessesContainer = document.querySelector('.guesses-container');
-  const keyboardContainer = document.querySelector('.keyboard-container');
-
   let currentRow = 0;
   let currentGuess = 0;
   // let isGameOver = false;
@@ -22,15 +22,6 @@ import { isGuessValid, getBirdleOfDay, successStrings } from './lib/helpers';
     ['', '', '', '', ''],
     ['', '', '', '', ''],
     ['', '', '', '', ''],
-  ];
-
-  const successStrings = [
-    'Genius',
-    'Magnificent',
-    'Impressive',
-    'Splendid',
-    'Great',
-    'Phew',
   ];
 
   const birdle = getBirdleOfDay().toUpperCase();
@@ -60,19 +51,6 @@ import { isGuessValid, getBirdleOfDay, successStrings } from './lib/helpers';
       el.textContent = '';
       el.setAttribute('data', '');
       guessesRows[currentRow][currentGuess] = '';
-    }
-  };
-
-  const showMessage = (message, persist = false) => {
-    const messageEl = document.createElement('p');
-    messageEl.textContent = message;
-    messageEl.classList.add('animate__animated', 'animate__fadeIn');
-    messageContainer.append(messageEl);
-    if (!persist) {
-      setTimeout(() => {
-        messageEl.classList.add('animate__fadeOut');
-      }, 2000);
-      setTimeout(() => messageContainer.removeChild(messageEl), 2500);
     }
   };
 
@@ -161,25 +139,6 @@ import { isGuessValid, getBirdleOfDay, successStrings } from './lib/helpers';
     }
   };
 
-  const buildGuessRows = () => {
-    guessesRows.forEach((guessRow, guessRowIndex) => {
-      const rowEl = document.createElement('div');
-      rowEl.setAttribute('id', `guessRow-${guessRowIndex}`);
-      rowEl.classList.add('guess-row');
-      guessRow.forEach((guess, guessIndex) => {
-        const guessEl = document.createElement('div');
-        guessEl.setAttribute(
-          'id',
-          `guessRow-${guessRowIndex}-guess-${guessIndex}`,
-        );
-        guessEl.classList.add('guess');
-        rowEl.append(guessEl);
-      });
-      guessesContainer.append(rowEl);
-      // console.log(rowEl);
-    });
-  };
-
   const handleKey = (event) => {
     const letter = event.target.id;
     // console.log(letter);
@@ -197,17 +156,6 @@ import { isGuessValid, getBirdleOfDay, successStrings } from './lib/helpers';
     }
   };
 
-  const initKeys = () => {
-    keys.forEach((keyVal) => {
-      const buttonEl = document.createElement('button');
-      buttonEl.textContent = keyVal;
-      buttonEl.classList.add('key');
-      buttonEl.setAttribute('id', keyVal);
-      buttonEl.addEventListener('click', handleKey, true);
-      keyboardContainer.append(buttonEl);
-    });
-  };
-
-  buildGuessRows();
-  initKeys();
+  buildGuessesRows(guessesRows);
+  initKeys(keys, handleKey);
 })();
