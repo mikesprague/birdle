@@ -1,7 +1,6 @@
 import 'animate.css';
-// import { setData, getData, clearData } from './lib/local-storage';
+import keyboardJs from 'keyboardjs';
 import { initKeys, keys } from './lib/keys';
-// import { words } from './lib/words';
 import {
   isGuessValid,
   getBirdleOfDay,
@@ -139,8 +138,7 @@ import {
     }
   };
 
-  const handleKey = (event) => {
-    const letter = event.target.id;
+  const handleKey = (letter) => {
     // console.log(letter);
     if (letter.toLowerCase() === '<<') {
       deleteLetter();
@@ -155,6 +153,11 @@ import {
       return;
     }
   };
+
+  keys.forEach((keyVal) => {
+    let letter = keyVal === '<<' ? 'backspace' : keyVal;
+    keyboardJs.bind(keyVal.toLowerCase(), (e) => handleKey(letter));
+  });
 
   buildGuessesRows(guessesRows);
   initKeys(keys, handleKey);

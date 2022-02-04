@@ -1,3 +1,5 @@
+import keyboardJs from 'keyboardjs';
+
 module.exports.initKeys = (keys, keyHandler) => {
   const keyboardContainer = document.querySelector('.keyboard-container');
   keys.forEach((keyVal) => {
@@ -7,6 +9,7 @@ module.exports.initKeys = (keys, keyHandler) => {
     buttonEl.setAttribute('id', keyVal);
     buttonEl.addEventListener('click', keyHandler, true);
     keyboardContainer.append(buttonEl);
+    keyboardJs.bind(keyVal.toLowerCase(), (e) => console.log(e.key));
   });
 };
 
