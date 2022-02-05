@@ -1,4 +1,3 @@
-import 'animate.css';
 import keyboardJs from 'keyboardjs';
 import { initKeys, keys } from './lib/keys';
 import {
