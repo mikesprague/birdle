@@ -22,7 +22,7 @@ body {
   @apply h-2 md:h-8;
 
   p {
-    @apply bg-gray-600 rounded-lg p-2 m-0;
+    @apply bg-gray-600 text-gray-100 rounded-lg p-2 m-0;
   }
 }
 
@@ -34,7 +34,7 @@ body {
   }
 
   .guess {
-    @apply md:w-16 md:h-16 w-14 h-14 border-2 border-gray-600 box-border flex justify-center items-center text-white m-1 text-3xl font-black;
+    @apply md:w-16 md:h-16 w-14 h-14 border-2 border-gray-600 box-border flex justify-center items-center text-gray-900 dark:text-gray-50 m-1 text-3xl font-black;
   }
 }
 
