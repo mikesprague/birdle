@@ -54,7 +54,6 @@ import {
 
   const colorKeyboardLetter = (letter, className) => {
     const key = document.getElementById(letter);
-    // console.log(className);
     key.classList.add(className);
     // if (className === 'grey-overlay') {
     //   key.setAttribute('disabled', 'disabled');
@@ -65,7 +64,6 @@ import {
     const row = document.getElementById(`guessRow-${currentRow}`);
     const guesses = row.childNodes;
     let checkBirdle = birdle;
-    console.log('checkBirdle: ', checkBirdle);
     let guessArray = Array.from(guesses).map((guess) => {
       return {
         letter: guess.getAttribute('data'),
@@ -73,16 +71,11 @@ import {
       };
     });
 
-    console.log('guessArray: ', guessArray);
-
     guessArray.forEach((guess, guessIndex) => {
-      // console.log(guess.letter, birdle[guessIndex]);
       if (guess.letter === birdle[guessIndex]) {
         guess.color = 'green-overlay';
         checkBirdle = checkBirdle.replace(guess.letter, '');
-        console.log('green checkBirdle: ', checkBirdle);
       }
-      console.log(guess);
     });
 
     guessArray.forEach((guess) => {
@@ -92,7 +85,6 @@ import {
       ) {
         guess.color = 'yellow-overlay';
         checkBirdle = checkBirdle.replace(guess.letter, '');
-        console.log('yellow checkBirdle: ', checkBirdle);
       }
     });
 
@@ -119,7 +111,6 @@ import {
       }
       colorGuess();
       if (guess.toLowerCase() === birdle.toLowerCase()) {
-        console.log(successStrings[currentRow]);
         showMessage(successStrings[currentRow], true);
         document
           .getElementById('ENTER')
@@ -128,7 +119,6 @@ import {
         return;
       } else {
         if (currentRow < guessesRows.length - 1) {
-          console.log('no luck');
           currentRow += 1;
           currentGuess = 0;
           return;
@@ -142,14 +132,13 @@ import {
         }
       }
     } else {
-      console.log('not enough letters');
+      // console.log('not enough letters');
     }
   };
 
   const handleKey = (letter) => {
-    // console.log(typeof letter);
     const key = typeof letter === 'object' ? letter.target.id : letter;
-    console.log(key);
+
     if (key.toLowerCase() === '<<' || key.toLowerCase() === 'backspace') {
       deleteLetter();
       return;
@@ -171,4 +160,5 @@ import {
 
   buildGuessesRows(guessesRows);
   initKeys(keys, handleKey);
+  console.log('🙈 nothing to see here, move along now');
 })();

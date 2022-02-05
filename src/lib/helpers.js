@@ -43,7 +43,6 @@ module.exports.buildGuessesRows = (guessesRows) => {
       rowEl.append(guessEl);
     });
     guessesContainer.append(rowEl);
-    // console.log(rowEl);
   });
 };
 
