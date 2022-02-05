@@ -53,7 +53,7 @@ import {
   const colorKeyboardLetter = (letter, className) => {
     const key = document.getElementById(letter);
     key.classList.add(className);
-    // if (className === 'grey-overlay') {
+    // if (className === 'absent-overlay') {
     //   key.setAttribute('disabled', 'disabled');
     // }
   };
@@ -65,13 +65,13 @@ import {
     let guessArray = Array.from(guesses).map((guess) => {
       return {
         letter: guess.getAttribute('data'),
-        color: 'grey-overlay',
+        color: 'absent-overlay',
       };
     });
 
     guessArray.forEach((guess, guessIndex) => {
       if (guess.letter === birdle[guessIndex]) {
-        guess.color = 'green-overlay';
+        guess.color = 'correct-overlay';
         checkBirdle = checkBirdle.replace(guess.letter, '');
       }
     });
@@ -79,9 +79,9 @@ import {
     guessArray.forEach((guess) => {
       if (
         checkBirdle.includes(guess.letter) &&
-        guess.color !== 'green-overlay'
+        guess.color !== 'correct-overlay'
       ) {
-        guess.color = 'yellow-overlay';
+        guess.color = 'present-overlay';
         checkBirdle = checkBirdle.replace(guess.letter, '');
       }
     });
