@@ -1,4 +1,3 @@
-import keyboardJs from 'keyboardjs';
 import { initKeys, keys } from './lib/keys';
 import {
   isGuessValid,
@@ -11,7 +10,7 @@ import {
 (async () => {
   let currentRow = 0;
   let currentGuess = 0;
-  // let isGameOver = false;
+  let isGameOver = false;
 
   const guessesRows = [
     ['', '', '', '', ''],
@@ -120,7 +119,7 @@ import {
         document
           .getElementById('ENTER')
           .removeEventListener('click', handleKey, true);
-        // isGameOver = true;
+        isGameOver = true;
         return;
       } else {
         if (currentRow < guessesRows.length - 1) {
@@ -132,7 +131,7 @@ import {
           document
             .getElementById('ENTER')
             .removeEventListener('click', handleKey, true);
-          // isGameOver = true;
+          isGameOver = true;
           return;
         }
       }
@@ -142,23 +141,20 @@ import {
   };
 
   const handleKey = (letter) => {
-    const key = typeof letter === 'object' ? letter.target.id : letter;
+    if (!isGameOver) {
+      const key = typeof letter === 'object' ? letter.target.id : letter;
 
-    if (key.toLowerCase() === '<<' || key.toLowerCase() === 'backspace') {
-      deleteLetter();
-    }
-    if (key.toLowerCase() === 'enter') {
-      checkWord();
-    }
-    if (key.length === 1) {
-      addLetter(key);
+      if (key.toLowerCase() === '<<' || key.toLowerCase() === 'backspace') {
+        deleteLetter();
+      }
+      if (key.toLowerCase() === 'enter') {
+        checkWord();
+      }
+      if (key.length === 1) {
+        addLetter(key);
+      }
     }
   };
-
-  keys.forEach((keyVal) => {
-    let letter = keyVal === '<<' ? 'backspace' : keyVal;
-    keyboardJs.bind(letter.toLowerCase(), (e) => handleKey(letter));
-  });
 
   buildGuessesRows(guessesRows);
   initKeys(keys, handleKey);

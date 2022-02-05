@@ -1,3 +1,19 @@
+import keyboardJs from 'keyboardjs';
+
+module.exports.initKeyboardBindings = (keys, keyHandler, doUnbind = false) => {
+  if (doUnbind) {
+    keys.forEach((keyVal) => {
+      let letter = keyVal === '<<' ? 'backspace' : keyVal;
+      keyboardJs.unbind(letter.toLowerCase(), () => keyHandler(letter));
+    });
+    return;
+  }
+  keys.forEach((keyVal) => {
+    let letter = keyVal === '<<' ? 'backspace' : keyVal;
+    keyboardJs.bind(letter.toLowerCase(), () => keyHandler(letter));
+  });
+};
+
 module.exports.initKeys = (keys, keyHandler) => {
   const keyboardContainer = document.querySelector('.keyboard-container');
   keys.forEach((keyVal) => {
@@ -14,6 +30,7 @@ module.exports.initKeys = (keys, keyHandler) => {
       keyboardContainer.append(buttonEl);
     }
   });
+  module.exports.initKeyboardBindings(keys, keyHandler);
 };
 
 module.exports.keys = [
