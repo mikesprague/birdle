@@ -28,14 +28,15 @@ Work is in progress but it's an early version
 - [x] light theme: guesses display is white text on white bg
 - [x] light theme: message styling needs improvement
 - [x] bug fix: one of letter in birdle and two in guess changes kb key back to gray
+- [ ] statefullness: need to reset state if day has changed and word no longer valid
 - [ ] flash message: styling needs improvement
-- [ ] on-screen kb: fix/remove color change on tap (mobile only)
+- [ ] on-screen kb: remove color change on tap (mobile only)
 - [ ] on-screen kb: improve (more consistent) key sizing
 - [ ] mobile/responsive: general improvements
 
 ### Missing Features (planning to add)
 
-- [ ] statefulness: will use localstorage
+- [x] statefulness: will use localstorage
 - [ ] game over: show info from current game
 - [ ] sharing: develop sharing with emoji blocks
 - [ ] game over: add sharing to game over info
