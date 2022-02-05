@@ -6,4 +6,4 @@ updates:
       interval: "daily"
       time: "12:00"
       timezone: "America/New_York"
-    target-branch: "main"
+    target-branch: "dev"
