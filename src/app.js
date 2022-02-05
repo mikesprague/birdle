@@ -21,7 +21,7 @@ import {
     ['', '', '', '', ''],
   ];
 
-  const birdle = getBirdleOfDay().toUpperCase();
+  const birdle = getBirdleOfDay();
 
   const addLetter = (letter) => {
     if (
@@ -114,7 +114,7 @@ import {
         return;
       }
       colorGuess();
-      if (guess.toLowerCase() === birdle.toLowerCase()) {
+      if (guess.toLowerCase() === birdle) {
         showMessage(successStrings[currentRow], true);
         document
           .getElementById('ENTER')
@@ -144,10 +144,10 @@ import {
     if (!isGameOver) {
       const key = typeof letter === 'object' ? letter.target.id : letter;
 
-      if (key.toLowerCase() === '<<' || key.toLowerCase() === 'backspace') {
+      if (key === '<<' || key === 'backspace') {
         deleteLetter();
       }
-      if (key.toLowerCase() === 'enter') {
+      if (key === 'enter') {
         checkWord();
       }
       if (key.length === 1) {

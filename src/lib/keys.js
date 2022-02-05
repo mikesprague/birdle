@@ -1,16 +1,12 @@
 import keyboardJs from 'keyboardjs';
 
-module.exports.initKeyboardBindings = (keys, keyHandler, doUnbind = false) => {
-  if (doUnbind) {
-    keys.forEach((keyVal) => {
-      let letter = keyVal === '<<' ? 'backspace' : keyVal;
-      keyboardJs.unbind(letter.toLowerCase(), () => keyHandler(letter));
-    });
-    return;
-  }
+module.exports.initKeyboardBindings = (keys, keyHandler) => {
   keys.forEach((keyVal) => {
     let letter = keyVal === '<<' ? 'backspace' : keyVal;
-    keyboardJs.bind(letter.toLowerCase(), () => keyHandler(letter));
+    keyboardJs.bind(letter, (e) => {
+      e.preventRepeat();
+      keyHandler(letter);
+    });
   });
 };
 
@@ -33,35 +29,42 @@ module.exports.initKeys = (keys, keyHandler) => {
   module.exports.initKeyboardBindings(keys, keyHandler);
 };
 
+module.exports.gameOver = (keys, keyHandler) => {
+  keys.forEach((keyVal) => {
+    let letter = keyVal === '<<' ? 'backspace' : keyVal;
+    keyboardJs.unbind(letter, () => keyHandler(letter));
+  });
+};
+
 module.exports.keys = [
-  'Q',
-  'W',
-  'E',
-  'R',
-  'T',
-  'Y',
-  'U',
-  'I',
-  'O',
-  'P',
+  'q',
+  'w',
+  'e',
+  'r',
+  't',
+  'y',
+  'u',
+  'i',
+  'o',
+  'p',
   '--',
-  'A',
-  'S',
-  'D',
-  'F',
-  'G',
-  'H',
-  'J',
-  'K',
-  'L',
+  'a',
+  's',
+  'd',
+  'f',
+  'g',
+  'h',
+  'j',
+  'k',
+  'l',
   '--',
-  'ENTER',
-  'Z',
-  'X',
-  'C',
-  'V',
-  'B',
-  'N',
-  'M',
+  'enter',
+  'z',
+  'x',
+  'c',
+  'v',
+  'b',
+  'n',
+  'm',
   '<<',
 ];
