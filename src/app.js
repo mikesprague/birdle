@@ -66,25 +66,34 @@ import {
     const row = document.getElementById(`guessRow-${currentRow}`);
     const guesses = row.childNodes;
     let checkBirdle = birdle;
-
-    const guessArray = Array.from(guesses).map((guess) => {
+    console.log('checkBirdle: ', checkBirdle);
+    let guessArray = Array.from(guesses).map((guess) => {
       return {
         letter: guess.getAttribute('data'),
         color: 'grey-overlay',
       };
     });
 
+    console.log('guessArray: ', guessArray);
+
     guessArray.forEach((guess, guessIndex) => {
+      // console.log(guess.letter, birdle[guessIndex]);
       if (guess.letter === birdle[guessIndex]) {
         guess.color = 'green-overlay';
         checkBirdle = checkBirdle.replace(guess.letter, '');
+        console.log('green checkBirdle: ', checkBirdle);
       }
+      console.log(guess);
     });
 
     guessArray.forEach((guess) => {
-      if (checkBirdle.includes(guess.letter)) {
+      if (
+        checkBirdle.includes(guess.letter) &&
+        guess.color !== 'green-overlay'
+      ) {
         guess.color = 'yellow-overlay';
         checkBirdle = checkBirdle.replace(guess.letter, '');
+        console.log('yellow checkBirdle: ', checkBirdle);
       }
     });
 
