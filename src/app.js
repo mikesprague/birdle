@@ -94,8 +94,7 @@ import {
       setTimeout(() => {
         guess.classList.add(
           guessArray[guessIndex].color,
-          'animate__animated',
-          'animate__flipInX',
+          'flip-vertical-right',
         );
         colorKeyboardLetter(dataLetter, guessArray[guessIndex].color);
       }, 300 * guessIndex);
@@ -107,6 +106,13 @@ import {
       const guess = guessesRows[currentRow].join('');
       if (!isGuessValid(guess)) {
         showMessage('Not in word list');
+        const row = document.getElementById(`guessRow-${currentRow}`);
+        row.classList.add('shake-horizontal');
+        setTimeout(() => row.classList.remove('shake-horizontal'), 250);
+        // row.childNodes.forEach((item) => {
+        //   item.classList.add('shake-horizontal');
+        //   setTimeout(() => item.classList.remove('shake-horizontal'), 250);
+        // });
         return;
       }
       colorGuess();
@@ -141,15 +147,12 @@ import {
 
     if (key.toLowerCase() === '<<' || key.toLowerCase() === 'backspace') {
       deleteLetter();
-      return;
     }
     if (key.toLowerCase() === 'enter') {
       checkWord();
-      return;
     }
     if (key.length === 1) {
       addLetter(key);
-      return;
     }
   };
 

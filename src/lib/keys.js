@@ -1,5 +1,3 @@
-import keyboardJs from 'keyboardjs';
-
 module.exports.initKeys = (keys, keyHandler) => {
   const keyboardContainer = document.querySelector('.keyboard-container');
   keys.forEach((keyVal) => {
