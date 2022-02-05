@@ -22,7 +22,9 @@
   "dependencies": {
     "common-tags": "1.8.2",
     "dayjs": "1.10.7",
-    "keyboardjs": "2.6.4"
+    "keyboardjs": "2.6.4",
+    "sweetalert2": "11.3.10",
+    "@sweetalert2/theme-dark": "5.0.8"
   },
   "devDependencies": {
     "@babel/core": "7.17.0",
@@ -43,7 +45,7 @@
     "eslint-plugin-compat": "4.0.2",
     "eslint-plugin-html": "6.2.0",
     "eslint-plugin-import": "2.25.4",
-    "eslint-plugin-markdown": "2.2.1",
+    "eslint-plugin-md": "1.0.19",
     "eslint-plugin-prettier": "4.0.0",
     "parcel": "2.2.1",
     "postcss": "8.4.6",
@@ -89,14 +91,15 @@
     },
     "extends": [
       "eslint:recommended",
-      "prettier"
+      "prettier",
+      "plugin:md/prettier"
     ],
     "plugins": [
       "babel",
       "compat",
       "html",
       "import",
-      "markdown",
+      "md",
       "prettier"
     ],
     "parserOptions": {
