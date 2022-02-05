@@ -60,6 +60,27 @@ body {
   }
 }
 
+.yellow-overlay {
+  background-color: #b59f3b !important;
+  border: none !important;
+}
+
+.green-overlay {
+  background-color: #538d4e !important;
+  border: none !important;
+}
+
+.grey-overlay {
+  background-color: #3a3a3c !important;
+  border: none !important;
+}
+
+.break-flex {
+  flex-basis: 100%;
+  height: 0;
+}
+
+/* animations from https://animista.net/ */
 .flip-vertical-right {
   animation: flip-vertical-right 0.4s cubic-bezier(0.455, 0.030, 0.515, 0.955) reverse both;
 }
@@ -172,23 +193,4 @@ body {
     opacity: 0;
   }
 }
-
-.yellow-overlay {
-  background-color: #b59f3b !important;
-  border: none !important;
-}
-.green-overlay {
-  background-color: #538d4e !important;
-  border: none !important;
-}
-.grey-overlay {
-  background-color: #3a3a3c !important;
-  border: none !important;
-}
-
-.break-flex {
-  flex-basis: 100%;
-  height: 0;
-}
-
 @tailwind utilities;
