@@ -19,7 +19,7 @@ module.exports.initKeys = (keys, keyHandler) => {
       keyboardContainer.append(breakEl);
     } else {
       const buttonEl = document.createElement('button');
-      buttonEl.textContent = keyVal;
+      buttonEl.textContent = keyVal.toUpperCase();
       buttonEl.classList.add('key');
       buttonEl.setAttribute('id', keyVal);
       buttonEl.addEventListener('click', keyHandler, true);

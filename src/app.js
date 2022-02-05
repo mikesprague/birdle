@@ -38,7 +38,7 @@ import {
       const el = document.getElementById(
         `guessRow-${currentRow}-guess-${currentGuess}`,
       );
-      el.textContent = letter;
+      el.textContent = letter.toUpperCase();
       el.setAttribute('data', letter);
       guessesRows[currentRow][currentGuess] = letter;
       currentGuess += 1;
@@ -59,6 +59,12 @@ import {
 
   const colorKeyboardLetter = (letter, className) => {
     const key = document.getElementById(letter);
+    if (
+      key.classList.contains('correct-overlay') ||
+      key.classList.contains('present-overlay')
+    ) {
+      return;
+    }
     key.classList.add(className);
     // if (className === 'absent-overlay') {
     //   key.setAttribute('disabled', 'disabled');
