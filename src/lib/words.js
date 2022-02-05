@@ -1712,6 +1712,7 @@ export const words = [
   'axiom',
   'chard',
   'caput',
+  'shart',
   'leant',
   'harsh',
   'curse',

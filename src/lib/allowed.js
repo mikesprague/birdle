@@ -8156,6 +8156,7 @@ export const allowed = [
   'shans',
   'shaps',
   'sharn',
+  'shart',
   'shash',
   'shaul',
   'shawm',
