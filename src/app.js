@@ -31,13 +31,22 @@ import { getData, setData } from './lib/local-storage';
       ],
     };
     let gameState = getData('gameState');
-    console.log('initial game state: ', gameState);
-    if (null || gameState === undefined) {
+    if (gameState === null || gameState === undefined) {
       setData('gameState', initialGameState);
       gameState = initialGameState;
     }
     buildGuessesRows(gameState.guessesRows);
     initKeys(keys, handleKey);
+    for (let i = 0; i < gameState.guessesRows.length; i += 1) {
+      // console.log(i, gameState.guessesRows[i]);
+      if (
+        gameState.guessesRows[i].join('').length &&
+        gameState.guessesRows[i].join('').length === 5 &&
+        isGuessValid(gameState.guessesRows[i].join(''))
+      ) {
+        colorGuess(i);
+      }
+    }
     console.log('🙈 nothing to see here, move along now');
   };
 
@@ -58,7 +67,6 @@ import { getData, setData } from './lib/local-storage';
 
       gameState.guessesRows[currentRow][currentGuess] = letter;
       gameState.currentGuess += 1;
-      console.log('gameState: ', gameState);
       setData('gameState', gameState);
       // guessesRows[currentRow][currentGuess] = letter;
       // currentGuess += 1;
@@ -67,7 +75,7 @@ import { getData, setData } from './lib/local-storage';
 
   const deleteLetter = () => {
     let gameState = getData('gameState');
-    let { currentRow, currentGuess, guessesRows } = gameState;
+    let { currentRow, currentGuess } = gameState;
     if (currentGuess > 0) {
       currentGuess -= 1;
       const el = document.getElementById(
@@ -84,6 +92,7 @@ import { getData, setData } from './lib/local-storage';
   const colorKeyboardLetter = (letter, className) => {
     const key = document.getElementById(letter);
     if (
+      !key ||
       key.classList.contains('correct-overlay') ||
       key.classList.contains('present-overlay')
     ) {
@@ -101,12 +110,13 @@ import { getData, setData } from './lib/local-storage';
     let checkBirdle = birdle;
     let guessArray = Array.from(guesses).map((guess) => {
       return {
-        letter: guess.getAttribute('data'),
+        letter: guess.textContent.toLowerCase(),
         color: 'absent-overlay',
       };
     });
 
     guessArray.forEach((guess, guessIndex) => {
+      // console.log(guess, birdle[guessIndex]);
       if (guess.letter === birdle[guessIndex]) {
         guess.color = 'correct-overlay';
         checkBirdle = checkBirdle.replace(guess.letter, '');
@@ -124,7 +134,7 @@ import { getData, setData } from './lib/local-storage';
     });
 
     guesses.forEach((guess, guessIndex) => {
-      const dataLetter = guess.getAttribute('data');
+      const dataLetter = guess.textContent.toLowerCase();
 
       setTimeout(() => {
         guess.classList.add(
