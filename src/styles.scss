@@ -63,16 +63,19 @@ body {
 .present-overlay {
   background-color: #b59f3b !important;
   border: none !important;
+  @apply text-gray-100 dark:text-gray-900;
 }
 
 .correct-overlay {
   background-color: #538d4e !important;
   border: none !important;
+  @apply text-gray-100 dark:text-gray-900;
 }
 
 .absent-overlay {
   background-color: #3a3a3c !important;
   border: none !important;
+  @apply text-gray-100 dark:text-gray-900;
 }
 
 .break-flex {
