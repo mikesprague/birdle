@@ -24,11 +24,11 @@ Work is in progress but it's an early version
 
 ### Issues
 
-- [ ] game over: need to unbind events (keyboard and clicks)
+- [x] game over: need to unbind events (keyboard and clicks)
+- [x] light theme: guesses display is white text on white bg
+- [x] light theme: message styling needs improvement
 - [ ] flash message: styling needs improvement
-- [ ] light theme: guesses display is white text on white bg
-- [ ] light theme: message styling needs improvement
-- [ ] on-screen kb: fix/remove color change on tap
+- [ ] on-screen kb: fix/remove color change on tap (mobile only)
 - [ ] on-screen kb: improve (more consistent) key sizing
 - [ ] mobile/responsive: general improvements
 
