@@ -24,7 +24,6 @@ import {
   ];
 
   const birdle = getBirdleOfDay().toUpperCase();
-  // console.log(getBirdleOfDay());
 
   const addLetter = (letter) => {
     if (
