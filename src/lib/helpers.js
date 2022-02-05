@@ -39,6 +39,7 @@ module.exports.buildGuessesRows = (guessesRows) => {
         'id',
         `guessRow-${guessRowIndex}-guess-${guessIndex}`,
       );
+      guessEl.textContent = guess.length ? guess.toUpperCase() : '';
       guessEl.classList.add('guess');
       rowEl.append(guessEl);
     });

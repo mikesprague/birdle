@@ -1,4 +1,3 @@
-import { initKeys, keys } from './lib/keys';
 import {
   isGuessValid,
   getBirdleOfDay,
@@ -6,6 +5,8 @@ import {
   buildGuessesRows,
   showMessage,
 } from './lib/helpers';
+import { initKeys, keys } from './lib/keys';
+import { getData, setData } from './lib/local-storage';
 
 // 🦤🐤🦤🦤🦤
 // 🦜🦤🦤🦤🦜
@@ -15,22 +16,36 @@ import {
 // 🦜🦜🦜🦜🦜
 
 (async () => {
-  let currentRow = 0;
-  let currentGuess = 0;
-  let isGameOver = false;
-
-  const guessesRows = [
-    ['', '', '', '', ''],
-    ['', '', '', '', ''],
-    ['', '', '', '', ''],
-    ['', '', '', '', ''],
-    ['', '', '', '', ''],
-    ['', '', '', '', ''],
-  ];
+  const initGame = async () => {
+    const initialGameState = {
+      currentRow: 0,
+      currentGuess: 0,
+      isGameOver: false,
+      guessesRows: [
+        ['', '', '', '', ''],
+        ['', '', '', '', ''],
+        ['', '', '', '', ''],
+        ['', '', '', '', ''],
+        ['', '', '', '', ''],
+        ['', '', '', '', ''],
+      ],
+    };
+    let gameState = getData('gameState');
+    console.log('initial game state: ', gameState);
+    if (null || gameState === undefined) {
+      setData('gameState', initialGameState);
+      gameState = initialGameState;
+    }
+    buildGuessesRows(gameState.guessesRows);
+    initKeys(keys, handleKey);
+    console.log('🙈 nothing to see here, move along now');
+  };
 
   const birdle = getBirdleOfDay();
 
   const addLetter = (letter) => {
+    let gameState = getData('gameState');
+    let { currentRow, currentGuess, guessesRows } = gameState;
     if (
       currentGuess < guessesRows[currentRow].length &&
       currentRow < guessesRows.length
@@ -40,12 +55,19 @@ import {
       );
       el.textContent = letter.toUpperCase();
       el.setAttribute('data', letter);
-      guessesRows[currentRow][currentGuess] = letter;
-      currentGuess += 1;
+
+      gameState.guessesRows[currentRow][currentGuess] = letter;
+      gameState.currentGuess += 1;
+      console.log('gameState: ', gameState);
+      setData('gameState', gameState);
+      // guessesRows[currentRow][currentGuess] = letter;
+      // currentGuess += 1;
     }
   };
 
   const deleteLetter = () => {
+    let gameState = getData('gameState');
+    let { currentRow, currentGuess, guessesRows } = gameState;
     if (currentGuess > 0) {
       currentGuess -= 1;
       const el = document.getElementById(
@@ -53,7 +75,9 @@ import {
       );
       el.textContent = '';
       el.setAttribute('data', '');
-      guessesRows[currentRow][currentGuess] = '';
+      gameState.guessesRows[currentRow][currentGuess] = '';
+      gameState.currentGuess = currentGuess;
+      setData('gameState', gameState);
     }
   };
 
@@ -71,7 +95,7 @@ import {
     // }
   };
 
-  const colorGuess = () => {
+  const colorGuess = (currentRow) => {
     const row = document.getElementById(`guessRow-${currentRow}`);
     const guesses = row.childNodes;
     let checkBirdle = birdle;
@@ -113,6 +137,8 @@ import {
   };
 
   const checkWord = () => {
+    let gameState = getData('gameState');
+    let { currentRow, currentGuess, guessesRows } = gameState;
     if (currentGuess === guessesRows[currentRow].length) {
       const guess = guessesRows[currentRow].join('');
       if (!isGuessValid(guess)) {
@@ -126,25 +152,28 @@ import {
         // });
         return;
       }
-      colorGuess();
+      colorGuess(currentRow);
       if (guess.toLowerCase() === birdle) {
         showMessage(successStrings[currentRow], true);
         document
           .getElementById('ENTER')
           .removeEventListener('click', handleKey, true);
-        isGameOver = true;
+        gameState.isGameOver = true;
+        setData('gameState', gameState);
         return;
       } else {
         if (currentRow < guessesRows.length - 1) {
-          currentRow += 1;
-          currentGuess = 0;
+          gameState.currentRow += 1;
+          gameState.currentGuess = 0;
+          setData('gameState', gameState);
           return;
         } else {
           showMessage('Womp womp', true);
           document
             .getElementById('ENTER')
             .removeEventListener('click', handleKey, true);
-          isGameOver = true;
+          gameState.isGameOver = true;
+          setData('gameState', gameState);
           return;
         }
       }
@@ -154,6 +183,8 @@ import {
   };
 
   const handleKey = (letter) => {
+    let gameState = getData('gameState');
+    let { isGameOver } = gameState;
     if (!isGameOver) {
       const key = typeof letter === 'object' ? letter.target.id : letter;
 
@@ -169,7 +200,5 @@ import {
     }
   };
 
-  buildGuessesRows(guessesRows);
-  initKeys(keys, handleKey);
-  console.log('🙈 nothing to see here, move along now');
+  initGame();
 })();
