@@ -30,6 +30,7 @@ import { getData, setData } from './lib/local-storage';
         ['', '', '', '', ''],
       ],
       gameId: day,
+      firstVisit: true,
     };
     let gameState = getData('gameState');
     if (
