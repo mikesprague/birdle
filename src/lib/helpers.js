@@ -9,7 +9,10 @@ module.exports.getBirdleOfDay = () => {
   while (day > words.length) {
     day -= words.length;
   }
-  return words[day];
+  return {
+    word: words[day],
+    day,
+  };
 };
 
 module.exports.isGuessValid = (word) =>

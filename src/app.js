@@ -16,7 +16,7 @@ import { getData, setData } from './lib/local-storage';
 // 🦜🦜🦜🦜🦜
 
 (async () => {
-  const initGame = async () => {
+  const initGame = async (day = null) => {
     const initialGameState = {
       currentRow: 0,
       currentGuess: 0,
@@ -29,9 +29,16 @@ import { getData, setData } from './lib/local-storage';
         ['', '', '', '', ''],
         ['', '', '', '', ''],
       ],
+      game: day,
     };
     let gameState = getData('gameState');
-    if (gameState === null || gameState === undefined) {
+    if (
+      gameState === null ||
+      gameState === undefined ||
+      day === null ||
+      day === undefined ||
+      (gameState && day !== gameState.game)
+    ) {
       setData('gameState', initialGameState);
       gameState = initialGameState;
     }
@@ -50,7 +57,7 @@ import { getData, setData } from './lib/local-storage';
     console.log('🙈 nothing to see here, move along now');
   };
 
-  const birdle = getBirdleOfDay();
+  const birdle = getBirdleOfDay().word;
 
   const addLetter = (letter) => {
     let gameState = getData('gameState');
@@ -107,7 +114,7 @@ import { getData, setData } from './lib/local-storage';
   const colorGuess = (currentRow) => {
     const row = document.getElementById(`guessRow-${currentRow}`);
     const guesses = row.childNodes;
-    let checkBirdle = birdle;
+    let checkBirdle = birdle.word;
     let guessArray = Array.from(guesses).map((guess) => {
       return {
         letter: guess.textContent.toLowerCase(),
@@ -117,7 +124,7 @@ import { getData, setData } from './lib/local-storage';
 
     guessArray.forEach((guess, guessIndex) => {
       // console.log(guess, birdle[guessIndex]);
-      if (guess.letter === birdle[guessIndex]) {
+      if (guess.letter === birdle.word[guessIndex]) {
         guess.color = 'correct-overlay';
         checkBirdle = checkBirdle.replace(guess.letter, '');
       }
@@ -163,7 +170,7 @@ import { getData, setData } from './lib/local-storage';
         return;
       }
       colorGuess(currentRow);
-      if (guess.toLowerCase() === birdle) {
+      if (guess.toLowerCase() === birdle.word) {
         showMessage(successStrings[currentRow], true);
         document
           .getElementById('ENTER')
@@ -210,5 +217,5 @@ import { getData, setData } from './lib/local-storage';
     }
   };
 
-  initGame();
+  initGame(birdle.day);
 })();
