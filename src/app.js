@@ -1,3 +1,4 @@
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 import {
   isGuessValid,
   getBirdleOfDay,
@@ -159,7 +160,14 @@ import { getData, setData } from './lib/local-storage';
     if (currentGuess === guessesRows[currentRow].length) {
       const guess = guessesRows[currentRow].join('');
       if (!isGuessValid(guess)) {
-        showMessage('Not in word list');
+        Swal.fire({
+          text: 'Not in word list',
+          showConfirmButton: false,
+          toast: true,
+          timer: 2500,
+          position: 'top',
+          allowEscapeKey: false,
+        });
         const row = document.getElementById(`guessRow-${currentRow}`);
         row.classList.add('shake-horizontal');
         setTimeout(() => row.classList.remove('shake-horizontal'), 250);
@@ -171,9 +179,15 @@ import { getData, setData } from './lib/local-storage';
       }
       colorGuess(currentRow);
       if (guess.toLowerCase() === birdle.word) {
-        showMessage(successStrings[currentRow], true);
+        Swal.fire({
+          text: successStrings[currentRow],
+          showConfirmButton: false,
+          toast: true,
+          position: 'top',
+          allowEscapeKey: false,
+        });
         document
-          .getElementById('ENTER')
+          .getElementById('enter')
           .removeEventListener('click', handleKey, true);
         gameState.isGameOver = true;
         setData('gameState', gameState);
@@ -185,9 +199,15 @@ import { getData, setData } from './lib/local-storage';
           setData('gameState', gameState);
           return;
         } else {
-          showMessage('Womp womp', true);
+          Swal.fire({
+            text: 'Womp womp',
+            showConfirmButton: false,
+            toast: true,
+            position: 'top',
+            allowEscapeKey: false,
+          });
           document
-            .getElementById('ENTER')
+            .getElementById('enter')
             .removeEventListener('click', handleKey, true);
           gameState.isGameOver = true;
           setData('gameState', gameState);
