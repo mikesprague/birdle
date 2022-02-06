@@ -4,7 +4,6 @@ import {
   getBirdleOfDay,
   successStrings,
   buildGuessesRows,
-  showMessage,
 } from './lib/helpers';
 import { initKeys, keys } from './lib/keys';
 import { getData, setData } from './lib/local-storage';
