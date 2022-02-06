@@ -57,7 +57,7 @@ import { getData, setData } from './lib/local-storage';
     console.log('🙈 nothing to see here, move along now');
   };
 
-  const birdle = getBirdleOfDay().word;
+  const birdle = getBirdleOfDay();
 
   const addLetter = (letter) => {
     let gameState = getData('gameState');
