@@ -45,7 +45,6 @@
     "eslint-plugin-compat": "4.0.2",
     "eslint-plugin-html": "6.2.0",
     "eslint-plugin-import": "2.25.4",
-    "eslint-plugin-md": "1.0.19",
     "eslint-plugin-prettier": "4.0.0",
     "parcel": "2.2.1",
     "postcss": "8.4.6",
@@ -91,15 +90,13 @@
     },
     "extends": [
       "eslint:recommended",
-      "prettier",
-      "plugin:md/prettier"
+      "prettier"
     ],
     "plugins": [
       "babel",
       "compat",
       "html",
       "import",
-      "md",
       "prettier"
     ],
     "parserOptions": {
@@ -115,6 +112,7 @@
     "ignorePatterns": [
       "dist/",
       ".history/",
+      ".parcel-cache/",
       "node_modules/"
     ]
   },
