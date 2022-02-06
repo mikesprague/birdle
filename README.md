@@ -1,6 +1,6 @@
 # birdle :bird:
 
-Yet annother Wordle clone - WIP :construction:
+Yet another Wordle clone - WIP :construction:
 
 ## About
 
