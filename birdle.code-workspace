@@ -1,6 +1,11 @@
 {
-	"folders": [{
-		"path": "."
-	}],
-	"settings": {}
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "cSpell.words": ["birdle"],
+    "cSpell.ignoreWords": ["Swal", "Womp", "sweetalert"]
+  }
 }
