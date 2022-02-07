@@ -31,16 +31,17 @@ Work is in progress but it's an early version
 - [x] statefullness: need to reset state if day has changed and word no longer valid
 - [x] flash message: styling needs improvement
 - [x] mobile/responsive: general improvements
+- [ ] keyboard: should ignore kb bindings if used with `ctrl` or `command` (ex: `ctrl` + `r`)
 
 ### Missing Features (planning to add)
 
 - [x] statefulness: will use localstorage
-- [ ] game over: show info from current game
+- [ ] game over: show stats
 - [ ] sharing: develop sharing with emoji blocks
 - [ ] game over: add sharing to game over info
-- [ ] general: add stats and game number
+- [x] general: add stats and game number
 - [x] instructions: add popup with instructions
-- [ ] instructions: add examples
+- [x] instructions: add examples
 
 ### Possible future enhancements
 
