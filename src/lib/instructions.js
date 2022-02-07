@@ -11,7 +11,7 @@ module.exports.showInstructions = () => {
     backdrop: true,
     html: html`
       <div class="instructions" onClick="document.querySelector('.swal2-close').click()">
-        <h1>How to Play</strong></h1>
+        <h1>How to Play</h1>
         <p>Guess the BIRDLE in 6 tries.</p>
         <p>
           Each guess must be a valid 5 letter word. Hit the enter button to
