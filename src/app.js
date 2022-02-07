@@ -172,6 +172,8 @@ import { getData, setData } from './lib/local-storage';
           timer: 2500,
           position: 'top',
           allowEscapeKey: false,
+          background: '#181818',
+          color: '#dedede',
         });
         const row = document.getElementById(`guessRow-${currentRow}`);
         row.classList.add('shake-horizontal');
@@ -190,6 +192,8 @@ import { getData, setData } from './lib/local-storage';
           toast: true,
           position: 'top',
           allowEscapeKey: false,
+          background: '#181818',
+          color: '#dedede',
         });
         document
           .getElementById('enter')
@@ -210,6 +214,8 @@ import { getData, setData } from './lib/local-storage';
             toast: true,
             position: 'top',
             allowEscapeKey: false,
+            background: '#181818',
+            color: '#dedede',
           });
           document
             .getElementById('enter')
