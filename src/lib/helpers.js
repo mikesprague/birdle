@@ -49,17 +49,3 @@ module.exports.buildGuessesRows = (guessesRows) => {
     guessesContainer.append(rowEl);
   });
 };
-
-// module.exports.showMessage = (message, persist = false) => {
-//   const messageContainer = document.querySelector('.message-container');
-//   const messageEl = document.createElement('p');
-//   messageEl.textContent = message;
-//   messageEl.classList.add('fade-in');
-//   messageContainer.append(messageEl);
-//   if (!persist) {
-//     setTimeout(() => {
-//       messageEl.classList.add('fade-out');
-//     }, 2000);
-//     setTimeout(() => messageContainer.removeChild(messageEl), 2500);
-//   }
-// };
