@@ -10,18 +10,17 @@ import { initKeys, keys } from './lib/keys';
 import { getData, setData } from './lib/local-storage';
 import { initStats, updateStats } from './lib/stats';
 
+navigator.serviceWorker.register(
+  new URL('service-worker.js', import.meta.url),
+  { type: 'module' },
+);
+
 // 🦤🐤🦤🦤🦤
 // 🦜🦤🦤🦤🦜
 // 🦜🦤🦜🦤🦜
 // 🦜🦤🦜🦤🦜
 // 🦜🦤🦜🦤🦜
 // 🦜🦜🦜🦜🦜
-
-navigator.serviceWorker
-  .register(new URL('service-worker.js', import.meta.url), { type: 'module' })
-  .then((registration) => {
-    // console.log(registration);
-  });
 
 (async () => {
   const initGame = async (day = null) => {
