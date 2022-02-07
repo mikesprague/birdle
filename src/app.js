@@ -209,7 +209,7 @@ import { getData, setData } from './lib/local-storage';
           return;
         } else {
           Swal.fire({
-            html: `Womp womp! <em class="uppercase">${birdle.word}</em>`,
+            html: `Womp womp!<br>Today's Birdle was: <em class="uppercase">${birdle.word}</em>`,
             showConfirmButton: false,
             toast: true,
             position: 'top',
