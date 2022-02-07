@@ -1,10 +1,11 @@
 import Swal from 'sweetalert2';
 import { html } from 'common-tags';
+import { isSystemDarkTheme } from './helpers';
 
 module.exports.showInstructions = () => {
   Swal.fire({
-    background: '#181818',
-    color: '#dedede',
+    background: isSystemDarkTheme ? '#181818' : '#dedede',
+    color: isSystemDarkTheme ? '#dedede' : '#181818',
     showCloseButton: true,
     showConfirmButton: false,
     allowOutsideClick: true,

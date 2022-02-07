@@ -1,3 +1,6 @@
+import Swal from 'sweetalert2';
+import { html } from 'common-tags';
+import { isSystemDarkTheme } from './helpers';
 import { getData, setData } from './local-storage';
 
 module.exports.initStats = () => {
@@ -46,4 +49,24 @@ module.exports.updateStats = (won = true) => {
     stats.currentStreak = 0;
   }
   setData('stats', stats);
+};
+
+module.exports.showStats = () => {
+  Swal.fire({
+    background: isSystemDarkTheme ? '#181818' : '#dedede',
+    color: isSystemDarkTheme ? '#dedede' : '#181818',
+    showCloseButton: true,
+    showConfirmButton: false,
+    allowOutsideClick: true,
+    backdrop: true,
+    html: html`
+      <div
+        class="stats"
+        onClick="document.querySelector('.swal2-close').click()"
+      >
+        <h1>How to Play</h1>
+        <p>Guess the BIRDLE in 6 tries.</p>
+      </div>
+    `,
+  });
 };

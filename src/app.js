@@ -4,11 +4,12 @@ import {
   getBirdleOfDay,
   successStrings,
   buildGuessesRows,
+  isSystemDarkTheme,
 } from './lib/helpers';
 import { showInstructions } from './lib/instructions';
 import { initKeys, keys } from './lib/keys';
 import { getData, setData } from './lib/local-storage';
-import { initStats, updateStats } from './lib/stats';
+import { initStats, showStats, updateStats } from './lib/stats';
 
 navigator.serviceWorker.register(
   new URL('service-worker.js', import.meta.url),
@@ -55,6 +56,9 @@ navigator.serviceWorker.register(
     initKeys(keys, handleKey);
     document.getElementById('help').addEventListener('click', () => {
       showInstructions();
+    });
+    document.getElementById('stats').addEventListener('click', () => {
+      showStats();
     });
 
     for (let i = 0; i < gameState.guessesRows.length; i += 1) {
@@ -173,14 +177,14 @@ navigator.serviceWorker.register(
       const guess = guessesRows[currentRow].join('');
       if (!isGuessValid(guess)) {
         Swal.fire({
-          text: 'Not in word list',
+          html: 'Not in word list',
           showConfirmButton: false,
           toast: true,
           timer: 3000,
           position: 'top',
           allowEscapeKey: false,
-          background: '#181818',
-          color: '#dedede',
+          background: isSystemDarkTheme ? '#181818' : '#dedede',
+          color: isSystemDarkTheme ? '#dedede' : '#181818',
         });
         const row = document.getElementById(`guessRow-${currentRow}`);
         row.classList.add('shake-horizontal');
@@ -199,8 +203,8 @@ navigator.serviceWorker.register(
           toast: true,
           position: 'top',
           allowEscapeKey: false,
-          background: '#181818',
-          color: '#dedede',
+          background: isSystemDarkTheme ? '#181818' : '#dedede',
+          color: isSystemDarkTheme ? '#dedede' : '#181818',
         });
         document
           .getElementById('enter')
@@ -222,8 +226,8 @@ navigator.serviceWorker.register(
             toast: true,
             position: 'top',
             allowEscapeKey: true,
-            background: '#181818',
-            color: '#dedede',
+            background: isSystemDarkTheme ? '#181818' : '#dedede',
+            color: isSystemDarkTheme ? '#dedede' : '#181818',
             allowOutsideClick: true,
           });
           document

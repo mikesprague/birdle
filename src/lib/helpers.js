@@ -15,6 +15,12 @@ module.exports.getBirdleOfDay = () => {
   };
 };
 
+module.exports.isSystemDarkTheme = window.matchMedia(
+  '(prefers-color-scheme: dark)',
+).matches
+  ? true
+  : false;
+
 module.exports.isGuessValid = (word) =>
   words.includes(word.toLowerCase()) ||
   allowed.includes(word.toLowerCase()) ||
