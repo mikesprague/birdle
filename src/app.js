@@ -31,7 +31,6 @@ import { getData, setData } from './lib/local-storage';
         ['', '', '', '', ''],
       ],
       gameId: day,
-      firstVisit: true,
     };
     let gameState = getData('gameState');
     if (
@@ -43,23 +42,13 @@ import { getData, setData } from './lib/local-storage';
     ) {
       setData('gameState', initialGameState);
       gameState = initialGameState;
+      showInstructions();
     }
     buildGuessesRows(gameState.guessesRows);
     initKeys(keys, handleKey);
     document.getElementById('help').addEventListener('click', () => {
       showInstructions();
     });
-
-    if (
-      gameState.firstVisit ||
-      gameState.firstVisit === undefined ||
-      gameState.firstVisit === null
-    ) {
-      console.log(gameState);
-      showInstructions();
-      gameState.firstVisit = false;
-      setData('gameState', gameState);
-    }
 
     for (let i = 0; i < gameState.guessesRows.length; i += 1) {
       // console.log(i, gameState.guessesRows[i]);
