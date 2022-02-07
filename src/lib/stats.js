@@ -77,7 +77,7 @@ module.exports.createShareText = () => {
         return absentEmoji;
       }
     });
-    shareText += `${rowEmoji}\n`;
+    shareText += `${rowEmoji.join('')}\n`;
   }
   // console.log(shareText);
   return shareText;
