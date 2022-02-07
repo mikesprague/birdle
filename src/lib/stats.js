@@ -77,16 +77,30 @@ module.exports.createShareText = () => {
         return absentEmoji;
       }
     });
-    shareText += `${rowEmoji.join('')}\n`;
+    shareText += `${rowEmoji.join('')}`;
+    if (i < finalRow) {
+      shareText += '\n';
+    }
   }
-  // console.log(shareText);
+  console.log(shareText);
   return shareText;
 };
 
 module.exports.handleShareClick = (e) => {
   e.preventDefault();
   const gameResuls = module.exports.createShareText();
-  clipboard.writeText(gameResuls);
+  clipboard.writeText(gameResuls).then(() => {
+    Swal.fire({
+      html: 'Copied results to clipboard',
+      showConfirmButton: false,
+      toast: true,
+      timer: 2500,
+      position: 'top',
+      allowEscapeKey: false,
+      background: isSystemDarkTheme ? '#181818' : '#dedede',
+      color: isSystemDarkTheme ? '#dedede' : '#181818',
+    });
+  });
 };
 
 module.exports.showStats = () => {
@@ -96,8 +110,7 @@ module.exports.showStats = () => {
     color: isSystemDarkTheme ? '#dedede' : '#181818',
     showCloseButton: true,
     showConfirmButton: false,
-    allowOutsideClick: true,
-    backdrop: true,
+    allowOutsideClick: false,
     didRender: () => {
       document
         .querySelector('.btn-share')
