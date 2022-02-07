@@ -20,6 +20,7 @@
   },
   "homepage": "https://birdle.app",
   "dependencies": {
+    "@parcel/service-worker": "^2.2.1",
     "@sweetalert2/theme-dark": "5.0.8",
     "common-tags": "1.8.2",
     "dayjs": "1.10.7",
