@@ -169,7 +169,7 @@ import { getData, setData } from './lib/local-storage';
           text: 'Not in word list',
           showConfirmButton: false,
           toast: true,
-          timer: 2500,
+          timer: 3000,
           position: 'top',
           allowEscapeKey: false,
           background: '#181818',
