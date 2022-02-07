@@ -2,7 +2,7 @@ import keyboardJs from 'keyboardjs';
 
 module.exports.initKeyboardBindings = (keys, keyHandler) => {
   keys.forEach((keyVal) => {
-    let letter = keyVal === '<<' ? 'backspace' : keyVal;
+    let letter = keyVal === 'back' ? 'backspace' : keyVal;
     keyboardJs.bind(letter, (e) => {
       e.preventRepeat();
       keyHandler(letter);
@@ -31,7 +31,7 @@ module.exports.initKeys = (keys, keyHandler) => {
 
 module.exports.gameOver = (keys, keyHandler) => {
   keys.forEach((keyVal) => {
-    let letter = keyVal === '<<' ? 'backspace' : keyVal;
+    let letter = keyVal === 'back' ? 'backspace' : keyVal;
     keyboardJs.unbind(letter, () => keyHandler(letter));
   });
 };
@@ -66,5 +66,5 @@ module.exports.keys = [
   'b',
   'n',
   'm',
-  '<<',
+  'back',
 ];

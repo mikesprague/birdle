@@ -5,6 +5,7 @@ import {
   successStrings,
   buildGuessesRows,
 } from './lib/helpers';
+import { showInstructions } from './lib/instructions';
 import { initKeys, keys } from './lib/keys';
 import { getData, setData } from './lib/local-storage';
 
@@ -38,13 +39,28 @@ import { getData, setData } from './lib/local-storage';
       gameState === undefined ||
       day === null ||
       day === undefined ||
-      (gameState && day !== gameState.game)
+      (gameState && day !== gameState.gameId)
     ) {
       setData('gameState', initialGameState);
       gameState = initialGameState;
     }
     buildGuessesRows(gameState.guessesRows);
     initKeys(keys, handleKey);
+    document.getElementById('help').addEventListener('click', () => {
+      showInstructions();
+    });
+
+    if (
+      gameState.firstVisit ||
+      gameState.firstVisit === undefined ||
+      gameState.firstVisit === null
+    ) {
+      console.log(gameState);
+      showInstructions();
+      gameState.firstVisit = false;
+      setData('gameState', gameState);
+    }
+
     for (let i = 0; i < gameState.guessesRows.length; i += 1) {
       // console.log(i, gameState.guessesRows[i]);
       if (
@@ -225,7 +241,7 @@ import { getData, setData } from './lib/local-storage';
     if (!isGameOver) {
       const key = typeof letter === 'object' ? letter.target.id : letter;
 
-      if (key === '<<' || key === 'backspace') {
+      if (key === 'back' || key === 'backspace') {
         deleteLetter();
       }
       if (key === 'enter') {
