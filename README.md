@@ -30,7 +30,6 @@ Work is in progress but it's an early version
 - [x] bug fix: one of letter in birdle and two in guess changes kb key back to gray
 - [x] statefullness: need to reset state if day has changed and word no longer valid
 - [x] flash message: styling needs improvement
-- [ ] on-screen kb: improve (more consistent) key sizing
 - [x] mobile/responsive: general improvements
 
 ### Missing Features (planning to add)
@@ -40,7 +39,8 @@ Work is in progress but it's an early version
 - [ ] sharing: develop sharing with emoji blocks
 - [ ] game over: add sharing to game over info
 - [ ] general: add stats and game number
-- [ ] instructions: add popup with instructions (should launch on first load and from a `?` icon)
+- [x] instructions: add popup with instructions
+- [ ] instructions: add examples
 
 ### Possible future enhancements
 
