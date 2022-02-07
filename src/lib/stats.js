@@ -1,3 +1,4 @@
+import * as clipboard from 'clipboard-polyfill';
 import Swal from 'sweetalert2';
 import { html } from 'common-tags';
 import { isSystemDarkTheme } from './helpers';
@@ -35,7 +36,9 @@ module.exports.updateStats = (won = true) => {
     if (stats.currentStreak >= stats.maxStreak) {
       stats.maxStreak += 1;
     }
-    stats.winPercentage = Math.round((stats.gamesWon / stats.gamesPlayed) * 100);
+    stats.winPercentage = Math.round(
+      (stats.gamesWon / stats.gamesPlayed) * 100,
+    );
     let totalGuesses = 0;
     for (const guess in stats.guesses) {
       // console.log(stats.guesses[guess], guess);
@@ -51,6 +54,41 @@ module.exports.updateStats = (won = true) => {
   setData('stats', stats);
 };
 
+module.exports.createShareText = () => {
+  const absentEmoji = '⚫'; // '🦤';
+  const presentEmoji = '🟡'; // '🐤';
+  const correctEmoji = '🟢'; // '🦜';
+  const gameState = getData('gameState');
+  const gameId = gameState.gameId;
+  const finalRow = gameState.currentRow >= 5 ? 6 : gameState.currentRow + 1;
+  let shareText = `Birdle ${gameId} ${finalRow}/6\n\n`;
+  for (let i = 0; i < finalRow; i += 1) {
+    const guesses = Array.from(
+      document.getElementById(`guessRow-${i}`).childNodes,
+    );
+    const rowEmoji = guesses.map((guess) => {
+      if (guess.classList.contains('correct-overlay')) {
+        return correctEmoji;
+      }
+      if (guess.classList.contains('present-overlay')) {
+        return presentEmoji;
+      }
+      if (guess.classList.contains('absent-overlay')) {
+        return absentEmoji;
+      }
+    });
+    shareText += `${rowEmoji}\n`;
+  }
+  // console.log(shareText);
+  return shareText;
+};
+
+module.exports.handleShareClick = (e) => {
+  e.preventDefault();
+  const gameResuls = module.exports.createShareText();
+  clipboard.writeText(gameResuls);
+};
+
 module.exports.showStats = () => {
   const stats = getData('stats');
   Swal.fire({
@@ -60,13 +98,18 @@ module.exports.showStats = () => {
     showConfirmButton: false,
     allowOutsideClick: true,
     backdrop: true,
+    didRender: () => {
+      document
+        .querySelector('.btn-share')
+        .addEventListener('click', module.exports.handleShareClick);
+    },
     html: html`
-      <div
-        class="stats"
-        onClick="document.querySelector('.swal2-close').click()"
-      >
+      <div class="stats">
         <h1>Statistics</h1>
-        <div class="statsTable flex w-full mb-4">
+        <div
+          class="statsTable flex w-full mb-4"
+          onClick="document.querySelector('.swal2-close').click()"
+        >
           <div class="flex-row flex justify-evenly w-full">
             <div class="w-1/4 leading-4">
               <span class="text-3xl">${stats.gamesPlayed}</span>
@@ -90,8 +133,18 @@ module.exports.showStats = () => {
             </div>
           </div>
         </div>
-        <!-- <h2>Guess Distribution</p>
-        <p></p> -->
+        <!-- <h2>Guess Distribution</h2>
+        <div></div> -->
+        <div class="w-full flex">
+          <!-- <div class="w-1/2">
+            <strong class="text-sm uppercase font-bold">Next Birdle</strong>
+            <br />
+            <span class="text-4xl">00:00:00</span>
+          </div> -->
+          <div class="w-full">
+            <button type="button" class="btn-share">Share</button>
+          </div>
+        </div>
       </div>
     `,
   });

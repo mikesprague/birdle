@@ -134,6 +134,7 @@ navigator.serviceWorker.register(
   const colorGuess = (currentRow) => {
     const row = document.getElementById(`guessRow-${currentRow}`);
     const guesses = row.childNodes;
+    const gameState = getData('gameState');
     let checkBirdle = birdle.word;
     let guessArray = Array.from(guesses).map((guess) => {
       return {
@@ -162,14 +163,16 @@ navigator.serviceWorker.register(
 
     guesses.forEach((guess, guessIndex) => {
       const dataLetter = guess.textContent.toLowerCase();
-
-      setTimeout(() => {
-        guess.classList.add(
-          guessArray[guessIndex].color,
-          'flip-vertical-right',
-        );
-        colorKeyboardLetter(dataLetter, guessArray[guessIndex].color);
-      }, 300 * guessIndex);
+      setTimeout(
+        () => {
+          guess.classList.add(guessArray[guessIndex].color);
+          if (!gameState.isGameOver) {
+            guess.classList.add('flip-vertical-right');
+          }
+          colorKeyboardLetter(dataLetter, guessArray[guessIndex].color);
+        },
+        !gameState.isGameOver ? 300 * guessIndex : 0,
+      );
     });
   };
 
@@ -256,6 +259,10 @@ navigator.serviceWorker.register(
     let { isGameOver } = gameState;
     if (!isGameOver) {
       const key = typeof letter === 'object' ? letter.target.id : letter;
+
+      if (key === 'ctrl' || key === 'shift' || key === 'alt') {
+        return;
+      }
 
       if (key === 'back' || key === 'backspace') {
         deleteLetter();

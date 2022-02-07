@@ -124,8 +124,13 @@ svg.icon {
 }
 
 .stats {
+  .btn-share {
+    @apply w-full text-3xl bg-purple-800 p-4 rounded-lg uppercase;
+  }
 
-  
+  .btn-share:hover {
+    @apply bg-purple-500;
+  }
 }
 
 /* animations from https://animista.net/ */
