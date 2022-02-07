@@ -3,12 +3,16 @@
 
 @import '@sweetalert2/theme-dark/dark.scss';
 
+* {
+  @apply touch-manipulation;
+}
+
 body {
-  @apply bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans p-1;
+  @apply bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans p-1 touch-manipulation;
 }
 
 .app {
-  @apply container max-w-md mx-auto flex flex-col justify-between items-center;
+  @apply container max-w-md mx-auto flex flex-col justify-between items-center touch-manipulation;
   height: 90vh;
 }
 
@@ -44,7 +48,7 @@ body {
   @apply w-full flex flex-wrap justify-center gap-1 px-2;
 
   .key {
-    @apply md:h-12 h-10 rounded-md border-0 flex flex-grow text-sm md:text-base bg-gray-400 text-white items-center justify-center;
+    @apply md:h-12 h-10 rounded-md border-0 flex flex-grow text-sm md:text-base bg-gray-400 text-white items-center justify-center touch-manipulation;
     min-width: 1.65rem;
   }
 
