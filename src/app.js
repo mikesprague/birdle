@@ -213,9 +213,10 @@ import { getData, setData } from './lib/local-storage';
             showConfirmButton: false,
             toast: true,
             position: 'top',
-            allowEscapeKey: false,
+            allowEscapeKey: true,
             background: '#181818',
             color: '#dedede',
+            allowOutsideClick: true,
           });
           document
             .getElementById('enter')
