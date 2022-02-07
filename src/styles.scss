@@ -1,7 +1,6 @@
 @tailwind base;
 @tailwind components;
 
-
 @import '@sweetalert2/theme-dark/dark.scss';
 
 body {
@@ -86,6 +85,14 @@ body {
   height: 0;
 }
 
+svg.icon {
+  @apply mt-2;
+
+  path {
+    fill: #666;
+  }
+}
+
 .instructions {
   h2 {
     @apply font-sans text-base;
@@ -98,7 +105,8 @@ body {
 
 /* animations from https://animista.net/ */
 .flip-vertical-right {
-  animation: flip-vertical-right 0.4s cubic-bezier(0.455, 0.030, 0.515, 0.955) reverse both;
+  animation: flip-vertical-right 0.4s cubic-bezier(0.455, 0.03, 0.515, 0.955)
+    reverse both;
 }
 
 @-webkit-keyframes flip-vertical-right {
@@ -122,8 +130,9 @@ body {
 }
 
 .shake-horizontal {
-  -webkit-animation: shake-horizontal 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
-  animation: shake-horizontal 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+  -webkit-animation: shake-horizontal 0.8s
+    cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
+  animation: shake-horizontal 0.8s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
 }
 
 @-webkit-keyframes shake-horizontal {
