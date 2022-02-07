@@ -64,8 +64,18 @@ module.exports.showStats = () => {
         class="stats"
         onClick="document.querySelector('.swal2-close').click()"
       >
-        <h1>How to Play</h1>
-        <p>Guess the BIRDLE in 6 tries.</p>
+        <h1>Statistics</h1>
+        <div class="statsTable flex">
+          <div class="flex-row flex justify-between">
+            <div class="flex flex-col flex-grow"><p class="text-xs font-bold">Played</p></div>
+            <div class="flex flex-col flex-grow"><p class="text-xs font-bold">Win %</p></div>
+            <div class="flex flex-col flex-grow"><p class="text-xs font-bold">Current Streak</p></div>
+            <div class="flex flex-col flex-grow"><p class="text-xs font-bold">Max Streak</p></div>
+          </div>
+
+        </div>
+        <h2>Guess Distribution</p>
+        <p></p>
       </div>
     `,
   });
