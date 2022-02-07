@@ -82,7 +82,7 @@ module.exports.createShareText = () => {
       shareText += '\n';
     }
   }
-  console.log(shareText);
+  // console.log(shareText);
   return shareText;
 };
 
