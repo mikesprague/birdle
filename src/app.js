@@ -8,7 +8,7 @@ import {
 import { showInstructions } from './lib/instructions';
 import { initKeys, keys } from './lib/keys';
 import { getData, setData } from './lib/local-storage';
-import { initStats } from './lib/stats';
+import { initStats, updateStats } from './lib/stats';
 
 // 🦤🐤🦤🦤🦤
 // 🦜🦤🦤🦤🦜
@@ -16,6 +16,12 @@ import { initStats } from './lib/stats';
 // 🦜🦤🦜🦤🦜
 // 🦜🦤🦜🦤🦜
 // 🦜🦜🦜🦜🦜
+
+navigator.serviceWorker
+  .register(new URL('service-worker.js', import.meta.url), { type: 'module' })
+  .then((registration) => {
+    // console.log(registration);
+  });
 
 (async () => {
   const initGame = async (day = null) => {
@@ -202,6 +208,7 @@ import { initStats } from './lib/stats';
           .removeEventListener('click', handleKey, true);
         gameState.isGameOver = true;
         setData('gameState', gameState);
+        // updateStats(true);
         return;
       } else {
         if (currentRow < guessesRows.length - 1) {
@@ -225,6 +232,7 @@ import { initStats } from './lib/stats';
             .removeEventListener('click', handleKey, true);
           gameState.isGameOver = true;
           setData('gameState', gameState);
+          // updateStats(false);
           return;
         }
       }
