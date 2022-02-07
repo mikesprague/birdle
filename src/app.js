@@ -208,7 +208,7 @@ navigator.serviceWorker
           .removeEventListener('click', handleKey, true);
         gameState.isGameOver = true;
         setData('gameState', gameState);
-        // updateStats(true);
+        updateStats(true);
         return;
       } else {
         if (currentRow < guessesRows.length - 1) {
@@ -232,7 +232,7 @@ navigator.serviceWorker
             .removeEventListener('click', handleKey, true);
           gameState.isGameOver = true;
           setData('gameState', gameState);
-          // updateStats(false);
+          updateStats(false);
           return;
         }
       }

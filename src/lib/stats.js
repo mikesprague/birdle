@@ -1,7 +1,6 @@
 import { getData, setData } from './local-storage';
 
 module.exports.initStats = () => {
-  // get stats if there or create localstorage object if not
   const initialStatsObject = {
     currentStreak: 0,
     maxStreak: 0,
@@ -17,4 +16,34 @@ module.exports.initStats = () => {
     setData('stats', stats);
   }
   return stats;
+};
+
+module.exports.updateStats = (won = true) => {
+  const lastGameData = getData('gameState');
+  const { currentRow } = lastGameData;
+  let stats = getData('stats');
+  // increment every game
+  stats.gamesPlayed += 1;
+  stats.guesses[currentRow + 1] += 1;
+  if (won) {
+    // calculate on win
+    stats.currentStreak += 1;
+    stats.gamesWon += 1;
+    if (stats.currentStreak >= stats.maxStreak) {
+      stats.maxStreak += 1;
+    }
+    stats.winPercentage = (stats.gamesWon / stats.gamesPlayed) * 100;
+    let totalGuesses = 0;
+    for (const guess in stats.guesses) {
+      console.log(stats.guesses[guess], guess);
+      if (guess !== 'fail') {
+        totalGuesses += stats.guesses[guess] * Number(guess);
+      }
+    }
+    stats.averageGuesses = totalGuesses / stats.gamesPlayed;
+  } else {
+    stats.guesses.fail += 1;
+    stats.currentStreak = 0;
+  }
+  setData('stats', stats);
 };
