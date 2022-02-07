@@ -22,6 +22,7 @@
   "dependencies": {
     "@parcel/service-worker": "^2.2.1",
     "@sweetalert2/theme-dark": "5.0.8",
+    "clipboard-polyfill": "3.0.3",
     "common-tags": "1.8.2",
     "dayjs": "1.10.7",
     "keyboardjs": "2.6.4",
