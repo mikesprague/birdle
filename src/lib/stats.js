@@ -38,7 +38,7 @@ module.exports.updateStats = (won = true) => {
     stats.winPercentage = (stats.gamesWon / stats.gamesPlayed) * 100;
     let totalGuesses = 0;
     for (const guess in stats.guesses) {
-      console.log(stats.guesses[guess], guess);
+      // console.log(stats.guesses[guess], guess);
       if (guess !== 'fail') {
         totalGuesses += stats.guesses[guess] * Number(guess);
       }
@@ -52,6 +52,7 @@ module.exports.updateStats = (won = true) => {
 };
 
 module.exports.showStats = () => {
+  const stats = getData('stats');
   Swal.fire({
     background: isSystemDarkTheme ? '#181818' : '#dedede',
     color: isSystemDarkTheme ? '#dedede' : '#181818',
@@ -65,17 +66,32 @@ module.exports.showStats = () => {
         onClick="document.querySelector('.swal2-close').click()"
       >
         <h1>Statistics</h1>
-        <div class="statsTable flex">
-          <div class="flex-row flex justify-between">
-            <div class="flex flex-col flex-grow"><p class="text-xs font-bold">Played</p></div>
-            <div class="flex flex-col flex-grow"><p class="text-xs font-bold">Win %</p></div>
-            <div class="flex flex-col flex-grow"><p class="text-xs font-bold">Current Streak</p></div>
-            <div class="flex flex-col flex-grow"><p class="text-xs font-bold">Max Streak</p></div>
+        <div class="statsTable flex w-full mb-4">
+          <div class="flex-row flex justify-evenly w-full">
+            <div class="w-1/4 leading-4">
+              <span class="text-3xl">${stats.gamesPlayed}</span>
+              <br />
+              <span class="text-xs">Played</span>
+            </div>
+            <div class="w-1/4 leading-4">
+              <span class="text-3xl break">${stats.winPercentage}</span>
+              <br />
+              <span class="text-xs">Win %</span>
+            </div>
+            <div class="w-1/4 leading-4">
+              <span class="text-3xl">${stats.currentStreak}</span>
+              <br />
+              <span class="text-xs">Current Streak</span>
+            </div>
+            <div class="w-1/4 leading-4">
+              <span class="text-3xl">${stats.currentStreak}</span>
+              <br />
+              <span class="text-xs">Max Streak</span>
+            </div>
           </div>
-
         </div>
-        <h2>Guess Distribution</p>
-        <p></p>
+        <!-- <h2>Guess Distribution</p>
+        <p></p> -->
       </div>
     `,
   });

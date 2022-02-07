@@ -60,6 +60,9 @@ navigator.serviceWorker.register(
     document.getElementById('stats').addEventListener('click', () => {
       showStats();
     });
+    if (gameState.isGameOver) {
+      showStats();
+    }
 
     for (let i = 0; i < gameState.guessesRows.length; i += 1) {
       // console.log(i, gameState.guessesRows[i]);
@@ -180,7 +183,7 @@ navigator.serviceWorker.register(
           html: 'Not in word list',
           showConfirmButton: false,
           toast: true,
-          timer: 3000,
+          timer: 2500,
           position: 'top',
           allowEscapeKey: false,
           background: isSystemDarkTheme ? '#181818' : '#dedede',
@@ -205,6 +208,10 @@ navigator.serviceWorker.register(
           allowEscapeKey: false,
           background: isSystemDarkTheme ? '#181818' : '#dedede',
           color: isSystemDarkTheme ? '#dedede' : '#181818',
+          timer: 2500,
+          didDestroy: () => {
+            showStats();
+          },
         });
         document
           .getElementById('enter')

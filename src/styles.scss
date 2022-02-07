@@ -93,7 +93,7 @@ svg.icon {
   }
 }
 
-.instructions {
+.instructions, .stats {
   * {
     @apply font-sans;
   }
@@ -104,6 +104,12 @@ svg.icon {
   p {
     @apply text-base mb-4;
   }
+  hr {
+    @apply my-2;
+  }
+}
+
+.instructions {
   .guess-row {
     @apply flex touch-manipulation justify-center;
   }
@@ -115,10 +121,11 @@ svg.icon {
   .examples-text {
     @apply text-sm;
   }
+}
 
-  hr {
-    @apply my-2;
-  }
+.stats {
+
+  
 }
 
 /* animations from https://animista.net/ */
