@@ -48,12 +48,12 @@ module.exports.showInstructions = () => {
           <div>
             <div class="guess-row">
               <div class="guess">b</div>
-              <div class="guess">i</div>
-              <div class="guess absent-overlay">r</div>
+              <div class="guess absent-overlay">i</div>
+              <div class="guess">r</div>
               <div class="guess">d</div>
               <div class="guess">s</div>
             </div>
-            <p class="examples-text">The letter R is not in the word.</p>
+            <p class="examples-text">The letter I is not in the word.</p>
           </div>
         </div>
         <hr />
