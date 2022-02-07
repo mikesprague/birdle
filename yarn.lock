@@ -1726,7 +1726,7 @@
   resolved "https://registry.yarnpkg.com/@swc/helpers/-/helpers-0.2.14.tgz#20288c3627442339dd3d743c944f7043ee3590f0"
   integrity sha512-wpCQMhf5p5GhNg2MmGKXzUNwxe7zRiCsmqYsamez2beP7mKPCSiu+BjZcdN95yYSzO857kr0VfQewmGpS77nqA==
 
-"@sweetalert2/theme-dark@^5.0.8":
+"@sweetalert2/theme-dark@5.0.8":
   version "5.0.8"
   resolved "https://registry.yarnpkg.com/@sweetalert2/theme-dark/-/theme-dark-5.0.8.tgz#2334942535b96d7323eadc150aab5eb83d0fdfb3"
   integrity sha512-erhXs3GMwlCXnONZ/sRbh/krlsFkR9hmcUJ1Zr/6dz+9OpMBU0AL2gx+V7A056wBGLX0deziLGsDecoSIkKOWg==
@@ -6231,7 +6231,7 @@ svgo@^2.4.0, svgo@^2.7.0:
     picocolors "^1.0.0"
     stable "^0.1.8"
 
-sweetalert2@^11.4.0:
+sweetalert2@11.4.0:
   version "11.4.0"
   resolved "https://registry.yarnpkg.com/sweetalert2/-/sweetalert2-11.4.0.tgz#d5cb4b711af4cb5f580e4eef4389b95dbc417427"
   integrity sha512-+p0jT2LxUQGreWa60j7nm1frJfqbcmamZcpZi4puEGAJ0CmyPqQ4UGmBqbB4WxkJYKsn8qcOA9ufqn0MWtQWLQ==
