@@ -8,6 +8,7 @@ import {
 import { showInstructions } from './lib/instructions';
 import { initKeys, keys } from './lib/keys';
 import { getData, setData } from './lib/local-storage';
+import { initStats } from './lib/stats';
 
 // 🦤🐤🦤🦤🦤
 // 🦜🦤🦤🦤🦜
@@ -44,6 +45,7 @@ import { getData, setData } from './lib/local-storage';
       gameState = initialGameState;
       showInstructions();
     }
+    initStats();
     buildGuessesRows(gameState.guessesRows);
     initKeys(keys, handleKey);
     document.getElementById('help').addEventListener('click', () => {
