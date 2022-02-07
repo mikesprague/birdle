@@ -7,8 +7,10 @@ module.exports.showInstructions = () => {
     color: '#dedede',
     showCloseButton: true,
     showConfirmButton: false,
+    allowOutsideClick: true,
+    backdrop: true,
     html: html`
-      <div class="instructions">
+      <div class="instructions" onClick="document.querySelector('.swal2-close').click()">
         <h1>How to Play</strong></h1>
         <p>Guess the BIRDLE in 6 tries.</p>
         <p>
