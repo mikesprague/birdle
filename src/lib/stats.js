@@ -78,7 +78,7 @@ module.exports.createShareText = () => {
       }
     });
     shareText += `${rowEmoji.join('')}`;
-    if (i < finalRow) {
+    if (i < finalRow - 1) {
       shareText += '\n';
     }
   }
