@@ -19,3 +19,13 @@ export function resetData() {
 export function isCached(key) {
   return getData(key) !== null;
 }
+
+// const stats = {
+//   currentStreak: 2,
+//   maxStreak: 3,
+//   guesses: { 1: 1, 2: 0, 3: 1, 4: 2, 5: 2, 6: 1, fail: 1 },
+//   winPercentage: 88,
+//   gamesPlayed: 8,
+//   gamesWon: 7,
+//   averageGuesses: 4,
+// };
