@@ -146,7 +146,7 @@ module.exports.showStats = () => {
               <span class="text-xs">Current Streak</span>
             </div>
             <div class="w-1/4 leading-4">
-              <span class="text-3xl">${stats.currentStreak}</span>
+              <span class="text-3xl">${stats.maxStreak}</span>
               <br />
               <span class="text-xs">Max Streak</span>
             </div>
