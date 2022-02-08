@@ -53,9 +53,9 @@ module.exports.updateStats = (won = true) => {
 };
 
 module.exports.createShareText = () => {
-  const absentEmoji = '⚫'; // '🦉';
-  const presentEmoji = '🟡'; // '🐥';
-  const correctEmoji = '🟢'; // '🦚';
+  const absentEmoji = '🥚'; // '⚫';
+  const presentEmoji = '🐣'; // '🟡';
+  const correctEmoji = '🐥'; // '🟢';
   const gameState = getData('gameState');
   const gameId = gameState.gameId;
   const finalRow = gameState.currentRow >= 5 ? 6 : gameState.currentRow + 1;
