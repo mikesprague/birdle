@@ -13,5 +13,6 @@
   "display": "standalone",
   "scope": "/",
   "theme_color": "#181818",
-  "description": "A new BIRDLE every day"
+  "description": "A new BIRDLE every day",
+  "id": "/"
 }
