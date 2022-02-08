@@ -36,9 +36,6 @@ module.exports.updateStats = (won = true) => {
     if (stats.currentStreak >= stats.maxStreak) {
       stats.maxStreak += 1;
     }
-    stats.winPercentage = Math.round(
-      (stats.gamesWon / stats.gamesPlayed) * 100,
-    );
     let totalGuesses = 0;
     for (const guess in stats.guesses) {
       // console.log(stats.guesses[guess], guess);
@@ -51,6 +48,7 @@ module.exports.updateStats = (won = true) => {
     stats.guesses.fail += 1;
     stats.currentStreak = 0;
   }
+  stats.winPercentage = Math.round((stats.gamesWon / stats.gamesPlayed) * 100);
   setData('stats', stats);
 };
 
