@@ -111,7 +111,7 @@ module.exports.showStats = () => {
     background: isSystemDarkTheme ? '#181818' : '#dedede',
     color: isSystemDarkTheme ? '#dedede' : '#181818',
     showCloseButton: true,
-    position: 'top',
+    position: 'center',
     backdrop: true,
     showConfirmButton: false,
     allowOutsideClick: true,
