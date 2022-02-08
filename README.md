@@ -36,9 +36,10 @@ Work is in progress but it's an early version
 ### Missing Features (planning to add)
 
 - [x] statefulness: will use localstorage
-- [ ] game over: show stats
-- [ ] sharing: develop sharing with emoji blocks
-- [ ] game over: add sharing to game over info
+- [x] game over: show stats
+- [x] sharing: develop sharing with emoji blocks
+- [x] game over: add sharing to game over info
+- [ ] stats: show guess distribution
 - [x] general: add stats and game number
 - [x] instructions: add popup with instructions
 - [x] instructions: add examples
