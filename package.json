@@ -37,7 +37,7 @@
     "@babel/runtime": "7.17.0",
     "@parcel/transformer-sass": "2.2.1",
     "@types/express": "4.17.13",
-    "@types/node": "17.0.15",
+    "@types/node": "17.0.16",
     "@typescript-eslint/eslint-plugin": "5.11.0",
     "@typescript-eslint/parser": "5.11.0",
     "autoprefixer": "10.4.2",
@@ -57,7 +57,7 @@
     "prettier-eslint": "13.0.0",
     "sass": "1.49.7",
     "sass-lint": "1.13.1",
-    "tailwindcss": "3.0.18",
+    "tailwindcss": "3.0.19",
     "typescript": "4.5.5"
   },
   "babel": {
