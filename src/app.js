@@ -11,10 +11,35 @@ import { initKeys, keys } from './lib/keys';
 import { getData, setData } from './lib/local-storage';
 import { initStats, showStats, updateStats } from './lib/stats';
 
-navigator.serviceWorker.register(
-  new URL('./service-worker.js', import.meta.url),
-  { type: 'module' },
-);
+// navigator.serviceWorker.register(
+//   new URL('./service-worker.js', import.meta.url),
+//   { type: 'module' },
+// );
+
+const sw = './service-worker.js'; // it is needed because parcel will not recognize this as a file and not precess in its manner
+
+navigator.serviceWorker
+  .register(sw)
+  .then((registration) => {
+    registration.onupdatefound = () => {
+      const installingWorker = registration.installing;
+      if (installingWorker == null) {
+        return;
+      }
+      installingWorker.onstatechange = () => {
+        if (installingWorker.state === 'installed') {
+          if (navigator.serviceWorker.controller) {
+            console.log('New content is available and will be used when all ');
+          } else {
+            console.log('Content is cached for offline use.');
+          }
+        }
+      };
+    };
+  })
+  .catch((error) => {
+    console.error('Error during service worker registration:', error);
+  });
 
 (async () => {
   const initGame = async (day = null) => {
