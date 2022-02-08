@@ -10,6 +10,7 @@ module.exports.showInstructions = () => {
     showConfirmButton: false,
     allowOutsideClick: true,
     backdrop: true,
+    position: 'top',
     html: html`
       <div class="instructions" onClick="document.querySelector('.swal2-close').click()">
         <h1>How to Play</h1>

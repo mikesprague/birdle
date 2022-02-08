@@ -111,12 +111,18 @@ module.exports.showStats = () => {
     background: isSystemDarkTheme ? '#181818' : '#dedede',
     color: isSystemDarkTheme ? '#dedede' : '#181818',
     showCloseButton: true,
+    position: 'top',
+    backdrop: true,
     showConfirmButton: false,
-    allowOutsideClick: false,
+    allowOutsideClick: true,
     didRender: () => {
-      document
-        .querySelector('.btn-share')
-        .addEventListener('click', module.exports.handleShareClick);
+      if (stats.gamesPlayed) {
+        document
+          .querySelector('.btn-share')
+          .addEventListener('click', module.exports.handleShareClick);
+      } else {
+        document.querySelector('.btn-share').classList.add('invisible');
+      }
     },
     html: html`
       <div class="stats">
