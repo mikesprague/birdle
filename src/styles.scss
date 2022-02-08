@@ -86,14 +86,15 @@ body {
 }
 
 svg.icon {
-  @apply mt-2;
+  @apply mt-2 cursor-pointer;
 
   path {
     fill: #666;
   }
 }
 
-.instructions, .stats {
+.instructions,
+.stats {
   * {
     @apply font-sans;
   }
