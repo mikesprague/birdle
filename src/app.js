@@ -53,7 +53,8 @@ navigator.serviceWorker.register(
     document.getElementById('stats').addEventListener('click', () => {
       showStats();
     });
-    if (gameState.isGameOver) {
+    const stats = getData('stats');
+    if (gameState.isGameOver && stats.gamesPlayed) {
       showStats();
     }
 
