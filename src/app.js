@@ -22,6 +22,7 @@ navigator.serviceWorker.register(
       currentRow: 0,
       currentGuess: 0,
       isGameOver: false,
+      wonGame: false,
       guessesRows: [
         ['', '', '', '', ''],
         ['', '', '', '', ''],
@@ -214,6 +215,7 @@ navigator.serviceWorker.register(
           .getElementById('enter')
           .removeEventListener('click', handleKey, true);
         gameState.isGameOver = true;
+        gameState.wonGame = true;
         setData('gameState', gameState);
         updateStats(true);
         return;
@@ -224,6 +226,9 @@ navigator.serviceWorker.register(
           setData('gameState', gameState);
           return;
         } else {
+          document
+            .getElementById('enter')
+            .removeEventListener('click', handleKey, true);
           Swal.fire({
             html: `Womp womp!<br>Today's Birdle was: <em class="uppercase">${birdle.word}</em>`,
             showConfirmButton: false,
@@ -233,10 +238,11 @@ navigator.serviceWorker.register(
             background: isSystemDarkTheme ? '#181818' : '#dedede',
             color: isSystemDarkTheme ? '#dedede' : '#181818',
             allowOutsideClick: true,
+            timer: 2500,
+            didDestroy: () => {
+              showStats();
+            },
           });
-          document
-            .getElementById('enter')
-            .removeEventListener('click', handleKey, true);
           gameState.isGameOver = true;
           setData('gameState', gameState);
           updateStats(false);

@@ -59,7 +59,11 @@ module.exports.createShareText = () => {
   const gameState = getData('gameState');
   const gameId = gameState.gameId;
   const finalRow = gameState.currentRow >= 5 ? 6 : gameState.currentRow + 1;
-  let shareText = `Birdle ${gameId} ${finalRow}/6\n\n`;
+  const shareTextLabel =
+    gameState.wonGame || (gameState.isGameOver && gameState.currentRow < 5)
+      ? `Birdle ${gameId} ${finalRow}/6\n\n`
+      : `Birdle ${gameId} X/6\n\n`;
+  let shareText = '';
   for (let i = 0; i < finalRow; i += 1) {
     const guesses = Array.from(
       document.getElementById(`guessRow-${i}`).childNodes,
@@ -80,6 +84,7 @@ module.exports.createShareText = () => {
       shareText += '\n';
     }
   }
+  shareText = shareTextLabel + shareText;
   // console.log(shareText);
   return shareText;
 };
