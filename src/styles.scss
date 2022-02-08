@@ -8,11 +8,11 @@
 }
 
 body {
-  @apply bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans p-1 touch-manipulation;
+  @apply bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans p-1 touch-manipulation max-h-screen h-full;
 }
 
 .app {
-  @apply container max-w-md mx-auto flex flex-col justify-between items-center touch-manipulation;
+  @apply container max-w-md mx-auto flex flex-col justify-between items-center touch-manipulation max-h-screen;
   height: 90vh;
 }
 
@@ -32,7 +32,7 @@ body {
   }
 
   .guess {
-    @apply md:w-16 md:h-16 w-14 h-14 border-2 border-gray-600 box-border flex justify-center items-center text-gray-900 dark:text-gray-50 m-1 text-3xl font-black;
+    @apply md:w-16 md:h-16 w-12 h-12 border-2 border-gray-600 box-border flex justify-center items-center text-gray-900 dark:text-gray-50 m-1 text-3xl font-black;
   }
 }
 
@@ -40,7 +40,7 @@ body {
   @apply w-full flex flex-wrap justify-center gap-1 px-2 touch-manipulation;
 
   .key {
-    @apply md:h-12 h-10 rounded-md border-0 flex flex-grow text-sm md:text-base bg-gray-400 text-white items-center justify-center touch-manipulation;
+    @apply md:h-12 h-9 w-auto rounded-md border-0 flex flex-grow text-sm md:text-base bg-gray-400 text-white items-center justify-center touch-manipulation;
     min-width: 1.65rem;
   }
 
