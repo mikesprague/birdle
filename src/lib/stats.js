@@ -1,4 +1,4 @@
-import * as clipboard from 'clipboard-polyfill';
+import ClipboardJS from 'clipboard';
 import Swal from 'sweetalert2';
 import { html } from 'common-tags';
 import { isSystemDarkTheme } from './helpers';
@@ -89,7 +89,9 @@ module.exports.createShareText = () => {
 module.exports.handleShareClick = (e) => {
   e.preventDefault();
   const gameResuls = module.exports.createShareText();
-  clipboard.writeText(gameResuls).then(() => {
+  e.target.setAttribute('data-clipboard-text', gameResuls);
+  const clipboard = new ClipboardJS('.btn-share');
+  clipboard.on('success', function () {
     Swal.fire({
       html: 'Copied results to clipboard',
       showConfirmButton: false,

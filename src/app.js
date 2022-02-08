@@ -12,16 +12,9 @@ import { getData, setData } from './lib/local-storage';
 import { initStats, showStats, updateStats } from './lib/stats';
 
 navigator.serviceWorker.register(
-  new URL('service-worker.js', import.meta.url),
+  new URL('./service-worker.js', import.meta.url),
   { type: 'module' },
 );
-
-// 🦤🐤🦤🦤🦤
-// 🦜🦤🦤🦤🦜
-// 🦜🦤🦜🦤🦜
-// 🦜🦤🦜🦤🦜
-// 🦜🦤🦜🦤🦜
-// 🦜🦜🦜🦜🦜
 
 (async () => {
   const initGame = async (day = null) => {
