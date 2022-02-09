@@ -108,26 +108,40 @@ module.exports.handleShareClick = (e) => {
       })
       .then(() => console.log('Successful share'))
       .catch((error) => {
-        useWebSharingApi = false;
         console.log('Error sharing', error);
+        // use clipboard
+        e.target.setAttribute('data-clipboard-text', gameResuls);
+        const clipboard = new ClipboardJS('.btn-share');
+        clipboard.on('success', function () {
+          Swal.fire({
+            html: 'Copied results to clipboard',
+            showConfirmButton: false,
+            toast: true,
+            timer: 2500,
+            position: 'top',
+            allowEscapeKey: false,
+            background: isSystemDarkTheme ? '#181818' : '#dedede',
+            color: isSystemDarkTheme ? '#dedede' : '#181818',
+          });
+        });
       });
+    return;
   }
-  if (!useWebSharingApi) {
-    // use clipboard
-    e.target.setAttribute('data-clipboard-text', gameResuls);
-    const clipboard = new ClipboardJS('.btn-share');
-    clipboard.on('success', function () {
-      Swal.fire({
-        html: 'Copied results to clipboard',
-        showConfirmButton: false,
-        toast: true,
-        timer: 2500,
-        position: 'top',
-        allowEscapeKey: false,
-        background: isSystemDarkTheme ? '#181818' : '#dedede',
-        color: isSystemDarkTheme ? '#dedede' : '#181818',
-      });
+  // use clipboard
+  e.target.setAttribute('data-clipboard-text', gameResuls);
+  const clipboard = new ClipboardJS('.btn-share');
+  clipboard.on('success', function () {
+    Swal.fire({
+      html: 'Copied results to clipboard',
+      showConfirmButton: false,
+      toast: true,
+      timer: 2500,
+      position: 'top',
+      allowEscapeKey: false,
+      background: isSystemDarkTheme ? '#181818' : '#dedede',
+      color: isSystemDarkTheme ? '#dedede' : '#181818',
     });
+  });
   }
 };
 

@@ -22,7 +22,7 @@ module.exports.isSystemDarkTheme = window.matchMedia(
   : false;
 
 module.exports.supportsShareApi = () =>
-  /Mobi|Android/i.test(navigator.userAgent) &&
+  /Mobi/i.test(navigator.userAgent) &&
   /Chrome|Safari/i.test(navigator.userAgent);
 
 module.exports.isGuessValid = (word) =>
