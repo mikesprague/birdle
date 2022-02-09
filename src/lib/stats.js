@@ -142,7 +142,6 @@ module.exports.handleShareClick = (e) => {
       color: isSystemDarkTheme ? '#dedede' : '#181818',
     });
   });
-  }
 };
 
 module.exports.initCountdown = () => {
@@ -159,15 +158,9 @@ module.exports.initCountdown = () => {
     const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-    document.querySelector('.timer-hours').innerHTML = hours
-      .toString()
-      .padStart(2, 0);
-    document.querySelector('.timer-minutes').innerHTML = minutes
-      .toString()
-      .padStart(2, 0);
-    document.querySelector('.timer-seconds').innerHTML = seconds
-      .toString()
-      .padStart(2, 0);
+    // prettier-ignore
+    const timeString = `${hours.toString().padStart(2, 0)}:${minutes.toString().padStart(2, 0)}:${seconds.toString().padStart(2, 0)}`;
+    document.querySelector('.timer').innerHTML = timeString;
   }, 1000);
   return handle;
 };
@@ -238,9 +231,9 @@ module.exports.showStats = () => {
             <strong class="text-sm uppercase font-bold">Next Birdle</strong>
             <br />
             <div class="timer-container text-4xl">
-              <span class="timer-hours">00</span>:<span class="timer-minutes"
-                >00</span
-              >:<span class="timer-seconds">00</span>
+              <span class="timer mr-2"
+                ><em class="text-gray-500">--:--:--</em></span
+              >
             </div>
           </div>
           <div class="w-1/2">
