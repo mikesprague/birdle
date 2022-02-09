@@ -1,7 +1,7 @@
 import ClipboardJS from 'clipboard';
 import Swal from 'sweetalert2';
 import { html } from 'common-tags';
-import { isSystemDarkTheme } from './helpers';
+import { isSystemDarkTheme, isMobile } from './helpers';
 import { getData, setData } from './local-storage';
 
 module.exports.initStats = () => {
@@ -92,20 +92,36 @@ module.exports.createShareText = () => {
 module.exports.handleShareClick = (e) => {
   e.preventDefault();
   const gameResuls = module.exports.createShareText();
-  e.target.setAttribute('data-clipboard-text', gameResuls);
-  const clipboard = new ClipboardJS('.btn-share');
-  clipboard.on('success', function () {
-    Swal.fire({
-      html: 'Copied results to clipboard',
-      showConfirmButton: false,
-      toast: true,
-      timer: 2500,
-      position: 'top',
-      allowEscapeKey: false,
-      background: isSystemDarkTheme ? '#181818' : '#dedede',
-      color: isSystemDarkTheme ? '#dedede' : '#181818',
+  let useWebSharingApi = isMobile() && navigator.share;
+  // attempt to use web sharing api on mobile
+  if (useWebSharingApi) {
+    navigator
+      .share({
+        text: gameResuls,
+      })
+      .then(() => console.log('Successful share'))
+      .catch((error) => {
+        useWebSharingApi = false;
+        console.log('Error sharing', error);
+      });
+  }
+  if (!useWebSharingApi) {
+    // use clipboard
+    e.target.setAttribute('data-clipboard-text', gameResuls);
+    const clipboard = new ClipboardJS('.btn-share');
+    clipboard.on('success', function () {
+      Swal.fire({
+        html: 'Copied results to clipboard',
+        showConfirmButton: false,
+        toast: true,
+        timer: 2500,
+        position: 'top',
+        allowEscapeKey: false,
+        background: isSystemDarkTheme ? '#181818' : '#dedede',
+        color: isSystemDarkTheme ? '#dedede' : '#181818',
+      });
     });
-  });
+  }
 };
 
 module.exports.showStats = () => {
