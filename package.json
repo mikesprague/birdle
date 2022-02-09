@@ -22,6 +22,7 @@
   "homepage": "https://birdle.app",
   "dependencies": {
     "@sweetalert2/theme-dark": "5.0.8",
+    "charts.css": "^0.9.0",
     "clipboard": "2.0.10",
     "common-tags": "1.8.2",
     "dayjs": "1.10.7",
