@@ -1,8 +1,14 @@
 import ClipboardJS from 'clipboard';
 import Swal from 'sweetalert2';
 import { html } from 'common-tags';
-import { isSystemDarkTheme, isMobile } from './helpers';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
+import { isSystemDarkTheme, supportsShareApi } from './helpers';
 import { getData, setData } from './local-storage';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 module.exports.initStats = () => {
   const initialStatsObject = {
@@ -92,7 +98,8 @@ module.exports.createShareText = () => {
 module.exports.handleShareClick = (e) => {
   e.preventDefault();
   const gameResuls = module.exports.createShareText();
-  let useWebSharingApi = isMobile() && navigator.share;
+  let useWebSharingApi = supportsShareApi() && navigator.share;
+  console.log('useWebSharingApi: ', useWebSharingApi);
   // attempt to use web sharing api on mobile
   if (useWebSharingApi) {
     navigator
@@ -124,8 +131,36 @@ module.exports.handleShareClick = (e) => {
   }
 };
 
+module.exports.initCountdown = () => {
+  const timerEnd = dayjs()
+    .set('hour', 0)
+    .set('minute', 0)
+    .set('second', 0)
+    .add(1, 'day')
+    .local()
+    .valueOf();
+  const handle = setInterval(() => {
+    const timeNow = dayjs().local().valueOf();
+    const diff = timerEnd - timeNow;
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+    document.querySelector('.timer-hours').innerHTML = hours
+      .toString()
+      .padStart(2, 0);
+    document.querySelector('.timer-minutes').innerHTML = minutes
+      .toString()
+      .padStart(2, 0);
+    document.querySelector('.timer-seconds').innerHTML = seconds
+      .toString()
+      .padStart(2, 0);
+  }, 1000);
+  return handle;
+};
+
 module.exports.showStats = () => {
   const stats = getData('stats');
+  let timerHandle;
   Swal.fire({
     background: isSystemDarkTheme ? '#181818' : '#dedede',
     color: isSystemDarkTheme ? '#dedede' : '#181818',
@@ -134,6 +169,15 @@ module.exports.showStats = () => {
     backdrop: true,
     showConfirmButton: false,
     allowOutsideClick: true,
+    didOpen: () => {
+      timerHandle = module.exports.initCountdown();
+    },
+    didDestroy: () => {
+      clearInterval(timerHandle);
+    },
+    didClose: () => {
+      clearInterval(timerHandle);
+    },
     didRender: () => {
       if (stats.gamesPlayed) {
         document
@@ -176,12 +220,16 @@ module.exports.showStats = () => {
         <!-- <h2>Guess Distribution</h2>
         <div></div> -->
         <div class="w-full flex">
-          <!-- <div class="w-1/2">
+          <div class="w-1/2">
             <strong class="text-sm uppercase font-bold">Next Birdle</strong>
             <br />
-            <span class="text-4xl">00:00:00</span>
-          </div> -->
-          <div class="w-full">
+            <div class="timer-container text-4xl">
+              <span class="timer-hours">00</span>:<span class="timer-minutes"
+                >00</span
+              >:<span class="timer-seconds">00</span>
+            </div>
+          </div>
+          <div class="w-1/2">
             <button type="button" class="btn-share">Share</button>
           </div>
         </div>

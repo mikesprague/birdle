@@ -21,7 +21,9 @@ module.exports.isSystemDarkTheme = window.matchMedia(
   ? true
   : false;
 
-module.exports.isMobile = () => /Mobi|Android/i.test(navigator.userAgent);
+module.exports.supportsShareApi = () =>
+  /Mobi|Android/i.test(navigator.userAgent) &&
+  /Chrome|Safari/i.test(navigator.userAgent);
 
 module.exports.isGuessValid = (word) =>
   words.includes(word.toLowerCase()) ||

@@ -125,6 +125,9 @@ svg.icon {
 }
 
 .stats {
+  h1 {
+    @apply uppercase text-sm;
+  }
   .btn-share {
     @apply w-full text-3xl bg-purple-800 p-4 rounded-lg uppercase;
   }
