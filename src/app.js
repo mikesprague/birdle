@@ -32,18 +32,19 @@ initServiceWorker();
       gameId: day,
     };
     let gameState = getData('gameState');
+    initStats();
+    const stats = getData('stats');
     if (
       gameState === null ||
       gameState === undefined ||
       day === null ||
       day === undefined ||
-      (gameState && day !== gameState.gameId)
+      (gameState && day !== gameState.gameId && (stats === null || stats === undefined ))
     ) {
       setData('gameState', initialGameState);
       gameState = initialGameState;
       showInstructions();
     }
-    initStats();
     buildGuessesRows(gameState.guessesRows);
     initKeys(keys, handleKey);
     document.getElementById('help').addEventListener('click', () => {
