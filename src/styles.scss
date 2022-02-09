@@ -2,6 +2,7 @@
 @tailwind components;
 
 @import '@sweetalert2/theme-dark/dark.scss';
+@import 'charts.css';
 
 * {
   @apply touch-manipulation;
@@ -134,6 +135,15 @@ svg.icon {
 
   .btn-share:hover {
     @apply bg-purple-500;
+  }
+}
+
+#guess-distribution.bar {
+  --labels-size: 30px;
+  @apply text-sm;
+
+  span.data {
+    @apply pr-2;
   }
 }
 

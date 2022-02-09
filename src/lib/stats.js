@@ -167,6 +167,13 @@ module.exports.initCountdown = () => {
 
 module.exports.showStats = () => {
   const stats = getData('stats');
+  let totalGuesses = 0;
+  for (const guess in stats.guesses) {
+    // console.log(stats.guesses[guess], guess);
+    if (guess !== 'fail') {
+      totalGuesses += stats.guesses[guess] * Number(guess);
+    }
+  }
   let timerHandle;
   Swal.fire({
     background: isSystemDarkTheme ? '#181818' : '#dedede',
@@ -198,7 +205,7 @@ module.exports.showStats = () => {
       <div class="stats">
         <h1>Statistics</h1>
         <div
-          class="statsTable flex w-full mb-4"
+          class="flex w-full mb-4"
           onClick="document.querySelector('.swal2-close').click()"
         >
           <div class="flex-row flex justify-evenly w-full">
@@ -224,13 +231,92 @@ module.exports.showStats = () => {
             </div>
           </div>
         </div>
-        <!-- <h2>Guess Distribution</h2>
-        <div></div> -->
+        <div class="mb-4 mr-4">
+          <strong class="text-sm uppercase font-bold">
+            Guess Distribution
+          </strong>
+          <table
+            id="guess-distribution"
+            class="charts-css bar show-labels data-spacing-2"
+          >
+            <caption>
+              Guess Distribution
+            </caption>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td
+                  style="--color: #444; --size:calc((${stats
+                    .guesses[1]} * 1) / ${totalGuesses})"
+                >
+                  <span class="data"
+                    >${stats.guesses[1] ? stats.guesses[1] : '&nbsp;'}</span
+                  >
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td
+                  style="--color: #444; --size:calc((${stats
+                    .guesses[2]} * 2) / ${totalGuesses})"
+                >
+                  <span class="data"
+                    >${stats.guesses[2] ? stats.guesses[2] : '&nbsp;'}</span
+                  >
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td
+                  style="--color: #444; --size:calc((${stats
+                    .guesses[3]} * 3) / ${totalGuesses})"
+                >
+                  <span class="data"
+                    >${stats.guesses[3] ? stats.guesses[3] : '&nbsp;'}</span
+                  >
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">4</th>
+                <td
+                  style="--color: #444; --size:calc((${stats
+                    .guesses[4]} * 4) / ${totalGuesses})"
+                >
+                  <span class="data"
+                    >${stats.guesses[4] ? stats.guesses[4] : '&nbsp;'}</span
+                  >
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">5</th>
+                <td
+                  style="--color: #444; --size:calc((${stats
+                    .guesses[5]} * 5) / ${totalGuesses})"
+                >
+                  <span class="data"
+                    >${stats.guesses[5] ? stats.guesses[5] : '&nbsp;'}</span
+                  >
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">6</th>
+                <td
+                  style="--color: #444; --size:calc((${stats
+                    .guesses[6]} * 6) / ${totalGuesses})"
+                >
+                  <span class="data"
+                    >${stats.guesses[6] ? stats.guesses[6] : '&nbsp;'}</span
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
         <div class="w-full flex">
           <div class="w-1/2">
             <strong class="text-sm uppercase font-bold">Next Birdle</strong>
             <br />
-            <div class="timer-container text-4xl">
+            <div class="timer-container text-3xl">
               <span class="timer mr-2"
                 ><em class="text-gray-500">--:--:--</em></span
               >
