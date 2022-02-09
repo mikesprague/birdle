@@ -37,7 +37,7 @@
     "@babel/runtime": "7.17.2",
     "@parcel/packager-raw-url": "2.2.1",
     "@parcel/service-worker": "2.2.1",
-    "@parcel/transformer-sass": "2.2.1",
+    "@parcel/transformer-sass": "2.3.0",
     "@parcel/transformer-webmanifest": "2.2.1",
     "@types/express": "4.17.13",
     "@types/node": "17.0.16",
