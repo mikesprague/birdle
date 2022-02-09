@@ -69,7 +69,7 @@ module.exports.initServiceWorker = () => {
         installingWorker.onstatechange = () => {
           if (installingWorker.state === 'installed') {
             if (navigator.serviceWorker.controller) {
-              // console.log('New content is available and will be used when all ');
+              // console.log('New content is available and will be used after page reload ');
             } else {
               // console.log('Content is cached for offline use.');
             }

@@ -6,7 +6,6 @@
   "scripts": {
     "build": "parcel build src/index.html",
     "dev": "workbox generateSW && parcel src/index.html",
-    "predev": "workbox generateSW",
     "postbuild": "workbox generateSW",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
