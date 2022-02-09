@@ -113,14 +113,29 @@ initServiceWorker();
 
   const colorKeyboardLetter = (letter, className) => {
     const key = document.getElementById(letter);
-    if (
-      !key ||
-      key.classList.contains('correct-overlay') ||
-      key.classList.contains('present-overlay')
-    ) {
+    if (!key) {
       return;
     }
-    key.classList.add(className);
+    if (className === 'correct-overlay') {
+      key.classList.remove('present-overlay');
+      key.classList.remove('absent-overlay');
+      key.classList.add('correct-overlay');
+      return;
+    }
+    if (
+      className === 'present-overlay' &&
+      !key.classList.contains('correct-overlay')
+    ) {
+      key.classList.remove('correct-overlay');
+      key.classList.remove('absent-overlay');
+      key.classList.add('present-overlay');
+      return;
+    }
+    if (className === 'absent-overlay') {
+      key.classList.remove('correct-overlay');
+      key.classList.remove('present-overlay');
+      key.classList.add('absent-overlay');
+    }
     // if (className === 'absent-overlay') {
     //   key.setAttribute('disabled', 'disabled');
     // }
