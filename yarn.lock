@@ -1561,10 +1561,10 @@
     "@parcel/utils" "^2.2.1"
     nullthrows "^1.1.1"
 
-"@parcel/service-worker@2.2.1":
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/@parcel/service-worker/-/service-worker-2.2.1.tgz#1cf97f2c6639bf892e3aab9f1351ee87e33a0802"
-  integrity sha512-oYgbIfVUL1xZim3wIwoscaYuFxSUWUijCCP+Ww3st1fOWTjc0gCioYm4Lb+R5LDmWyG3bhPRbcQb3mSCQI3m3w==
+"@parcel/service-worker@2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@parcel/service-worker/-/service-worker-2.3.0.tgz#c360bde902da3a244bc032e256f64967768ba013"
+  integrity sha512-whFkFMAJ/pJBwaDJkFyzJ5TzpNKfSY35mLXO5kxRNSvXNEZHuJTtKZ7a7kG2nDQWv9tJDhDAxBC3wg4Bpxkpcw==
 
 "@parcel/source-map@^2.0.0":
   version "2.0.2"
