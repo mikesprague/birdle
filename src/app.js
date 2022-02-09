@@ -33,13 +33,15 @@ initServiceWorker();
     };
     let gameState = getData('gameState');
     initStats();
-    const stats = getData('stats');
+    const gameStats = getData('stats');
     if (
       gameState === null ||
       gameState === undefined ||
       day === null ||
       day === undefined ||
-      (gameState && day !== gameState.gameId && (stats === null || stats === undefined ))
+      (gameState &&
+        day !== gameState.gameId &&
+        (gameStats === null || gameStats === undefined))
     ) {
       setData('gameState', initialGameState);
       gameState = initialGameState;
@@ -53,8 +55,7 @@ initServiceWorker();
     document.getElementById('stats').addEventListener('click', () => {
       showStats();
     });
-    const stats = getData('stats');
-    if (gameState.isGameOver && stats.gamesPlayed) {
+    if (gameState.isGameOver && gameStats.gamesPlayed) {
       showStats();
     }
 
