@@ -66,18 +66,27 @@
       <div class="keyboard-container"></div>
     </div>
     <script type="module" src="./app.js"></script>
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-KDCMVB11KQ"
-    ></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
+      if (
+        navigator.userAgent.indexOf('Speed Insights') === -1 &&
+        navigator.userAgent.indexOf('Nexus 5 Build') === -1
+      ) {
+        const script = document.createElement('script');
+        script.setAttribute(
+          'src',
+          'https://www.googletagmanager.com/gtag/js?id=G-KDCMVB11KQ',
+        );
+        script.setAttribute('async', '');
+        document.querySelector('body').appendChild(script);
+        window.dataLayer = window.dataLayer || [];
+        /* eslint-disable */
+        function gtag() {
+          dataLayer.push(arguments);
+        }
+        /* eslint-enable */
+        gtag('js', new Date());
+        gtag('config', 'G-KDCMVB11KQ');
       }
-      gtag('js', new Date());
-
-      gtag('config', 'G-KDCMVB11KQ');
     </script>
   </body>
 </html>
