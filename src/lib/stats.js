@@ -167,20 +167,17 @@ module.exports.initCountdown = () => {
 
 module.exports.showStats = () => {
   const stats = getData('stats');
-  let totalGuesses = 0;
+  // let totalGuesses = 0;
   const guessCountArray = [];
   for (const guess in stats.guesses) {
     console.log(stats.guesses[guess], guess);
     if (guess !== 'fail') {
-      totalGuesses += stats.guesses[guess] * Number(guess);
+      // totalGuesses += stats.guesses[guess] * Number(guess);
       guessCountArray.push(stats.guesses[guess]);
     }
   }
 
   let scale = 100 / Math.max(...guessCountArray);
-  console.log('scale: ', scale);
-  console.log('guessCountArray: ', guessCountArray);
-  console.log('Math.max(...guessCountArray) ', Math.max(...guessCountArray));
 
   let timerHandle;
   Swal.fire({
