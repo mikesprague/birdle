@@ -39,9 +39,9 @@ initServiceWorker();
       gameState === undefined ||
       day === null ||
       day === undefined ||
-      (gameState &&
-        day !== gameState.gameId &&
-        (gameStats === null || gameStats === undefined))
+      gameStats === null ||
+      gameStats === undefined ||
+      (gameState && day > gameState.gameId)
     ) {
       setData('gameState', initialGameState);
       gameState = initialGameState;
@@ -55,7 +55,7 @@ initServiceWorker();
     document.getElementById('stats').addEventListener('click', () => {
       showStats();
     });
-    if (gameState.isGameOver && gameStats.gamesPlayed) {
+    if (gameState.isGameOver && gameStats.gamesPlayed && day === gameState.gameId) {
       showStats();
     }
 
