@@ -22,11 +22,12 @@
   "homepage": "https://birdle.app",
   "dependencies": {
     "@sweetalert2/theme-dark": "5.0.8",
-    "charts.css": "^0.9.0",
+    "charts.css": "0.9.0",
     "clipboard": "2.0.10",
     "common-tags": "1.8.2",
     "dayjs": "1.10.7",
     "keyboardjs": "2.6.4",
+    "register-service-worker": "1.7.2",
     "sweetalert2": "11.4.0"
   },
   "devDependencies": {
@@ -41,7 +42,7 @@
     "@parcel/transformer-sass": "2.3.0",
     "@parcel/transformer-webmanifest": "2.3.0",
     "@types/express": "4.17.13",
-    "@types/node": "17.0.16",
+    "@types/node": "17.0.17",
     "@typescript-eslint/eslint-plugin": "5.11.0",
     "@typescript-eslint/parser": "5.11.0",
     "autoprefixer": "10.4.2",
@@ -63,7 +64,7 @@
     "sass-lint": "1.13.1",
     "tailwindcss": "3.0.19",
     "typescript": "4.5.5",
-    "workbox-cli": "^6.4.2"
+    "workbox-cli": "6.4.2"
   },
   "babel": {
     "plugins": [

@@ -1,5 +1,6 @@
 import { words } from './words';
 import { allowed } from './allowed';
+import { register } from 'register-service-worker';
 
 module.exports.getBirdleOfDay = () => {
   const now = new Date();
@@ -61,27 +62,30 @@ module.exports.buildGuessesRows = (guessesRows) => {
 };
 
 module.exports.initServiceWorker = () => {
-  const sw = './service-worker.js'; // it is needed because parcel will not recognize this as a file and not precess in its manner
-  navigator.serviceWorker
-    .register(sw)
-    .then((registration) => {
-      registration.onupdatefound = () => {
-        const installingWorker = registration.installing;
-        if (installingWorker == null) {
-          return;
-        }
-        installingWorker.onstatechange = () => {
-          if (installingWorker.state === 'installed') {
-            if (navigator.serviceWorker.controller) {
-              // console.log('New content is available and will be used after page reload ');
-            } else {
-              // console.log('Content is cached for offline use.');
-            }
-          }
-        };
-      };
-    })
-    .catch((error) => {
+  register('./service-worker.js', {
+    // ready() {
+    //   console.log('Service worker is active.');
+    // },
+    // registered(registration) {
+    //   console.log('Service worker has been registered.', registration);
+    // },
+    // cached(registration) {
+    //   console.log('Content has been cached for offline use.', registration);
+    // },
+    // updatefound(registration) {
+    //   console.log('New content is downloading.', registration);
+    // },
+    updated() {
+      // updated(registration)
+      window.location.reload();
+    },
+    offline() {
+      console.info(
+        'No internet connection found. BIRDLE is running in offline mode.',
+      );
+    },
+    error(error) {
       console.error('Error during service worker registration:', error);
-    });
+    },
+  });
 };
