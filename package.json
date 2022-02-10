@@ -37,7 +37,7 @@
     "@babel/plugin-transform-runtime": "7.17.0",
     "@babel/preset-env": "7.16.11",
     "@babel/runtime": "7.17.2",
-    "@parcel/packager-raw-url": "2.3.0",
+    "@parcel/packager-raw-url": "2.3.1",
     "@parcel/service-worker": "2.3.0",
     "@parcel/transformer-sass": "2.3.0",
     "@parcel/transformer-webmanifest": "2.3.0",
