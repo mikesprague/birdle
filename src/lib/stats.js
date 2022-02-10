@@ -247,7 +247,7 @@ module.exports.showStats = () => {
                 <th scope="row">1</th>
                 <td
                   style="--color: #444; --size:calc((${stats
-                    .guesses[1]} * 1) / ${totalGuesses})"
+                    .guesses[1]} * 6) / ${totalGuesses})"
                 >
                   <span class="data"
                     >${stats.guesses[1] ? stats.guesses[1] : '&nbsp;'}</span
@@ -258,7 +258,7 @@ module.exports.showStats = () => {
                 <th scope="row">2</th>
                 <td
                   style="--color: #444; --size:calc((${stats
-                    .guesses[2]} * 2) / ${totalGuesses})"
+                    .guesses[2]} * 6) / ${totalGuesses})"
                 >
                   <span class="data"
                     >${stats.guesses[2] ? stats.guesses[2] : '&nbsp;'}</span
@@ -269,7 +269,7 @@ module.exports.showStats = () => {
                 <th scope="row">3</th>
                 <td
                   style="--color: #444; --size:calc((${stats
-                    .guesses[3]} * 3) / ${totalGuesses})"
+                    .guesses[3]} * 6) / ${totalGuesses})"
                 >
                   <span class="data"
                     >${stats.guesses[3] ? stats.guesses[3] : '&nbsp;'}</span
@@ -280,7 +280,7 @@ module.exports.showStats = () => {
                 <th scope="row">4</th>
                 <td
                   style="--color: #444; --size:calc((${stats
-                    .guesses[4]} * 4) / ${totalGuesses})"
+                    .guesses[4]} * 6) / ${totalGuesses})"
                 >
                   <span class="data"
                     >${stats.guesses[4] ? stats.guesses[4] : '&nbsp;'}</span
@@ -291,7 +291,7 @@ module.exports.showStats = () => {
                 <th scope="row">5</th>
                 <td
                   style="--color: #444; --size:calc((${stats
-                    .guesses[5]} * 5) / ${totalGuesses})"
+                    .guesses[5]} * 6) / ${totalGuesses})"
                 >
                   <span class="data"
                     >${stats.guesses[5] ? stats.guesses[5] : '&nbsp;'}</span
