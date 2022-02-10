@@ -247,7 +247,7 @@ module.exports.showStats = () => {
                 <th scope="row">1</th>
                 <td
                   style="--color: #444; --size:calc((${stats
-                    .guesses[1]} * 6) / ${totalGuesses})"
+                    .guesses[1]}) / ${totalGuesses})"
                 >
                   <span class="data"
                     >${stats.guesses[1] ? stats.guesses[1] : '&nbsp;'}</span
@@ -257,8 +257,8 @@ module.exports.showStats = () => {
               <tr>
                 <th scope="row">2</th>
                 <td
-                  style="--color: #444; --size:calc((${stats
-                    .guesses[2]} * 6) / ${totalGuesses})"
+                  style="--color: #444; --size:calc(${stats
+                    .guesses[2]} / ${totalGuesses})"
                 >
                   <span class="data"
                     >${stats.guesses[2] ? stats.guesses[2] : '&nbsp;'}</span
@@ -268,8 +268,8 @@ module.exports.showStats = () => {
               <tr>
                 <th scope="row">3</th>
                 <td
-                  style="--color: #444; --size:calc((${stats
-                    .guesses[3]} * 6) / ${totalGuesses})"
+                  style="--color: #444; --size:calc(${stats
+                    .guesses[3]} / ${totalGuesses})"
                 >
                   <span class="data"
                     >${stats.guesses[3] ? stats.guesses[3] : '&nbsp;'}</span
@@ -279,8 +279,8 @@ module.exports.showStats = () => {
               <tr>
                 <th scope="row">4</th>
                 <td
-                  style="--color: #444; --size:calc((${stats
-                    .guesses[4]} * 6) / ${totalGuesses})"
+                  style="--color: #444; --size:calc(${stats
+                    .guesses[4]} / ${totalGuesses})"
                 >
                   <span class="data"
                     >${stats.guesses[4] ? stats.guesses[4] : '&nbsp;'}</span
@@ -290,8 +290,8 @@ module.exports.showStats = () => {
               <tr>
                 <th scope="row">5</th>
                 <td
-                  style="--color: #444; --size:calc((${stats
-                    .guesses[5]} * 6) / ${totalGuesses})"
+                  style="--color: #444; --size:calc(${stats
+                    .guesses[5]} / ${totalGuesses})"
                 >
                   <span class="data"
                     >${stats.guesses[5] ? stats.guesses[5] : '&nbsp;'}</span
@@ -301,8 +301,8 @@ module.exports.showStats = () => {
               <tr>
                 <th scope="row">6</th>
                 <td
-                  style="--color: #444; --size:calc((${stats
-                    .guesses[6]} * 6) / ${totalGuesses})"
+                  style="--color: #444; --size:calc(${stats
+                    .guesses[6]} / ${totalGuesses})"
                 >
                   <span class="data"
                     >${stats.guesses[6] ? stats.guesses[6] : '&nbsp;'}</span
