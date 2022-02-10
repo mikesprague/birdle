@@ -170,7 +170,7 @@ module.exports.showStats = () => {
   // let totalGuesses = 0;
   const guessCountArray = [];
   for (const guess in stats.guesses) {
-    console.log(stats.guesses[guess], guess);
+    // console.log(stats.guesses[guess], guess);
     if (guess !== 'fail') {
       // totalGuesses += stats.guesses[guess] * Number(guess);
       guessCountArray.push(stats.guesses[guess]);
