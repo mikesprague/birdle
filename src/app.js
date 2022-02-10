@@ -131,9 +131,11 @@ initServiceWorker();
       key.classList.add('present-overlay');
       return;
     }
-    if (className === 'absent-overlay') {
-      key.classList.remove('correct-overlay');
-      key.classList.remove('present-overlay');
+    if (
+      className === 'absent-overlay' &&
+      !key.classList.contains('correct-overlay') &&
+      !key.classList.contains('present-overlay')
+    ) {
       key.classList.add('absent-overlay');
     }
     // if (className === 'absent-overlay') {
