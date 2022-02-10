@@ -157,7 +157,7 @@ module.exports.initCountdown = () => {
     const diff = timerEnd - timeNow;
     const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+    const seconds = Math.floor((diff % (1000 * 60))0);
     // prettier-ignore
     const timeString = `${hours.toString().padStart(2, 0)}:${minutes.toString().padStart(2, 0)}:${seconds.toString().padStart(2, 0)}`;
     document.querySelector('.timer').innerHTML = timeString;
@@ -247,7 +247,7 @@ module.exports.showStats = () => {
                 <th scope="row">1</th>
                 <td
                   style="--color: #444; --size:calc((${stats
-                    .guesses[1]}) * ${totalGuesses} / 100)"
+                    .guesses[1]}) * ${totalGuesses})"
                 >
                   <span class="data"
                     >${stats.guesses[1] ? stats.guesses[1] : '&nbsp;'}</span
@@ -258,7 +258,7 @@ module.exports.showStats = () => {
                 <th scope="row">2</th>
                 <td
                   style="--color: #444; --size:calc(${stats
-                    .guesses[2]} * ${totalGuesses} / 100)"
+                    .guesses[2]} * ${totalGuesses})"
                 >
                   <span class="data"
                     >${stats.guesses[2] ? stats.guesses[2] : '&nbsp;'}</span
@@ -269,7 +269,7 @@ module.exports.showStats = () => {
                 <th scope="row">3</th>
                 <td
                   style="--color: #444; --size:calc(${stats
-                    .guesses[3]} * ${totalGuesses} / 100)"
+                    .guesses[3]} * ${totalGuesses})"
                 >
                   <span class="data"
                     >${stats.guesses[3] ? stats.guesses[3] : '&nbsp;'}</span
@@ -280,7 +280,7 @@ module.exports.showStats = () => {
                 <th scope="row">4</th>
                 <td
                   style="--color: #444; --size:calc(${stats
-                    .guesses[4]} * ${totalGuesses} / 100)"
+                    .guesses[4]} * ${totalGuesses})"
                 >
                   <span class="data"
                     >${stats.guesses[4] ? stats.guesses[4] : '&nbsp;'}</span
@@ -291,7 +291,7 @@ module.exports.showStats = () => {
                 <th scope="row">5</th>
                 <td
                   style="--color: #444; --size:calc(${stats
-                    .guesses[5]} * ${totalGuesses} / 100)"
+                    .guesses[5]} * ${totalGuesses})"
                 >
                   <span class="data"
                     >${stats.guesses[5] ? stats.guesses[5] : '&nbsp;'}</span
@@ -302,7 +302,7 @@ module.exports.showStats = () => {
                 <th scope="row">6</th>
                 <td
                   style="--color: #444; --size:calc(${stats
-                    .guesses[6]} * ${totalGuesses} / 100)"
+                    .guesses[6]} * ${totalGuesses})"
                 >
                   <span class="data"
                     >${stats.guesses[6] ? stats.guesses[6] : '&nbsp;'}</span
