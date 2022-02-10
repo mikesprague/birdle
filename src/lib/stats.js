@@ -157,7 +157,7 @@ module.exports.initCountdown = () => {
     const diff = timerEnd - timeNow;
     const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((diff % (1000 * 60))0);
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
     // prettier-ignore
     const timeString = `${hours.toString().padStart(2, 0)}:${minutes.toString().padStart(2, 0)}:${seconds.toString().padStart(2, 0)}`;
     document.querySelector('.timer').innerHTML = timeString;
@@ -168,12 +168,20 @@ module.exports.initCountdown = () => {
 module.exports.showStats = () => {
   const stats = getData('stats');
   let totalGuesses = 0;
+  const guessCountArray = [];
   for (const guess in stats.guesses) {
-    // console.log(stats.guesses[guess], guess);
+    console.log(stats.guesses[guess], guess);
     if (guess !== 'fail') {
       totalGuesses += stats.guesses[guess] * Number(guess);
+      guessCountArray.push(stats.guesses[guess]);
     }
   }
+
+  let scale = 100 / Math.max(...guessCountArray);
+  console.log('scale: ', scale);
+  console.log('guessCountArray: ', guessCountArray);
+  console.log('Math.max(...guessCountArray) ', Math.max(...guessCountArray));
+
   let timerHandle;
   Swal.fire({
     background: isSystemDarkTheme ? '#181818' : '#dedede',
@@ -247,7 +255,7 @@ module.exports.showStats = () => {
                 <th scope="row">1</th>
                 <td
                   style="--color: #444; --size:calc((${stats
-                    .guesses[1]}) * ${totalGuesses})"
+                    .guesses[1]} * ${scale}) / 100)"
                 >
                   <span class="data"
                     >${stats.guesses[1] ? stats.guesses[1] : '&nbsp;'}</span
@@ -257,8 +265,8 @@ module.exports.showStats = () => {
               <tr>
                 <th scope="row">2</th>
                 <td
-                  style="--color: #444; --size:calc(${stats
-                    .guesses[2]} * ${totalGuesses})"
+                  style="--color: #444; --size:calc((${stats
+                    .guesses[2]} * ${scale}) / 100)"
                 >
                   <span class="data"
                     >${stats.guesses[2] ? stats.guesses[2] : '&nbsp;'}</span
@@ -268,8 +276,8 @@ module.exports.showStats = () => {
               <tr>
                 <th scope="row">3</th>
                 <td
-                  style="--color: #444; --size:calc(${stats
-                    .guesses[3]} * ${totalGuesses})"
+                  style="--color: #444; --size:calc((${stats
+                    .guesses[3]} * ${scale}) / 100)"
                 >
                   <span class="data"
                     >${stats.guesses[3] ? stats.guesses[3] : '&nbsp;'}</span
@@ -279,8 +287,8 @@ module.exports.showStats = () => {
               <tr>
                 <th scope="row">4</th>
                 <td
-                  style="--color: #444; --size:calc(${stats
-                    .guesses[4]} * ${totalGuesses})"
+                  style="--color: #444; --size:calc((${stats
+                    .guesses[4]} * ${scale}) / 100)"
                 >
                   <span class="data"
                     >${stats.guesses[4] ? stats.guesses[4] : '&nbsp;'}</span
@@ -290,8 +298,8 @@ module.exports.showStats = () => {
               <tr>
                 <th scope="row">5</th>
                 <td
-                  style="--color: #444; --size:calc(${stats
-                    .guesses[5]} * ${totalGuesses})"
+                  style="--color: #444; --size:calc((${stats
+                    .guesses[5]} * ${scale}) / 100)"
                 >
                   <span class="data"
                     >${stats.guesses[5] ? stats.guesses[5] : '&nbsp;'}</span
@@ -301,8 +309,8 @@ module.exports.showStats = () => {
               <tr>
                 <th scope="row">6</th>
                 <td
-                  style="--color: #444; --size:calc(${stats
-                    .guesses[6]} * ${totalGuesses})"
+                  style="--color: #444; --size:calc((${stats
+                    .guesses[6]} * ${scale}) / 100)"
                 >
                   <span class="data"
                     >${stats.guesses[6] ? stats.guesses[6] : '&nbsp;'}</span
