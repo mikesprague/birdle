@@ -32,20 +32,24 @@ initServiceWorker();
       gameId: day,
     };
     let gameState = getData('gameState');
-    initStats();
-    const gameStats = getData('stats');
+    let gameStats = getData('stats');
+    if (
+      (gameState === null || gameState === undefined) &&
+      (gameStats === null || gameStats === undefined)
+    ) {
+      initStats();
+      showInstructions();
+      gameStats = getData('stats');
+    }
     if (
       gameState === null ||
       gameState === undefined ||
       day === null ||
       day === undefined ||
-      gameStats === null ||
-      gameStats === undefined ||
       (gameState && day > gameState.gameId)
     ) {
       setData('gameState', initialGameState);
       gameState = initialGameState;
-      showInstructions();
     }
     buildGuessesRows(gameState.guessesRows);
     initKeys(keys, handleKey);
