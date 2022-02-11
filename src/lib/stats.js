@@ -34,9 +34,9 @@ module.exports.updateStats = (won = true) => {
   let stats = getData('stats');
   // increment every game
   stats.gamesPlayed += 1;
-  stats.guesses[currentRow + 1] += 1;
   if (won) {
     // calculate on win
+    stats.guesses[currentRow + 1] += 1;
     stats.currentStreak += 1;
     stats.gamesWon += 1;
     if (stats.currentStreak >= stats.maxStreak) {
