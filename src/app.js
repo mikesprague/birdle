@@ -12,7 +12,14 @@ import { initKeys, keys } from './lib/keys';
 import { getData, setData } from './lib/local-storage';
 import { initStats, showStats, updateStats } from './lib/stats';
 
-initServiceWorker();
+let firstVisit = false;
+if (
+  (getData('gameState') === null || getData('gameState') === undefined) &&
+  (getData('stats') === null || getData('stats') === undefined)
+) {
+  firstVisit = true;
+}
+initServiceWorker(firstVisit);
 
 (async () => {
   const initGame = async (day = null) => {
@@ -33,10 +40,7 @@ initServiceWorker();
     };
     let gameState = getData('gameState');
     let gameStats = getData('stats');
-    if (
-      (gameState === null || gameState === undefined) &&
-      (gameStats === null || gameStats === undefined)
-    ) {
+    if (firstVisit) {
       initStats();
       showInstructions();
       gameStats = getData('stats');

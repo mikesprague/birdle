@@ -61,7 +61,7 @@ module.exports.buildGuessesRows = (guessesRows) => {
   });
 };
 
-module.exports.initServiceWorker = () => {
+export const initServiceWorker = (firstVisit = false) => {
   register('./service-worker.js', {
     // ready() {
     //   console.log('Service worker is active.');
@@ -77,7 +77,9 @@ module.exports.initServiceWorker = () => {
     // },
     updated() {
       // updated(registration)
-      window.location.reload();
+      if (!firstVisit) {
+        window.location.reload();
+      }
     },
     offline() {
       console.info(
