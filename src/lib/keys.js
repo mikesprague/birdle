@@ -1,6 +1,6 @@
 import keyboardJs from 'keyboardjs';
 
-module.exports.initKeyboardBindings = (keys, keyHandler) => {
+export const initKeyboardBindings = (keys, keyHandler) => {
   keys.forEach((keyVal) => {
     let letter = keyVal === 'back' ? 'backspace' : keyVal;
     keyboardJs.bind(letter, (e) => {
@@ -10,7 +10,7 @@ module.exports.initKeyboardBindings = (keys, keyHandler) => {
   });
 };
 
-module.exports.initKeys = (keys, keyHandler) => {
+export const initKeys = (keys, keyHandler) => {
   const keyboardContainer = document.querySelector('.keyboard-container');
   keys.forEach((keyVal) => {
     if (keyVal === '--') {
@@ -26,17 +26,17 @@ module.exports.initKeys = (keys, keyHandler) => {
       keyboardContainer.append(buttonEl);
     }
   });
-  module.exports.initKeyboardBindings(keys, keyHandler);
+  initKeyboardBindings(keys, keyHandler);
 };
 
-module.exports.gameOver = (keys, keyHandler) => {
+export const gameOver = (keys, keyHandler) => {
   keys.forEach((keyVal) => {
     let letter = keyVal === 'back' ? 'backspace' : keyVal;
     keyboardJs.unbind(letter, () => keyHandler(letter));
   });
 };
 
-module.exports.keys = [
+export const keys = [
   'q',
   'w',
   'e',

@@ -1,8 +1,8 @@
 @tailwind base;
 @tailwind components;
 
-@import '@sweetalert2/theme-dark/dark.scss';
-@import 'charts.css';
+@import '~@sweetalert2/theme-dark/dark.scss';
+// @import '~charts.css';
 
 * {
   @apply touch-manipulation;

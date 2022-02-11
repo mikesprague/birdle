@@ -11,6 +11,7 @@ import { showInstructions } from './lib/instructions';
 import { initKeys, keys } from './lib/keys';
 import { getData, setData } from './lib/local-storage';
 import { initStats, showStats, updateStats } from './lib/stats';
+import './styles.scss';
 
 let firstVisit = false;
 if (
@@ -63,7 +64,11 @@ initServiceWorker(firstVisit);
     document.getElementById('stats').addEventListener('click', () => {
       showStats();
     });
-    if (gameState.isGameOver && gameStats.gamesPlayed && day === gameState.gameId) {
+    if (
+      gameState.isGameOver &&
+      gameStats.gamesPlayed &&
+      day === gameState.gameId
+    ) {
       showStats();
     }
 

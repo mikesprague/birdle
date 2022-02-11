@@ -2,7 +2,7 @@ import { words } from './words';
 import { allowed } from './allowed';
 import { register } from 'register-service-worker';
 
-module.exports.getBirdleOfDay = () => {
+export const getBirdleOfDay = () => {
   const now = new Date();
   const start = new Date(2022, 0, 0);
   const diff = Number(now) - Number(start);
@@ -16,23 +16,23 @@ module.exports.getBirdleOfDay = () => {
   };
 };
 
-module.exports.isSystemDarkTheme = window.matchMedia(
+export const isSystemDarkTheme = window.matchMedia(
   '(prefers-color-scheme: dark)',
 ).matches
   ? true
   : false;
 
-module.exports.supportsShareApi = () =>
+export const supportsShareApi = () =>
   /Mobi/i.test(navigator.userAgent) &&
   /Chrome|Safari/i.test(navigator.userAgent);
 
-module.exports.isGuessValid = (word) =>
+export const isGuessValid = (word) =>
   words.includes(word.toLowerCase()) ||
   allowed.includes(word.toLowerCase()) ||
   words.includes(word.toUpperCase()) ||
   allowed.includes(word.toUpperCase());
 
-module.exports.successStrings = [
+export const successStrings = [
   'Genius',
   'Magnificent',
   'Impressive',
@@ -41,7 +41,7 @@ module.exports.successStrings = [
   'Phew',
 ];
 
-module.exports.buildGuessesRows = (guessesRows) => {
+export const buildGuessesRows = (guessesRows) => {
   const guessesContainer = document.querySelector('.guesses-container');
   guessesRows.forEach((guessRow, guessRowIndex) => {
     const rowEl = document.createElement('div');

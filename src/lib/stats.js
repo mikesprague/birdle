@@ -10,7 +10,9 @@ import { getData, setData } from './local-storage';
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
-module.exports.initStats = () => {
+import 'charts.css';
+
+export const initStats = () => {
   const initialStatsObject = {
     currentStreak: 0,
     maxStreak: 0,
@@ -28,7 +30,7 @@ module.exports.initStats = () => {
   return stats;
 };
 
-module.exports.updateStats = (won = true) => {
+export const updateStats = (won = true) => {
   const lastGameData = getData('gameState');
   const { currentRow } = lastGameData;
   let stats = getData('stats');
@@ -58,7 +60,7 @@ module.exports.updateStats = (won = true) => {
   setData('stats', stats);
 };
 
-module.exports.createShareText = () => {
+export const createShareText = () => {
   const absentEmoji = '🥚'; // '⚫';
   const presentEmoji = '🐣'; // '🟡';
   const correctEmoji = '🐥'; // '🟢';
@@ -95,9 +97,9 @@ module.exports.createShareText = () => {
   return shareText;
 };
 
-module.exports.handleShareClick = (e) => {
+export const handleShareClick = (e) => {
   e.preventDefault();
-  const gameResuls = module.exports.createShareText();
+  const gameResuls = createShareText();
   let useWebSharingApi = supportsShareApi() && navigator.share;
   console.log('useWebSharingApi: ', useWebSharingApi);
   // attempt to use web sharing api on mobile
@@ -144,7 +146,7 @@ module.exports.handleShareClick = (e) => {
   });
 };
 
-module.exports.initCountdown = () => {
+export const initCountdown = () => {
   const timerEnd = dayjs()
     .set('hour', 0)
     .set('minute', 0)
@@ -165,7 +167,7 @@ module.exports.initCountdown = () => {
   return handle;
 };
 
-module.exports.showStats = () => {
+export const showStats = () => {
   const stats = getData('stats');
   // let totalGuesses = 0;
   const guessCountArray = [];
@@ -188,7 +190,7 @@ module.exports.showStats = () => {
     showConfirmButton: false,
     allowOutsideClick: true,
     didOpen: () => {
-      timerHandle = module.exports.initCountdown();
+      timerHandle = initCountdown();
     },
     didDestroy: () => {
       clearInterval(timerHandle);
@@ -200,7 +202,7 @@ module.exports.showStats = () => {
       if (stats.gamesPlayed) {
         document
           .querySelector('.btn-share')
-          .addEventListener('click', module.exports.handleShareClick);
+          .addEventListener('click', handleShareClick);
       } else {
         document.querySelector('.btn-share').classList.add('invisible');
       }
