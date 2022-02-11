@@ -176,9 +176,8 @@ module.exports.showStats = () => {
       guessCountArray.push(stats.guesses[guess]);
     }
   }
-
   let scale = 100 / Math.max(...guessCountArray);
-
+  scale = scale === Infinity ? 0 : scale;
   let timerHandle;
   Swal.fire({
     background: isSystemDarkTheme ? '#181818' : '#dedede',
