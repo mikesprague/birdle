@@ -1,6 +1,6 @@
 // const cssWhitelistClassArray = [];
 
-const cssSafelistClassArray = [/swal2/];
+const cssSafelistClassArray = [/swal2/, /w-1\/2/];
 
 const purgecss = require('@fullhuman/postcss-purgecss')({
   // Specify the paths to all of the template files in your project
