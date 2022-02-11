@@ -53,6 +53,7 @@
     "cssnano": "5.0.17",
     "eslint": "8.8.0",
     "eslint-config-prettier": "8.3.0",
+    "eslint-config-stylelint": "15.0.0",
     "eslint-plugin-babel": "5.3.1",
     "eslint-plugin-compat": "4.0.2",
     "eslint-plugin-html": "6.2.0",
@@ -66,11 +67,16 @@
     "postcss-loader": "6.2.1",
     "prettier": "2.5.1",
     "prettier-eslint": "13.0.0",
+    "stylelint-prettier": "2.0.0",
     "sass": "1.49.7",
-    "sass-lint": "1.13.1",
     "sass-loader": "12.4.0",
     "serve": "13.0.2",
     "style-loader": "3.3.1",
+    "stylelint": "14.5.0",
+    "stylelint-config-prettier": "9.0.3",
+    "stylelint-config-prettier-scss": "0.0.1",
+    "stylelint-config-standard": "25.0.0",
+    "stylelint-config-standard-scss": "3.0.0",
     "tailwindcss": "3.0.22",
     "terser-webpack-plugin": "5.3.1",
     "url-loader": "4.1.1",
@@ -115,7 +121,8 @@
     },
     "extends": [
       "eslint:recommended",
-      "prettier"
+      "prettier",
+      "stylelint"
     ],
     "plugins": [
       "babel",
