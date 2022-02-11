@@ -169,6 +169,7 @@ export const initCountdown = () => {
 
 export const showStats = () => {
   const stats = getData('stats');
+  const gameState = getData('gameState');
   // let totalGuesses = 0;
   const guessCountArray = [];
   for (const guess in stats.guesses) {
@@ -199,7 +200,7 @@ export const showStats = () => {
       clearInterval(timerHandle);
     },
     didRender: () => {
-      if (stats.gamesPlayed) {
+      if (stats.gamesPlayed && gameState.isGameOver) {
         document
           .querySelector('.btn-share')
           .addEventListener('click', handleShareClick);
