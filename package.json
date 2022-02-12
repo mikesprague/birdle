@@ -6,10 +6,11 @@
   "scripts": {
     "build": "cross-env NODE_ENV=production yarn webpack --mode production",
     "clean": "rm -rf ./dist",
-    "dev": "cross-env NODE_ENV=development yarn webpack watch --mode development",
-    "start": "yarn dev && yarn serve",
+    "dev": "concurrently 'yarn watch' 'yarn serve' --names '📦 ,🖥 ' --prefix '[{name}] ' --kill-others",
+    "start": "yarn dev",
     "serve": "serve -S ./dist",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "cross-env NODE_ENV=development yarn webpack watch --mode development",
     "webpack": "webpack --color"
   },
   "keywords": [],
@@ -46,6 +47,7 @@
     "babel-loader": "8.2.3",
     "charts.css": "0.9.0",
     "compression-webpack-plugin": "9.2.0",
+    "concurrently": "7.0.0",
     "copy-webpack-plugin": "10.2.4",
     "cross-env": "7.0.3",
     "css-loader": "6.6.0",
