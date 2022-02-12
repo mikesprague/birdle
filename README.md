@@ -1,6 +1,6 @@
 # birdle :bird:
 
-Yet another Wordle clone - WIP :construction:
+Yet another Wordle clone
 
 ## About
 
@@ -18,33 +18,30 @@ Yet another Wordle clone - WIP :construction:
 1. Run project locally `yarn dev`
 1. Visit http://localhost:1234 in browser
 
-## Known issues/missing features
+## Features
 
-Work is in progress but it's an early version
+- Same rules as Wordle
+- Stateful via localstorage
+- Light/dark theme based on system setting
+- Supports keyboard bindings if using device with physical KB (laptop/PC/etc)
+- Progressive Web App (PWA)
+  - available offline
+  - installable
+  - responsive (mobile friendly)
+- Results sharing
+  - uses native sharing on mobile browsers that support it
+  - default behavior is to copy results to clipboard
+  - results key:
+    - absent 🥚
+    - present 🐣
+    - correct 🐥
+  - example results:
+  
+    ```text
+      Birdle 12 4/6
 
-### Known Issues
-
-- [x] game over: need to unbind events (keyboard and clicks)
-- [x] light theme: guesses display is white text on white bg
-- [x] light theme: message styling needs improvement
-- [x] bug fix: one of letter in birdle and two in guess changes kb key back to gray
-- [x] statefullness: need to reset state if day has changed and word no longer valid
-- [x] flash message: styling needs improvement
-- [x] mobile/responsive: general improvements
-- [ ] keyboard: should ignore kb bindings if used with `ctrl` or `command` (ex: `ctrl` + `r`)
-
-### Missing Features (planning to add)
-
-- [x] statefulness: will use localstorage
-- [x] game over: show stats
-- [x] sharing: develop sharing with emoji blocks
-- [x] game over: add sharing to game over info
-- [ ] stats: show guess distribution
-- [x] general: add stats and game number
-- [x] instructions: add popup with instructions
-- [x] instructions: add examples
-
-### Possible future enhancements
-
-- [ ] different word size
-- [ ] multiple words per day
+      🥚🐣🥚🥚🐥
+      🥚🥚🥚🐥🐥
+      🥚🐣🥚🐥🐥
+      🐥🐥🐥🐥🐥
+    ```
