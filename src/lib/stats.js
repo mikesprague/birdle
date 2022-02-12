@@ -260,7 +260,7 @@ export const showStats = () => {
                 <td
                   class="text-gray-50"
                   style="--color: ${currentGuessCount && currentGuessCount === 1
-                    ? '#6b21a8;'
+                    ? '#581c87;'
                     : '#333;'} --size:calc((${stats
                     .guesses[1]} * ${scale}) / 100)"
                 >
@@ -274,7 +274,7 @@ export const showStats = () => {
                 <td
                   class="text-gray-50"
                   style="--color: ${currentGuessCount && currentGuessCount === 2
-                    ? '#6b21a8;'
+                    ? '#581c87;'
                     : '#333;'} --size:calc((${stats
                     .guesses[2]} * ${scale}) / 100)"
                 >
@@ -288,7 +288,7 @@ export const showStats = () => {
                 <td
                   class="text-gray-50"
                   style="--color: ${currentGuessCount && currentGuessCount === 3
-                    ? '#6b21a8;'
+                    ? '#581c87;'
                     : '#333;'}; --size:calc((${stats
                     .guesses[3]} * ${scale}) / 100)"
                 >
@@ -302,7 +302,7 @@ export const showStats = () => {
                 <td
                   class="text-gray-50"
                   style="--color: ${currentGuessCount && currentGuessCount === 4
-                    ? '#6b21a8;'
+                    ? '#581c87;'
                     : '#333;'}; --size:calc((${stats
                     .guesses[4]} * ${scale}) / 100)"
                 >
@@ -316,7 +316,7 @@ export const showStats = () => {
                 <td
                   class="text-gray-50"
                   style="--color: ${currentGuessCount && currentGuessCount === 5
-                    ? '#6b21a8;'
+                    ? '#581c87;'
                     : '#333;'}; --size:calc((${stats
                     .guesses[5]} * ${scale}) / 100)"
                 >
@@ -330,7 +330,7 @@ export const showStats = () => {
                 <td
                   class="text-gray-50"
                   style="--color: ${currentGuessCount && currentGuessCount === 6
-                    ? '#6b21a8;'
+                    ? '#581c87;'
                     : '#333;'} --size:calc((${stats
                     .guesses[6]} * ${scale}) / 100)"
                 >

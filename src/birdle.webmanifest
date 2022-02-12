@@ -1,6 +1,7 @@
 {
-  "short_name": "BIRDLE",
   "name": "BIRDLE",
+  "short_name": "BIRDLE",
+  "description": "A new BIRDLE every day",
   "icons": [
     {
       "src": "./favicon.png",
@@ -15,11 +16,13 @@
       "purpose": "maskable"
     }
   ],
-  "start_url": ".",
-  "background_color": "#181818",
-  "display": "standalone",
+  "lang": "en-US",
+  "dir": "auto",
+  "orientation": "portrait",
+  "id": "/",
   "scope": "/",
-  "theme_color": "#181818",
-  "description": "A new BIRDLE every day",
-  "id": "/"
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#181818",
+  "theme_color": "#581c87"
 }
