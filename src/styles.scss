@@ -31,7 +31,7 @@ body {
   }
 
   .guess {
-    @apply md:w-16 md:h-16 w-12 h-12 border-2 border-gray-600 box-border flex justify-center items-center text-gray-900 dark:text-gray-50 m-1 text-3xl font-black;
+    @apply md:w-16 md:h-16 w-14 h-14 border-2 border-gray-600 box-border flex justify-center items-center text-gray-900 dark:text-gray-50 m-1 text-3xl font-black;
   }
 }
 
@@ -39,7 +39,7 @@ body {
   @apply w-full flex flex-wrap justify-center gap-1 px-2 touch-manipulation;
 
   .key {
-    @apply md:h-12 h-9 w-auto rounded-md border-0 flex flex-grow text-sm md:text-base bg-gray-400 text-white items-center justify-center touch-manipulation;
+    @apply md:h-12 h-10 w-auto rounded-md border-0 flex flex-grow text-sm md:text-base bg-gray-400 text-white items-center justify-center touch-manipulation;
 
     min-width: 1.65rem;
   }
@@ -54,7 +54,7 @@ body {
 
   .key:nth-child(22),
   .key:nth-child(30) {
-    min-width: 3rem;
+    min-width: 2rem;
   }
 }
 
@@ -119,7 +119,7 @@ svg.icon {
   }
 
   .guess {
-    @apply md:h-10 w-10 h-8 border-2 border-gray-600 box-border flex justify-center items-center text-gray-900 dark:text-gray-50 m-1 text-2xl font-black uppercase;
+    @apply md:h-10 w-10 h-10 border-2 border-gray-600 box-border flex justify-center items-center text-gray-900 dark:text-gray-50 m-1 text-2xl font-black uppercase;
   }
 
   .examples-text {
@@ -152,8 +152,7 @@ svg.icon {
 
 /* animations from https://animista.net/ */
 .flip-vertical-right {
-  animation: flip-vertical-right 0.4s cubic-bezier(0.455, 0.03, 0.515, 0.955)
-    reverse both;
+  animation: flip-vertical-right 0.4s cubic-bezier(0.455, 0.03, 0.515, 0.955) reverse both;
 }
 
 @keyframes flip-vertical-right {
