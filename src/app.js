@@ -14,6 +14,8 @@ import { initStats, showStats, updateStats } from './lib/stats';
 import '@sweetalert2/theme-dark/dark.scss';
 import './styles.scss';
 
+const { APP_VERSION } = process.env;
+
 let firstVisit = false;
 if (
   (getData('gameState') === null || getData('gameState') === undefined) &&
@@ -65,6 +67,7 @@ initServiceWorker(firstVisit);
     document.getElementById('stats').addEventListener('click', () => {
       showStats();
     });
+    // show stats if game complete
     if (
       gameState.isGameOver &&
       gameStats.gamesPlayed &&
@@ -72,7 +75,7 @@ initServiceWorker(firstVisit);
     ) {
       showStats();
     }
-
+    // color existing letters
     for (let i = 0; i < gameState.guessesRows.length; i += 1) {
       // console.log(i, gameState.guessesRows[i]);
       if (
@@ -83,6 +86,11 @@ initServiceWorker(firstVisit);
         colorGuess(i);
       }
     }
+    // append version to title
+    document.querySelector(
+      '.title-container h1',
+    ).innerHTML += `<small class="ml-1 text-sm font-normal tracking-tight lowercase">v${APP_VERSION}</small>`;
+    // watch for light/dark theme change
     window
       .matchMedia('(prefers-color-scheme: dark)')
       .addEventListener('change', (event) => {

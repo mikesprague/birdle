@@ -9,6 +9,8 @@
     "dev": "concurrently 'yarn watch' 'yarn serve' --names '📦 ,🖥 ' --prefix '[{name}] ' --kill-others",
     "start": "yarn dev",
     "serve": "serve -S ./dist",
+    "get-ver": "cross-env APP_VERSION=$(echo $npm_package_version)",
+    "play": "npm show . version",
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "cross-env NODE_ENV=development yarn webpack watch --mode development",
     "webpack": "webpack --color"
