@@ -184,6 +184,8 @@ export const showStats = () => {
   }
   let scale = 100 / Math.max(...guessCountArray);
   scale = scale === Infinity ? 0 : scale;
+  const currentGuessCount =
+    gameState.isGameOver && gameState.wonGame ? gameState.currentRow + 1 : null;
   let timerHandle;
   Swal.fire({
     background: isSystemDarkTheme ? '#181818' : '#dedede',
@@ -256,7 +258,10 @@ export const showStats = () => {
               <tr>
                 <th scope="row">1</th>
                 <td
-                  style="--color: #444; --size:calc((${stats
+                  class="text-gray-50"
+                  style="--color: ${currentGuessCount && currentGuessCount === 1
+                    ? '#6b21a8;'
+                    : '#333;'} --size:calc((${stats
                     .guesses[1]} * ${scale}) / 100)"
                 >
                   <span class="data"
@@ -267,7 +272,10 @@ export const showStats = () => {
               <tr>
                 <th scope="row">2</th>
                 <td
-                  style="--color: #444; --size:calc((${stats
+                  class="text-gray-50"
+                  style="--color: ${currentGuessCount && currentGuessCount === 2
+                    ? '#6b21a8;'
+                    : '#333;'} --size:calc((${stats
                     .guesses[2]} * ${scale}) / 100)"
                 >
                   <span class="data"
@@ -278,7 +286,10 @@ export const showStats = () => {
               <tr>
                 <th scope="row">3</th>
                 <td
-                  style="--color: #444; --size:calc((${stats
+                  class="text-gray-50"
+                  style="--color: ${currentGuessCount && currentGuessCount === 3
+                    ? '#6b21a8;'
+                    : '#333;'}; --size:calc((${stats
                     .guesses[3]} * ${scale}) / 100)"
                 >
                   <span class="data"
@@ -289,7 +300,10 @@ export const showStats = () => {
               <tr>
                 <th scope="row">4</th>
                 <td
-                  style="--color: #444; --size:calc((${stats
+                  class="text-gray-50"
+                  style="--color: ${currentGuessCount && currentGuessCount === 4
+                    ? '#6b21a8;'
+                    : '#333;'}; --size:calc((${stats
                     .guesses[4]} * ${scale}) / 100)"
                 >
                   <span class="data"
@@ -300,7 +314,10 @@ export const showStats = () => {
               <tr>
                 <th scope="row">5</th>
                 <td
-                  style="--color: #444; --size:calc((${stats
+                  class="text-gray-50"
+                  style="--color: ${currentGuessCount && currentGuessCount === 5
+                    ? '#6b21a8;'
+                    : '#333;'}; --size:calc((${stats
                     .guesses[5]} * ${scale}) / 100)"
                 >
                   <span class="data"
@@ -311,7 +328,10 @@ export const showStats = () => {
               <tr>
                 <th scope="row">6</th>
                 <td
-                  style="--color: #444; --size:calc((${stats
+                  class="text-gray-50"
+                  style="--color: ${currentGuessCount && currentGuessCount === 6
+                    ? '#6b21a8;'
+                    : '#333;'} --size:calc((${stats
                     .guesses[6]} * ${scale}) / 100)"
                 >
                   <span class="data"
