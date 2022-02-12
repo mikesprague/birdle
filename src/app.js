@@ -83,6 +83,11 @@ initServiceWorker(firstVisit);
         colorGuess(i);
       }
     }
+    window
+      .matchMedia('(prefers-color-scheme: dark)')
+      .addEventListener('change', (event) => {
+        window.location.reload();
+      });
     console.log('🙈 nothing to see here, move along now');
   };
 
