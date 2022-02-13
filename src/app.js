@@ -14,8 +14,6 @@ import { initStats, showStats, updateStats } from './lib/stats';
 import '@sweetalert2/theme-dark/dark.scss';
 import './styles.scss';
 
-const { APP_VERSION } = process.env;
-
 let firstVisit = false;
 if (
   (getData('gameState') === null || getData('gameState') === undefined) &&
@@ -86,10 +84,6 @@ initServiceWorker(firstVisit);
         colorGuess(i);
       }
     }
-    // append version to title
-    document.querySelector(
-      '.title-container h1',
-    ).innerHTML += `<small class="ml-1 text-sm font-normal tracking-tight lowercase">v${APP_VERSION}</small>`;
     // watch for light/dark theme change
     window
       .matchMedia('(prefers-color-scheme: dark)')

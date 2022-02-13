@@ -16,10 +16,13 @@ body {
 }
 
 .title-container {
-  @apply border-b-black dark:border-b-gray-100 border-b w-full;
+  @apply border-b-black dark:border-b-gray-100 border-b w-full flex flex-row justify-between;
 
   h1 {
     @apply text-4xl font-bold text-center uppercase mb-1 tracking-widest;
+    small {
+      @apply ml-1 text-sm font-normal tracking-tight lowercase;
+    }
   }
 }
 

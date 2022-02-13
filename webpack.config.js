@@ -55,11 +55,17 @@ const webpackRules = [
 ];
 
 const webpackPlugins = [
-  new webpack.DefinePlugin({
-    'process.env.APP_VERSION': JSON.stringify(process.env.npm_package_version),
-  }),
+  // new webpack.DefinePlugin({
+  //   'process.env.APP_VERSION': JSON.stringify(process.env.npm_package_version),
+  // }),
   new MiniCssExtractPlugin({
     filename: './styles.css',
+  }),
+  new HtmlWebpackPlugin({
+    inject: false,
+    template: './src/index.html',
+    environment: mode,
+    appVersion: process.env.npm_package_version,
   }),
   new CopyWebpackPlugin({
     patterns: [
@@ -78,11 +84,6 @@ const webpackPlugins = [
         force: true,
       },
     ],
-  }),
-  new HtmlWebpackPlugin({
-    template: './src/index.html',
-    filename: './index.html',
-    inject: false,
   }),
   new WorkboxPlugin.GenerateSW({
     cleanupOutdatedCaches: true,
