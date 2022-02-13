@@ -6,7 +6,7 @@
   "scripts": {
     "build": "cross-env NODE_ENV=production yarn webpack --mode production",
     "clean": "rm -rf ./dist",
-    "dev": "concurrently 'yarn watch' 'yarn serve' --names '📦 ,🖥 ' --prefix '[{name}] ' --kill-others",
+    "dev": "concurrently 'yarn watch' 'yarn serve' --names '📦,🖥' --prefix '[{name}] ' --kill-others",
     "start": "yarn dev",
     "serve": "serve -S ./dist -p 1234",
     "get-ver": "cross-env APP_VERSION=$(echo $npm_package_version)",
