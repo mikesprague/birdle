@@ -46,13 +46,20 @@
     <script type="module" src="./app.js"></script>
     <script>
       setTimeout(() => {
-        const script = document.createElement('script');
-        script.setAttribute(
+        // cloudflare analytics
+        const cloudFlareScript = document.createElement('script');
+        cloudFlareScript.setAttribute('src', 'https://static.cloudflareinsights.com/beacon.min.js');
+        cloudFlareScript.setAttribute('defer', 'https://static.cloudflareinsights.com/beacon.min.js');
+        cloudFlareScript.setAttribute('data-cf-beacon', '{"token": "29d2c844068c46f2889b0399d73c78c6"}');
+        document.querySelector('body').appendChild(cloudFlareScript);
+        // cloudflare analytics
+        const googleAnalyticsScript = document.createElement('script');
+        googleAnalyticsScript.setAttribute(
           'src',
           'https://www.googletagmanager.com/gtag/js?id=G-KDCMVB11KQ',
         );
-        script.setAttribute('async', '');
-        document.querySelector('body').appendChild(script);
+        googleAnalyticsScript.setAttribute('async', '');
+        document.querySelector('body').appendChild(googleAnalyticsScript);
         window.dataLayer = window.dataLayer || [];
         /* eslint-disable */
         function gtag() {
