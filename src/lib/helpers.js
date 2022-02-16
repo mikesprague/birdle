@@ -91,3 +91,28 @@ export const initServiceWorker = (firstVisit = false) => {
     },
   });
 };
+
+export const initAnalytics = () => {
+  setTimeout(() => {
+    // cloudflare analytics
+    const cloudFlareScript = document.createElement('script');
+    cloudFlareScript.setAttribute('src', 'https://static.cloudflareinsights.com/beacon.min.js');
+    cloudFlareScript.setAttribute('defer', '');
+    cloudFlareScript.setAttribute('data-cf-beacon', '{"token": "29d2c844068c46f2889b0399d73c78c6"}');
+    document.querySelector('body').appendChild(cloudFlareScript);
+    // google analytics
+    const googleAnalyticsScript = document.createElement('script');
+    googleAnalyticsScript.setAttribute(
+      'src',
+      'https://www.googletagmanager.com/gtag/js?id=G-KDCMVB11KQ',
+    );
+    googleAnalyticsScript.setAttribute('async', '');
+    document.querySelector('body').appendChild(googleAnalyticsScript);
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'G-KDCMVB11KQ');
+  }, 1000);
+};

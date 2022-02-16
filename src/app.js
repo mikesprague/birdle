@@ -6,6 +6,7 @@ import {
   buildGuessesRows,
   isSystemDarkTheme,
   initServiceWorker,
+  initAnalytics,
 } from './lib/helpers';
 import { showInstructions } from './lib/instructions';
 import { initKeys, keys } from './lib/keys';
@@ -13,6 +14,8 @@ import { getData, setData } from './lib/local-storage';
 import { initStats, showStats, updateStats } from './lib/stats';
 import '@sweetalert2/theme-dark/dark.scss';
 import './styles.scss';
+
+initAnalytics();
 
 let firstVisit = false;
 if (
