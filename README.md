@@ -4,7 +4,7 @@ Yet another Wordle clone
 
 ## Features
 
-- :capital_abcd: Same rules and word lists as [Wordle](https://www.nytimes.com/games/wordle/index.html)
+- :capital_abcd: Same rules and word lists as original (pre NYT) Wordle
 - :file_cabinet: Remembers current game status and previous results (stateful via localstorage)
 - :art: Dark/light theme based on system setting
 - :keyboard: Supports keyboard bindings if using device with physical KB (laptop/PC/etc)
