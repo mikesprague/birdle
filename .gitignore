@@ -120,3 +120,4 @@ dist
 .vercel
 local-storage/*
 !local-storage/.gitkeep
+.vscode

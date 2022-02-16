@@ -6,3 +6,4 @@ birdle.code-workspace
 .devcontainer
 .github
 dependabot.yml
+.vscode
