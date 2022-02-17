@@ -78,7 +78,7 @@ export const initServiceWorker = (firstVisit = false) => {
     updated() {
       // updated(registration)
       if (!firstVisit) {
-        window.location.reload();
+        location.reload(true);
       }
     },
     offline() {

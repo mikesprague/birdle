@@ -158,7 +158,7 @@ export const initCountdown = () => {
     const timeNow = dayjs().local().valueOf();
     const diff = timerEnd - timeNow;
     if (diff <= 0) {
-      window.location.reload();
+      location.reload(true);
     }
     const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));

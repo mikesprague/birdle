@@ -91,8 +91,14 @@ initServiceWorker(firstVisit);
     window
       .matchMedia('(prefers-color-scheme: dark)')
       .addEventListener('change', (event) => {
-        window.location.reload();
+        location.reload(true);
       });
+    // watch for tab change and reload if taking focus
+    document.addEventListener('visibilitychange', (e) => {
+      if (document.visibilityState === 'visible') {
+        location.reload(true);
+      }
+    });
     console.log('🙈 nothing to see here, move along now');
   };
 
