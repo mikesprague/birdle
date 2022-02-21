@@ -1,6 +1,8 @@
 @tailwind base;
 @tailwind components;
 
+@import '@sweetalert2/theme-dark/dark.scss';
+
 * {
   @apply touch-manipulation;
 }
