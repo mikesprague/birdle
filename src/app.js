@@ -244,19 +244,21 @@ initServiceWorker(firstVisit);
       }
       colorGuess(currentRow);
       if (guess.toLowerCase() === birdle.word) {
-        Swal.fire({
-          text: successStrings[currentRow],
-          showConfirmButton: false,
-          toast: true,
-          position: 'top',
-          allowEscapeKey: false,
-          background: isSystemDarkTheme ? '#181818' : '#dedede',
-          color: isSystemDarkTheme ? '#dedede' : '#181818',
-          timer: 2500,
-          didDestroy: () => {
-            showStats();
-          },
-        });
+        setTimeout(() => {
+          Swal.fire({
+            text: successStrings[currentRow],
+            showConfirmButton: false,
+            toast: true,
+            position: 'top',
+            allowEscapeKey: false,
+            background: isSystemDarkTheme ? '#181818' : '#dedede',
+            color: isSystemDarkTheme ? '#dedede' : '#181818',
+            timer: 2500,
+            didDestroy: () => {
+              showStats();
+            },
+          });
+        }, 1500);
         document
           .getElementById('enter')
           .removeEventListener('click', handleKey, true);
@@ -275,20 +277,22 @@ initServiceWorker(firstVisit);
           document
             .getElementById('enter')
             .removeEventListener('click', handleKey, true);
-          Swal.fire({
-            html: `Womp womp!<br>Today's Birdle was: <em class="uppercase">${birdle.word}</em>`,
-            showConfirmButton: false,
-            toast: true,
-            position: 'top',
-            allowEscapeKey: true,
-            background: isSystemDarkTheme ? '#181818' : '#dedede',
-            color: isSystemDarkTheme ? '#dedede' : '#181818',
-            allowOutsideClick: true,
-            timer: 2500,
-            didDestroy: () => {
-              showStats();
-            },
-          });
+          setTimeout(() => {
+            Swal.fire({
+              html: `Womp womp!<br>Today's Birdle was: <em class="uppercase">${birdle.word}</em>`,
+              showConfirmButton: false,
+              toast: true,
+              position: 'top',
+              allowEscapeKey: true,
+              background: isSystemDarkTheme ? '#181818' : '#dedede',
+              color: isSystemDarkTheme ? '#dedede' : '#181818',
+              allowOutsideClick: true,
+              timer: 2500,
+              didDestroy: () => {
+                showStats();
+              },
+            });
+          }, 1500);
           gameState.isGameOver = true;
           setData('gameState', gameState);
           updateStats(false);
