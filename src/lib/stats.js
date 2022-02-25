@@ -1,15 +1,18 @@
+/* eslint-disable no-console */
 import ClipboardJS from 'clipboard';
 import Swal from 'sweetalert2';
-import { html } from 'common-tags';
 import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
+import { html } from 'common-tags';
 import timezone from 'dayjs/plugin/timezone';
-import { isSystemDarkTheme, supportsShareApi } from './helpers';
+import utc from 'dayjs/plugin/utc';
+
 import { getData, setData } from './local-storage';
+import { isSystemDarkTheme, supportsShareApi } from './helpers';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
+// eslint-disable-next-line node/no-unpublished-import
 import 'charts.css';
 
 export const initStats = () => {
@@ -23,10 +26,12 @@ export const initStats = () => {
     averageGuesses: 0,
   };
   let stats = getData('stats');
+
   if (stats === null || stats === undefined) {
     stats = initialStatsObject;
     setData('stats', stats);
   }
+
   return stats;
 };
 
@@ -34,28 +39,35 @@ export const updateStats = (won = true) => {
   const lastGameData = getData('gameState');
   const { currentRow } = lastGameData;
   let stats = getData('stats');
+
   // increment every game
   stats.gamesPlayed += 1;
+
   if (won) {
     // calculate on win
     stats.guesses[currentRow + 1] += 1;
     stats.currentStreak += 1;
     stats.gamesWon += 1;
+
     if (stats.currentStreak >= stats.maxStreak) {
       stats.maxStreak += 1;
     }
+
     let totalGuesses = 0;
+
     for (const guess in stats.guesses) {
       // console.log(stats.guesses[guess], guess);
       if (guess !== 'fail') {
         totalGuesses += stats.guesses[guess] * Number(guess);
       }
     }
+
     stats.averageGuesses = Math.round(totalGuesses / stats.gamesPlayed);
   } else {
     stats.guesses.fail += 1;
     stats.currentStreak = 0;
   }
+
   stats.winPercentage = Math.round((stats.gamesWon / stats.gamesPlayed) * 100);
   setData('stats', stats);
 };
@@ -72,49 +84,60 @@ export const createShareText = () => {
       ? `Birdle ${gameId} ${finalRow}/6\n\n`
       : `Birdle ${gameId} X/6\n\n`;
   let shareText = '';
+
   for (let i = 0; i < finalRow; i += 1) {
     const guesses = Array.from(
       document.getElementById(`guessRow-${i}`).childNodes,
     );
+    // eslint-disable-next-line array-callback-return
     const rowEmoji = guesses.map((guess) => {
       if (guess.classList.contains('correct-overlay')) {
         return correctEmoji;
       }
+
       if (guess.classList.contains('present-overlay')) {
         return presentEmoji;
       }
+
       if (guess.classList.contains('absent-overlay')) {
         return absentEmoji;
       }
     });
+
     shareText += `${rowEmoji.join('')}`;
+
     if (i < finalRow - 1) {
       shareText += '\n';
     }
   }
+
   shareText = shareTextLabel + shareText;
+
   // console.log(shareText);
   return shareText;
 };
 
 export const handleShareClick = (e) => {
   e.preventDefault();
-  const gameResuls = createShareText();
+  const gameResults = createShareText();
   let useWebSharingApi = supportsShareApi() && navigator.share;
-  console.log('useWebSharingApi: ', useWebSharingApi);
+
+  // console.log('useWebSharingApi: ', useWebSharingApi);
+
   // attempt to use web sharing api on mobile
   if (useWebSharingApi) {
     navigator
       .share({
-        text: gameResuls,
+        text: gameResults,
       })
       .then(() => console.log('Successful share'))
       .catch((error) => {
         console.log('Error sharing', error);
         // use clipboard
-        e.target.setAttribute('data-clipboard-text', gameResuls);
+        e.target.setAttribute('data-clipboard-text', gameResults);
         const clipboard = new ClipboardJS('.btn-share');
-        clipboard.on('success', function () {
+
+        clipboard.on('success', () => {
           Swal.fire({
             html: '<strong>Copied results to clipboard<strong>',
             showConfirmButton: false,
@@ -123,17 +146,20 @@ export const handleShareClick = (e) => {
             timerProgressBar: true,
             position: 'top',
             allowEscapeKey: false,
-            background: isSystemDarkTheme ? '#181818' : '#dedede',
-            color: isSystemDarkTheme ? '#dedede' : '#181818',
+            background: isSystemDarkTheme ? '#333' : '#dedede',
+            color: isSystemDarkTheme ? '#dedede' : '#222',
           });
         });
       });
+
     return;
   }
+
   // use clipboard
-  e.target.setAttribute('data-clipboard-text', gameResuls);
+  e.target.setAttribute('data-clipboard-text', gameResults);
   const clipboard = new ClipboardJS('.btn-share');
-  clipboard.on('success', function () {
+
+  clipboard.on('success', () => {
     Swal.fire({
       html: '<strong>Copied results to clipboard<strong>',
       showConfirmButton: false,
@@ -142,8 +168,8 @@ export const handleShareClick = (e) => {
       timerProgressBar: true,
       position: 'top',
       allowEscapeKey: false,
-      background: isSystemDarkTheme ? '#181818' : '#dedede',
-      color: isSystemDarkTheme ? '#dedede' : '#181818',
+      background: isSystemDarkTheme ? '#333' : '#dedede',
+      color: isSystemDarkTheme ? '#dedede' : '#222',
     });
   });
 };
@@ -159,16 +185,20 @@ export const initCountdown = () => {
   const handle = setInterval(() => {
     const timeNow = dayjs().local().valueOf();
     const diff = timerEnd - timeNow;
+
     if (diff <= 0) {
       location.reload(true);
     }
+
     const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((diff % (1000 * 60)) / 1000);
     // prettier-ignore
     const timeString = `${hours.toString().padStart(2, 0)}:${minutes.toString().padStart(2, 0)}:${seconds.toString().padStart(2, 0)}`;
+
     document.querySelector('.timer').innerHTML = timeString;
   }, 1000);
+
   return handle;
 };
 
@@ -177,6 +207,7 @@ export const showStats = () => {
   const gameState = getData('gameState');
   // let totalGuesses = 0;
   const guessCountArray = [];
+
   for (const guess in stats.guesses) {
     // console.log(stats.guesses[guess], guess);
     if (guess !== 'fail') {
@@ -184,11 +215,14 @@ export const showStats = () => {
       guessCountArray.push(stats.guesses[guess]);
     }
   }
+
   let scale = 100 / Math.max(...guessCountArray);
+
   scale = scale === Infinity ? 0 : scale;
   const currentGuessCount =
     gameState.isGameOver && gameState.wonGame ? gameState.currentRow + 1 : null;
   let timerHandle;
+
   Swal.fire({
     background: isSystemDarkTheme ? '#181818' : '#dedede',
     color: isSystemDarkTheme ? '#dedede' : '#181818',
