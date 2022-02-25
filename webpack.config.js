@@ -1,5 +1,4 @@
 const path = require('path');
-const webpack = require('webpack');
 const WorkboxPlugin = require('workbox-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -55,9 +54,6 @@ const webpackRules = [
 ];
 
 const webpackPlugins = [
-  // new webpack.DefinePlugin({
-  //   'process.env.APP_VERSION': JSON.stringify(process.env.npm_package_version),
-  // }),
   new MiniCssExtractPlugin({
     filename: './styles.css',
   }),
