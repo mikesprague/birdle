@@ -224,14 +224,15 @@ initServiceWorker(firstVisit);
       const guess = guessesRows[currentRow].join('');
       if (!isGuessValid(guess)) {
         Swal.fire({
-          html: 'Not in word list',
+          html: '<strong>Not in word list</strong>',
           showConfirmButton: false,
           toast: true,
           timer: 2500,
+          timerProgressBar: true,
           position: 'top',
           allowEscapeKey: false,
-          background: isSystemDarkTheme ? '#181818' : '#dedede',
-          color: isSystemDarkTheme ? '#dedede' : '#181818',
+          background: isSystemDarkTheme ? '#333' : '#dedede',
+          color: isSystemDarkTheme ? '#dedede' : '#222',
         });
         const row = document.getElementById(`guessRow-${currentRow}`);
         row.classList.add('shake-horizontal');
@@ -246,14 +247,15 @@ initServiceWorker(firstVisit);
       if (guess.toLowerCase() === birdle.word) {
         setTimeout(() => {
           Swal.fire({
-            text: successStrings[currentRow],
+            html: `<strong>${successStrings[currentRow]}</strong>`,
             showConfirmButton: false,
             toast: true,
             position: 'top',
             allowEscapeKey: false,
-            background: isSystemDarkTheme ? '#181818' : '#dedede',
-            color: isSystemDarkTheme ? '#dedede' : '#181818',
+            background: isSystemDarkTheme ? '#333' : '#dedede',
+            color: isSystemDarkTheme ? '#dedede' : '#222',
             timer: 2500,
+            timerProgressBar: true,
             didDestroy: () => {
               showStats();
             },
@@ -279,15 +281,16 @@ initServiceWorker(firstVisit);
             .removeEventListener('click', handleKey, true);
           setTimeout(() => {
             Swal.fire({
-              html: `Womp womp!<br>Today's Birdle was: <em class="uppercase">${birdle.word}</em>`,
+              html: `<strong>Womp womp!<br>Today's Birdle was: <em class="uppercase">${birdle.word}</em></strong>`,
               showConfirmButton: false,
               toast: true,
               position: 'top',
               allowEscapeKey: true,
-              background: isSystemDarkTheme ? '#181818' : '#dedede',
-              color: isSystemDarkTheme ? '#dedede' : '#181818',
+              background: isSystemDarkTheme ? '#333' : '#dedede',
+              color: isSystemDarkTheme ? '#dedede' : '#222',
               allowOutsideClick: true,
               timer: 2500,
+              timerProgressBar: true,
               didDestroy: () => {
                 showStats();
               },

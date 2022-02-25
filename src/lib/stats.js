@@ -116,10 +116,11 @@ export const handleShareClick = (e) => {
         const clipboard = new ClipboardJS('.btn-share');
         clipboard.on('success', function () {
           Swal.fire({
-            html: 'Copied results to clipboard',
+            html: '<strong>Copied results to clipboard<strong>',
             showConfirmButton: false,
             toast: true,
             timer: 2500,
+            timerProgressBar: true,
             position: 'top',
             allowEscapeKey: false,
             background: isSystemDarkTheme ? '#181818' : '#dedede',
@@ -134,10 +135,11 @@ export const handleShareClick = (e) => {
   const clipboard = new ClipboardJS('.btn-share');
   clipboard.on('success', function () {
     Swal.fire({
-      html: 'Copied results to clipboard',
+      html: '<strong>Copied results to clipboard<strong>',
       showConfirmButton: false,
       toast: true,
       timer: 2500,
+      timerProgressBar: true,
       position: 'top',
       allowEscapeKey: false,
       background: isSystemDarkTheme ? '#181818' : '#dedede',
