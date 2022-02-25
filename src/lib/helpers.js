@@ -1,26 +1,35 @@
-import { words } from './words';
-import { allowed } from './allowed';
+/* eslint-disable no-use-before-define */
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { register } from 'register-service-worker';
+
+import { getData, setData } from './local-storage';
+import { initKeys, keys } from './keys';
+import { initStats, showStats, updateStats } from './stats';
+import { allowed } from './allowed';
+import { showInstructions } from './instructions';
+import { words } from './words';
 
 export const getBirdleOfDay = () => {
   const now = new Date();
   const start = new Date(2022, 0, 0);
   const diff = Number(now) - Number(start);
   let day = Math.floor(diff / (1000 * 60 * 60 * 24));
+
   while (day > words.length) {
     day -= words.length;
   }
+
   return {
     word: words[day],
     day,
   };
 };
 
+const birdle = getBirdleOfDay();
+
 export const isSystemDarkTheme = window.matchMedia(
   '(prefers-color-scheme: dark)',
-).matches
-  ? true
-  : false;
+).matches;
 
 export const supportsShareApi = () =>
   /Mobi/i.test(navigator.userAgent) &&
@@ -43,12 +52,15 @@ export const successStrings = [
 
 export const buildGuessesRows = (guessesRows) => {
   const guessesContainer = document.querySelector('.guesses-container');
+
   guessesRows.forEach((guessRow, guessRowIndex) => {
     const rowEl = document.createElement('div');
+
     rowEl.setAttribute('id', `guessRow-${guessRowIndex}`);
     rowEl.classList.add('guess-row');
     guessRow.forEach((guess, guessIndex) => {
       const guessEl = document.createElement('div');
+
       guessEl.setAttribute(
         'id',
         `guessRow-${guessRowIndex}-guess-${guessIndex}`,
@@ -82,6 +94,7 @@ export const initServiceWorker = (firstVisit = false) => {
       }
     },
     offline() {
+      // eslint-disable-next-line no-console
       console.info(
         'No internet connection found. BIRDLE is running in offline mode.',
       );
@@ -96,12 +109,20 @@ export const initAnalytics = () => {
   setTimeout(() => {
     // cloudflare analytics
     const cloudFlareScript = document.createElement('script');
-    cloudFlareScript.setAttribute('src', 'https://static.cloudflareinsights.com/beacon.min.js');
+
+    cloudFlareScript.setAttribute(
+      'src',
+      'https://static.cloudflareinsights.com/beacon.min.js',
+    );
     cloudFlareScript.setAttribute('defer', '');
-    cloudFlareScript.setAttribute('data-cf-beacon', '{"token": "29d2c844068c46f2889b0399d73c78c6"}');
+    cloudFlareScript.setAttribute(
+      'data-cf-beacon',
+      '{"token": "29d2c844068c46f2889b0399d73c78c6"}',
+    );
     document.querySelector('body').appendChild(cloudFlareScript);
     // google analytics
     const googleAnalyticsScript = document.createElement('script');
+
     googleAnalyticsScript.setAttribute(
       'src',
       'https://www.googletagmanager.com/gtag/js?id=G-KDCMVB11KQ',
@@ -109,10 +130,345 @@ export const initAnalytics = () => {
     googleAnalyticsScript.setAttribute('async', '');
     document.querySelector('body').appendChild(googleAnalyticsScript);
     window.dataLayer = window.dataLayer || [];
+
     function gtag() {
+      /* eslint-disable no-undef */
+      /* eslint-disable prefer-rest-params */
       dataLayer.push(arguments);
+      /* eslint-enable no-undef */
+      /* eslint-enable prefer-rest-params */
     }
+
     gtag('js', new Date());
     gtag('config', 'G-KDCMVB11KQ');
   }, 1000);
+};
+
+export const deleteLetter = () => {
+  let gameState = getData('gameState');
+  let { currentRow, currentGuess } = gameState;
+
+  if (currentGuess > 0) {
+    currentGuess -= 1;
+    const el = document.getElementById(
+      `guessRow-${currentRow}-guess-${currentGuess}`,
+    );
+
+    el.textContent = '';
+    el.setAttribute('data', '');
+    gameState.guessesRows[currentRow][currentGuess] = '';
+    gameState.currentGuess = currentGuess;
+    setData('gameState', gameState);
+  }
+};
+
+export const addLetter = (letter) => {
+  let gameState = getData('gameState');
+  let { currentRow, currentGuess, guessesRows } = gameState;
+
+  if (
+    currentGuess < guessesRows[currentRow].length &&
+    currentRow < guessesRows.length
+  ) {
+    const el = document.getElementById(
+      `guessRow-${currentRow}-guess-${currentGuess}`,
+    );
+
+    el.textContent = letter.toUpperCase();
+    el.setAttribute('data', letter);
+
+    gameState.guessesRows[currentRow][currentGuess] = letter;
+    gameState.currentGuess += 1;
+    setData('gameState', gameState);
+    // guessesRows[currentRow][currentGuess] = letter;
+    // currentGuess += 1;
+  }
+};
+
+export const colorKeyboardLetter = (letter, className) => {
+  const key = document.getElementById(letter);
+
+  if (!key) {
+    return;
+  }
+
+  if (className === 'correct-overlay') {
+    key.classList.remove('present-overlay');
+    key.classList.remove('absent-overlay');
+    key.classList.add('correct-overlay');
+
+    return;
+  }
+
+  if (
+    className === 'present-overlay' &&
+    !key.classList.contains('correct-overlay')
+  ) {
+    key.classList.remove('correct-overlay');
+    key.classList.remove('absent-overlay');
+    key.classList.add('present-overlay');
+
+    return;
+  }
+
+  if (
+    className === 'absent-overlay' &&
+    !key.classList.contains('correct-overlay') &&
+    !key.classList.contains('present-overlay')
+  ) {
+    key.classList.add('absent-overlay');
+  }
+  // if (className === 'absent-overlay') {
+  //   key.setAttribute('disabled', 'disabled');
+  // }
+};
+
+export const colorGuess = (currentRow) => {
+  const row = document.getElementById(`guessRow-${currentRow}`);
+  const guesses = row.childNodes;
+  const gameState = getData('gameState');
+  let checkBirdle = birdle.word;
+  let guessArray = Array.from(guesses).map((guess) => {
+    return {
+      letter: guess.textContent.toLowerCase(),
+      color: 'absent-overlay',
+    };
+  });
+
+  guessArray.forEach((guess, guessIndex) => {
+    // console.log(guess, birdle[guessIndex]);
+    if (guess.letter === birdle.word[guessIndex]) {
+      guess.color = 'correct-overlay';
+      checkBirdle = checkBirdle.replace(guess.letter, '');
+    }
+  });
+
+  guessArray.forEach((guess) => {
+    if (
+      checkBirdle.includes(guess.letter) &&
+      guess.color !== 'correct-overlay'
+    ) {
+      guess.color = 'present-overlay';
+      checkBirdle = checkBirdle.replace(guess.letter, '');
+    }
+  });
+
+  guesses.forEach((guess, guessIndex) => {
+    const dataLetter = guess.textContent.toLowerCase();
+
+    setTimeout(
+      () => {
+        guess.classList.add(guessArray[guessIndex].color);
+
+        if (!gameState.isGameOver) {
+          guess.classList.add('flip-vertical-right');
+        }
+
+        colorKeyboardLetter(dataLetter, guessArray[guessIndex].color);
+      },
+      !gameState.isGameOver ? 300 * guessIndex : 0,
+    );
+  });
+};
+
+export const checkWord = () => {
+  let gameState = getData('gameState');
+  let { currentRow, currentGuess, guessesRows } = gameState;
+
+  if (currentGuess === guessesRows[currentRow].length) {
+    const guess = guessesRows[currentRow].join('');
+
+    if (!isGuessValid(guess)) {
+      Swal.fire({
+        html: '<strong>Not in word list</strong>',
+        showConfirmButton: false,
+        toast: true,
+        timer: 2500,
+        timerProgressBar: true,
+        position: 'top',
+        allowEscapeKey: false,
+        background: isSystemDarkTheme ? '#333' : '#dedede',
+        color: isSystemDarkTheme ? '#dedede' : '#222',
+      });
+      const row = document.getElementById(`guessRow-${currentRow}`);
+
+      row.classList.add('shake-horizontal');
+      setTimeout(() => row.classList.remove('shake-horizontal'), 250);
+      // row.childNodes.forEach((item) => {
+      //   item.classList.add('shake-horizontal');
+      //   setTimeout(() => item.classList.remove('shake-horizontal'), 250);
+      // });
+
+      return;
+    }
+
+    colorGuess(currentRow);
+
+    if (guess.toLowerCase() === birdle.word) {
+      setTimeout(() => {
+        Swal.fire({
+          html: `<strong>${successStrings[currentRow]}</strong>`,
+          showConfirmButton: false,
+          toast: true,
+          position: 'top',
+          allowEscapeKey: false,
+          background: isSystemDarkTheme ? '#333' : '#dedede',
+          color: isSystemDarkTheme ? '#dedede' : '#222',
+          timer: 2500,
+          timerProgressBar: true,
+          didDestroy: () => {
+            showStats();
+          },
+        });
+      }, 1500);
+      document
+        .getElementById('enter')
+        .removeEventListener('click', handleKey, true);
+      gameState.isGameOver = true;
+      gameState.wonGame = true;
+      setData('gameState', gameState);
+      updateStats(true);
+
+      return;
+    }
+
+    if (currentRow < guessesRows.length - 1) {
+      gameState.currentRow += 1;
+      gameState.currentGuess = 0;
+      setData('gameState', gameState);
+    } else {
+      document
+        .getElementById('enter')
+        .removeEventListener('click', handleKey, true);
+      setTimeout(() => {
+        Swal.fire({
+          html: `<strong>Womp womp!<br>Today's Birdle was: <em class="uppercase">${birdle.word}</em></strong>`,
+          showConfirmButton: false,
+          toast: true,
+          position: 'top',
+          allowEscapeKey: true,
+          background: isSystemDarkTheme ? '#333' : '#dedede',
+          color: isSystemDarkTheme ? '#dedede' : '#222',
+          timer: 2500,
+          timerProgressBar: true,
+          didDestroy: () => {
+            showStats();
+          },
+        });
+      }, 1500);
+
+      gameState.isGameOver = true;
+      setData('gameState', gameState);
+      updateStats(false);
+    }
+  } else {
+    // not enough letters
+  }
+};
+
+export const handleKey = (letter) => {
+  let gameState = getData('gameState');
+  let { isGameOver } = gameState;
+
+  if (!isGameOver) {
+    const key = typeof letter === 'object' ? letter.target.id : letter;
+
+    if (key === 'ctrl' || key === 'shift' || key === 'alt') {
+      return;
+    }
+
+    if (key === 'back' || key === 'backspace') {
+      deleteLetter();
+    }
+
+    if (key === 'enter') {
+      checkWord();
+    }
+
+    if (key.length === 1) {
+      addLetter(key);
+    }
+  }
+};
+
+export const initGame = (day = null, firstVisit = false) => {
+  const initialGameState = {
+    currentRow: 0,
+    currentGuess: 0,
+    isGameOver: false,
+    wonGame: false,
+    guessesRows: [
+      ['', '', '', '', ''],
+      ['', '', '', '', ''],
+      ['', '', '', '', ''],
+      ['', '', '', '', ''],
+      ['', '', '', '', ''],
+      ['', '', '', '', ''],
+    ],
+    gameId: day,
+  };
+  let gameState = getData('gameState');
+  let gameStats = getData('stats');
+
+  if (firstVisit) {
+    initStats();
+    showInstructions();
+    gameStats = getData('stats');
+  }
+
+  if (
+    gameState === null ||
+    gameState === undefined ||
+    day === null ||
+    day === undefined ||
+    (gameState && day > gameState.gameId)
+  ) {
+    setData('gameState', initialGameState);
+    gameState = initialGameState;
+  }
+
+  buildGuessesRows(gameState.guessesRows);
+  initKeys(keys, handleKey);
+  document.getElementById('help').addEventListener('click', () => {
+    showInstructions();
+  });
+  document.getElementById('stats').addEventListener('click', () => {
+    showStats();
+  });
+
+  // show stats if game complete
+  if (
+    gameState.isGameOver &&
+    gameStats.gamesPlayed &&
+    day === gameState.gameId
+  ) {
+    showStats();
+  }
+
+  // color existing letters
+  for (let i = 0; i < gameState.guessesRows.length; i += 1) {
+    // console.log(i, gameState.guessesRows[i]);
+    if (
+      gameState.guessesRows[i].join('').length &&
+      gameState.guessesRows[i].join('').length === 5 &&
+      isGuessValid(gameState.guessesRows[i].join(''))
+    ) {
+      colorGuess(i);
+    }
+  }
+
+  // watch for light/dark theme change
+  window
+    .matchMedia('(prefers-color-scheme: dark)')
+    .addEventListener('change', () => {
+      location.reload(true);
+    });
+  // watch for tab change and reload if taking focus
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') {
+      location.reload(true);
+    }
+  });
+  // eslint-disable-next-line no-console
+  console.log('🙈 nothing to see here, move along now');
 };
