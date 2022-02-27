@@ -1,4 +1,5 @@
 const colors = require('tailwindcss/colors');
+const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
   mode: 'jit',
@@ -22,6 +23,10 @@ module.exports = {
         absent: '#3a3a3c',
         present: '#b59f3b',
         correct: '#538d4e',
+      },
+      screens: {
+        short: { raw: '(max-height: 640px)' },
+        ...defaultTheme.screens,
       },
     },
   },
