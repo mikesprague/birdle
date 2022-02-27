@@ -44,7 +44,7 @@ body {
 }
 
 .keyboard-container {
-  @apply w-full flex flex-wrap justify-center gap-1 px-2 touch-manipulation md:mb-4 mb-2;
+  @apply flex flex-wrap justify-center md:gap-x-1.5 gap-x-1 gap-y-1 touch-manipulation mb-2;
 
   .key {
     @apply md:h-12 h-10 md:w-9 w-8 rounded-md border-0 flex text-sm md:text-base bg-gray-400 text-white items-center justify-center touch-manipulation;
