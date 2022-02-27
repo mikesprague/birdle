@@ -234,8 +234,9 @@ export const colorGuess = (currentRow) => {
   }
 
   if (
-    gameState.guessesSubmitted.length &&
-    currentRow + 1 <= gameState.guessesSubmitted.length
+    (gameState.guessesSubmitted.length &&
+      currentRow + 1 <= gameState.guessesSubmitted.length) ||
+    gameState.isGameOver
   ) {
     let checkBirdle = birdle.word;
     let guessArray = Array.from(guesses).map((guess) => {
