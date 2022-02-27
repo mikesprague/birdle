@@ -227,53 +227,69 @@ export const colorGuess = (currentRow) => {
   const row = document.getElementById(`guessRow-${currentRow}`);
   const guesses = row.childNodes;
   const gameState = getData('gameState');
-  let checkBirdle = birdle.word;
-  let guessArray = Array.from(guesses).map((guess) => {
-    return {
-      letter: guess.textContent.toLowerCase(),
-      color: 'absent-overlay',
-    };
-  });
 
-  guessArray.forEach((guess, guessIndex) => {
-    // console.log(guess, birdle[guessIndex]);
-    if (guess.letter === birdle.word[guessIndex]) {
-      guess.color = 'correct-overlay';
-      checkBirdle = checkBirdle.replace(guess.letter, '');
-    }
-  });
+  if (!gameState.guessesSubmitted) {
+    gameState.guessesSubmitted = [];
+    setData('gameState', gameState);
+  }
 
-  guessArray.forEach((guess) => {
-    if (
-      checkBirdle.includes(guess.letter) &&
-      guess.color !== 'correct-overlay'
-    ) {
-      guess.color = 'present-overlay';
-      checkBirdle = checkBirdle.replace(guess.letter, '');
-    }
-  });
+  if (
+    gameState.guessesSubmitted.length &&
+    currentRow + 1 <= gameState.guessesSubmitted.length
+  ) {
+    let checkBirdle = birdle.word;
+    let guessArray = Array.from(guesses).map((guess) => {
+      return {
+        letter: guess.textContent.toLowerCase(),
+        color: 'absent-overlay',
+      };
+    });
 
-  guesses.forEach((guess, guessIndex) => {
-    const dataLetter = guess.textContent.toLowerCase();
+    guessArray.forEach((guess, guessIndex) => {
+      // console.log(guess, birdle[guessIndex]);
+      if (guess.letter === birdle.word[guessIndex]) {
+        guess.color = 'correct-overlay';
+        checkBirdle = checkBirdle.replace(guess.letter, '');
+      }
+    });
 
-    setTimeout(
-      () => {
-        guess.classList.add(guessArray[guessIndex].color);
+    guessArray.forEach((guess) => {
+      if (
+        checkBirdle.includes(guess.letter) &&
+        guess.color !== 'correct-overlay'
+      ) {
+        guess.color = 'present-overlay';
+        checkBirdle = checkBirdle.replace(guess.letter, '');
+      }
+    });
 
-        if (!gameState.isGameOver) {
-          guess.classList.add('flip-vertical-right');
-        }
+    guesses.forEach((guess, guessIndex) => {
+      const dataLetter = guess.textContent.toLowerCase();
 
-        colorKeyboardLetter(dataLetter, guessArray[guessIndex].color);
-      },
-      !gameState.isGameOver ? 300 * guessIndex : 0,
-    );
-  });
+      setTimeout(
+        () => {
+          guess.classList.add(guessArray[guessIndex].color);
+
+          if (!gameState.isGameOver) {
+            guess.classList.add('flip-vertical-right');
+          }
+
+          colorKeyboardLetter(dataLetter, guessArray[guessIndex].color);
+        },
+        !gameState.isGameOver ? 300 * guessIndex : 0,
+      );
+    });
+  }
 };
 
 export const checkWord = () => {
   let gameState = getData('gameState');
-  let { currentRow, currentGuess, guessesRows } = gameState;
+  let { currentRow, currentGuess, guessesRows, guessesSubmitted } = gameState;
+
+  if (!guessesSubmitted) {
+    gameState.guessesSubmitted = [];
+    setData('gameState', gameState);
+  }
 
   if (currentGuess === guessesRows[currentRow].length) {
     const guess = guessesRows[currentRow].join('');
@@ -302,6 +318,8 @@ export const checkWord = () => {
       return;
     }
 
+    gameState.guessesSubmitted.push(guess.toLowerCase());
+    setData('gameState', gameState);
     colorGuess(currentRow);
 
     if (guess.toLowerCase() === birdle.word) {
@@ -405,6 +423,7 @@ export const initGame = (day = null, firstVisit = false) => {
       ['', '', '', '', ''],
       ['', '', '', '', ''],
     ],
+    guessesSubmitted: [],
     gameId: day,
   };
   let gameState = getData('gameState');
