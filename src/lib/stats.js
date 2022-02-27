@@ -229,6 +229,7 @@ export const showStats = () => {
     showCloseButton: true,
     position: 'center',
     backdrop: true,
+    heightAuto: false,
     showConfirmButton: false,
     allowOutsideClick: true,
     didOpen: () => {

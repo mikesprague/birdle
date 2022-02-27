@@ -10,6 +10,7 @@ export const showInstructions = () => {
     showConfirmButton: false,
     allowOutsideClick: true,
     backdrop: true,
+    heightAuto: false,
     position: 'center',
     html: html`
       <div class="instructions" onClick="document.querySelector('.swal2-close').click()">
