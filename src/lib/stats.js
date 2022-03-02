@@ -49,7 +49,7 @@ export const updateStats = (won = true) => {
     stats.currentStreak += 1;
     stats.gamesWon += 1;
 
-    if (stats.currentStreak >= stats.maxStreak) {
+    if (stats.currentStreak > stats.maxStreak) {
       stats.maxStreak += 1;
     }
 
