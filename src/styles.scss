@@ -140,7 +140,15 @@ svg.icon {
   }
 
   .btn-share {
-    @apply w-full text-3xl bg-purple-900 p-4 rounded-lg uppercase text-gray-50;
+    @apply w-full text-2xl bg-purple-900 p-4 rounded-lg uppercase text-gray-50;
+
+    svg.icon {
+      @apply -mt-1 mr-1 inline-block;
+
+      path {
+        @apply fill-white;
+      }
+    }
   }
 
   .btn-share:hover {
