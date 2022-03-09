@@ -26,10 +26,16 @@ export const initStats = () => {
     averageGuesses: 0,
   };
   let stats = getData('stats');
+  let freeGameStats = getData('freeGameStats');
 
   if (stats === null || stats === undefined) {
     stats = initialStatsObject;
     setData('stats', stats);
+  }
+
+  if (freeGameStats === null || freeGameStats === undefined) {
+    freeGameStats = initialStatsObject;
+    setData('freeGameStats', freeGameStats);
   }
 
   return stats;
@@ -37,8 +43,12 @@ export const initStats = () => {
 
 export const updateStats = (won = true) => {
   const lastGameData = getData('gameState');
+  const gameMode = getData('gameMode');
+
+  const statsObject = gameMode === 'free' ? 'freeGameStats' : 'stats';
+
   const { currentRow } = lastGameData;
-  let stats = getData('stats');
+  let stats = getData(statsObject);
 
   // increment every game
   stats.gamesPlayed += 1;
@@ -69,7 +79,7 @@ export const updateStats = (won = true) => {
   }
 
   stats.winPercentage = Math.round((stats.gamesWon / stats.gamesPlayed) * 100);
-  setData('stats', stats);
+  setData(statsObject, stats);
 };
 
 export const createShareText = () => {

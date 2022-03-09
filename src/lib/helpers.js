@@ -27,6 +27,8 @@ export const getBirdleOfDay = () => {
 
 const birdle = getBirdleOfDay();
 
+export const isProd = () => window.location.hostname === 'birdle.app';
+
 export const isSystemDarkTheme = window.matchMedia(
   '(prefers-color-scheme: dark)',
 ).matches;
@@ -106,46 +108,51 @@ export const initServiceWorker = (firstVisit = false) => {
 };
 
 export const initAnalytics = () => {
-  setTimeout(() => {
-    // cloudflare analytics
-    const cloudFlareScript = document.createElement('script');
+  if (isProd()) {
+    setTimeout(() => {
+      // cloudflare analytics
+      const cloudFlareScript = document.createElement('script');
 
-    cloudFlareScript.setAttribute(
-      'src',
-      'https://static.cloudflareinsights.com/beacon.min.js',
-    );
-    cloudFlareScript.setAttribute('defer', '');
-    cloudFlareScript.setAttribute(
-      'data-cf-beacon',
-      '{"token": "29d2c844068c46f2889b0399d73c78c6"}',
-    );
-    document.querySelector('body').appendChild(cloudFlareScript);
-    // google analytics
-    const googleAnalyticsScript = document.createElement('script');
+      cloudFlareScript.setAttribute(
+        'src',
+        'https://static.cloudflareinsights.com/beacon.min.js',
+      );
+      cloudFlareScript.setAttribute('defer', '');
+      cloudFlareScript.setAttribute(
+        'data-cf-beacon',
+        '{"token": "29d2c844068c46f2889b0399d73c78c6"}',
+      );
+      document.querySelector('body').appendChild(cloudFlareScript);
+      // google analytics
+      const googleAnalyticsScript = document.createElement('script');
 
-    googleAnalyticsScript.setAttribute(
-      'src',
-      'https://www.googletagmanager.com/gtag/js?id=G-KDCMVB11KQ',
-    );
-    googleAnalyticsScript.setAttribute('async', '');
-    document.querySelector('body').appendChild(googleAnalyticsScript);
-    window.dataLayer = window.dataLayer || [];
+      googleAnalyticsScript.setAttribute(
+        'src',
+        'https://www.googletagmanager.com/gtag/js?id=G-KDCMVB11KQ',
+      );
+      googleAnalyticsScript.setAttribute('async', '');
+      document.querySelector('body').appendChild(googleAnalyticsScript);
+      window.dataLayer = window.dataLayer || [];
 
-    function gtag() {
-      /* eslint-disable no-undef */
-      /* eslint-disable prefer-rest-params */
-      dataLayer.push(arguments);
-      /* eslint-enable no-undef */
-      /* eslint-enable prefer-rest-params */
-    }
+      function gtag() {
+        /* eslint-disable no-undef */
+        /* eslint-disable prefer-rest-params */
+        dataLayer.push(arguments);
+        /* eslint-enable no-undef */
+        /* eslint-enable prefer-rest-params */
+      }
 
-    gtag('js', new Date());
-    gtag('config', 'G-KDCMVB11KQ');
-  }, 1000);
+      gtag('js', new Date());
+      gtag('config', 'G-KDCMVB11KQ');
+    }, 1000);
+  }
 };
 
 export const deleteLetter = () => {
-  let gameState = getData('gameState');
+  let gameMode = getData('gameMode');
+  let gameStateObject = gameMode === 'free' ? 'freeGameState' : 'gameState';
+  let gameState = getData(gameStateObject);
+
   let { currentRow, currentGuess } = gameState;
 
   if (currentGuess > 0) {
@@ -158,12 +165,14 @@ export const deleteLetter = () => {
     el.setAttribute('data', '');
     gameState.guessesRows[currentRow][currentGuess] = '';
     gameState.currentGuess = currentGuess;
-    setData('gameState', gameState);
+    setData(gameStateObject, gameState);
   }
 };
 
 export const addLetter = (letter) => {
-  let gameState = getData('gameState');
+  let gameMode = getData('gameMode');
+  let gameStateObject = gameMode === 'free' ? 'freeGameState' : 'gameState';
+  let gameState = getData(gameStateObject);
   let { currentRow, currentGuess, guessesRows } = gameState;
 
   if (
@@ -179,7 +188,7 @@ export const addLetter = (letter) => {
 
     gameState.guessesRows[currentRow][currentGuess] = letter;
     gameState.currentGuess += 1;
-    setData('gameState', gameState);
+    setData(gameStateObject, gameState);
     // guessesRows[currentRow][currentGuess] = letter;
     // currentGuess += 1;
   }
@@ -226,11 +235,13 @@ export const colorKeyboardLetter = (letter, className) => {
 export const colorGuess = (currentRow) => {
   const row = document.getElementById(`guessRow-${currentRow}`);
   const guesses = row.childNodes;
-  const gameState = getData('gameState');
+  let gameMode = getData('gameMode');
+  let gameStateObject = gameMode === 'free' ? 'freeGameState' : 'gameState';
+  let gameState = getData(gameStateObject);
 
   if (!gameState.guessesSubmitted) {
     gameState.guessesSubmitted = [];
-    setData('gameState', gameState);
+    setData(gameStateObject, gameState);
   }
 
   if (
@@ -284,12 +295,14 @@ export const colorGuess = (currentRow) => {
 };
 
 export const checkWord = () => {
-  let gameState = getData('gameState');
+  let gameMode = getData('gameMode');
+  let gameStateObject = gameMode === 'free' ? 'freeGameState' : 'gameState';
+  let gameState = getData(gameStateObject);
   let { currentRow, currentGuess, guessesRows, guessesSubmitted } = gameState;
 
   if (!guessesSubmitted) {
     gameState.guessesSubmitted = [];
-    setData('gameState', gameState);
+    setData(gameStateObject, gameState);
   }
 
   if (currentGuess === guessesRows[currentRow].length) {
@@ -320,10 +333,16 @@ export const checkWord = () => {
     }
 
     gameState.guessesSubmitted.push(guess.toLowerCase());
-    setData('gameState', gameState);
+    setData(gameStateObject, gameState);
     colorGuess(currentRow);
 
     if (guess.toLowerCase() === birdle.word) {
+      // const row = document.getElementById(`guessRow-${currentRow}`);
+
+      // row.classList.add('heartbeat');
+      // console.log(row);
+      // setTimeout(() => row.classList.remove('heartbeat'), 350);
+
       setTimeout(() => {
         Swal.fire({
           html: `<strong>${successStrings[currentRow]}</strong>`,
@@ -345,7 +364,7 @@ export const checkWord = () => {
         .removeEventListener('click', handleKey, true);
       gameState.isGameOver = true;
       gameState.wonGame = true;
-      setData('gameState', gameState);
+      setData(gameStateObject, gameState);
       updateStats(true);
 
       return;
@@ -354,7 +373,7 @@ export const checkWord = () => {
     if (currentRow < guessesRows.length - 1) {
       gameState.currentRow += 1;
       gameState.currentGuess = 0;
-      setData('gameState', gameState);
+      setData(gameStateObject, gameState);
     } else {
       document
         .getElementById('enter')
@@ -377,7 +396,7 @@ export const checkWord = () => {
       }, 1500);
 
       gameState.isGameOver = true;
-      setData('gameState', gameState);
+      setData(gameStateObject, gameState);
       updateStats(false);
     }
   } else {
@@ -427,6 +446,7 @@ export const initGame = (day = null, firstVisit = false) => {
     guessesSubmitted: [],
     gameId: day,
   };
+  let gameMode = getData('gameMode');
   let gameState = getData('gameState');
   let gameStats = getData('stats');
 
@@ -434,6 +454,7 @@ export const initGame = (day = null, firstVisit = false) => {
     initStats();
     showInstructions();
     gameStats = getData('stats');
+    setData('freeGameState', initialGameState);
   }
 
   if (
@@ -445,6 +466,21 @@ export const initGame = (day = null, firstVisit = false) => {
   ) {
     setData('gameState', initialGameState);
     gameState = initialGameState;
+  }
+
+  let statsObject = 'stats';
+  let gameStateObject = 'gameState';
+
+  if (gameMode === 'free') {
+    statsObject = 'freeGameStats';
+    gameStateObject = 'freeGameState';
+    gameState = getData(gameStateObject);
+    gameStats = getData(statsObject);
+
+    if (gameState === null || gameState === undefined) {
+      setData(gameStateObject, initialGameState);
+      gameState = getData(gameStateObject);
+    }
   }
 
   buildGuessesRows(gameState.guessesRows);
