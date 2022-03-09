@@ -129,8 +129,7 @@
     },
     "extends": [
       "eslint:recommended",
-      "prettier",
-      "stylelint"
+      "prettier"
     ],
     "plugins": [
       "babel",
