@@ -23,23 +23,29 @@ const getBirdleOfDay = () => {
 module.exports = async (req, res) => {
   const currentBirdle = getBirdleOfDay();
 
-  const words = await axios
-    .get('https://random-words5.p.rapidapi.com/getMultipleRandom', {
-      params: { count: '20', excludes: currentBirdle.word, wordLength: '5' },
-      headers: {
-        'x-rapidapi-host': 'random-words5.p.rapidapi.com',
-        'x-rapidapi-key': RAPID_API_KEY,
-      },
-    })
-    .then((response) => {
-      // console.log(response.data);
-      return response.data;
-    })
-    .catch(function (error) {
-      console.error(error);
-      res.status(500).json(error);
-    });
+  const apiCallNums = [1, 2, 3, 4, 5];
+  const apiCallResults = [];
+  let excludeWords = [currentBirdle.word];
+  for await (const num of apiCallNums) {
+    console.log('apiCallNum: ', num);
+    if (num > 1) {
+      excludeWords.push(apiCallResults[apiCallResults.length - 1]);
+    }
+    const words = await axios
+      .get('https://random-words5.p.rapidapi.com/getMultipleRandom', {
+        params: { count: '20', excludes: excludeWords.join(), wordLength: '5' },
+        headers: {
+          'x-rapidapi-host': 'random-words5.p.rapidapi.com',
+          'x-rapidapi-key': RAPID_API_KEY,
+        },
+      })
+      .then((response) => {
+        // console.log(response.data);
+        return response.data;
+      });
+    apiCallResults.push(words.join());
+  }
 
-  res.setHeader('Cache-Control', 'max-age=14400, s-maxage=14400');
-  res.status(200).json(words);
+  res.setHeader('Cache-Control', 'max-age=86400, s-maxage=86400');
+  res.status(200).json([apiCallResults.join()]);
 };
