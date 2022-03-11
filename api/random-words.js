@@ -22,18 +22,15 @@ const getBirdleOfDay = () => {
 
 module.exports = async (req, res) => {
   const currentBirdle = getBirdleOfDay();
-  const axiosOptions = {
-    method: 'GET',
-    url: 'https://random-words5.p.rapidapi.com/getMultipleRandom',
-    params: { count: '20', excludes: currentBirdle.word, wordLength: '5' },
-    headers: {
-      'x-rapidapi-host': 'random-words5.p.rapidapi.com',
-      'x-rapidapi-key': RAPID_API_KEY,
-    },
-  };
 
   const words = await axios
-    .request(axiosOptions)
+    .get('https://random-words5.p.rapidapi.com/getMultipleRandom', {
+      params: { count: '20', excludes: currentBirdle.word, wordLength: '5' },
+      headers: {
+        'x-rapidapi-host': 'random-words5.p.rapidapi.com',
+        'x-rapidapi-key': RAPID_API_KEY,
+      },
+    })
     .then((response) => {
       // console.log(response.data);
       return response.data;
