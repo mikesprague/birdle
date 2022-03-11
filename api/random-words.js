@@ -43,6 +43,6 @@ module.exports = async (req, res) => {
       res.status(500).json(error);
     });
 
-  res.setHeader('Cache-Control', 'max-age=3600, s-maxage=3600');
+  res.setHeader('Cache-Control', 'max-age=14400, s-maxage=14400');
   res.status(200).json(words);
 };
