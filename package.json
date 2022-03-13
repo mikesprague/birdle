@@ -25,7 +25,7 @@
   "homepage": "https://birdle.app",
   "dependencies": {
     "@sweetalert2/theme-dark": "5.0.10",
-    "axios": "0.26.0",
+    "axios": "0.26.1",
     "clipboard": "2.0.10",
     "common-tags": "1.8.2",
     "dayjs": "1.10.8",
