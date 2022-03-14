@@ -1,8 +1,8 @@
 const chromium = require('chrome-aws-lambda');
-const playwright = require('playwright');
+const puppeteer = require('puppeteer');
 
 module.exports = async (req, res) => {
-  const browser = await playwright.chromium.launch(
+  const browser = await puppeteer.launch(
     process.env.AWS_EXECUTION_ENV
       ? {
           args: chromium.args,

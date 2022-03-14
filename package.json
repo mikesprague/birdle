@@ -7,10 +7,8 @@
     "build": "cross-env NODE_ENV=production yarn clean && yarn webpack --mode production",
     "clean": "rm -rf ./dist",
     "local-dev": "concurrently 'yarn watch' 'yarn serve' --names '📦,🖥' --prefix '[{name}] ' --kill-others",
-    "postinstall": "yarn update-browsers",
     "start": "vercel dev",
     "serve": "serve -S ./dist -p 1234",
-    "update-browsers": "playwright install",
     "watch": "cross-env NODE_ENV=development yarn webpack watch --mode development",
     "webpack": "webpack --color"
   },
@@ -33,7 +31,8 @@
     "common-tags": "1.8.2",
     "dayjs": "1.11.0",
     "keyboardjs": "2.6.4",
-    "playwright": "1.19.2",
+    "puppeteer": "13.5.1",
+    "puppeteer-core": "13.5.1",
     "register-service-worker": "1.7.2",
     "sweetalert2": "11.4.4"
   },
