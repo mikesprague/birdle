@@ -30,6 +30,7 @@
     "common-tags": "1.8.2",
     "dayjs": "1.10.8",
     "keyboardjs": "2.6.4",
+    "puppeteer": "13.5.1",
     "register-service-worker": "1.7.2",
     "sweetalert2": "11.4.4"
   },
