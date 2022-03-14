@@ -14,6 +14,7 @@ module.exports = async (req, res) => {
       window.localStorage.getItem('nyt-wordle-state'),
     );
     const { solution } = JSON.parse(gameState);
+    console.log(JSON.parse(gameState));
     console.log(solution);
 
     await browser.close();
