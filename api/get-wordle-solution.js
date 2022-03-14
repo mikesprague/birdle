@@ -1,18 +1,21 @@
-const chrome = require('chrome-aws-lambda');
-const puppeteer = require('puppeteer');
+const chromium = require('chrome-aws-lambda');
+const playwright = process.env.AWS_EXECUTION_ENV
+  ? require('playwright-core')
+  : require('playwright');
 
 module.exports = async (req, res) => {
-  const browser = await puppeteer.launch(
+  const browser = await playwright.chromium.launch(
     process.env.AWS_EXECUTION_ENV
       ? {
-          args: chrome.args,
-          executablePath: await chrome.executablePath,
-          headless: chrome.headless,
+          args: chromium.args,
+          executablePath: await chromium.executablePath,
+          headless: chromium.headless,
         }
       : {
           args: ['--no-sandbox', '--disable-setuid-sandbox'],
         },
   );
+
   const page = await browser.newPage();
   await page.goto('https://www.nytimes.com/games/wordle/index.html');
 
