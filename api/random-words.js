@@ -27,7 +27,7 @@ module.exports = async (req, res) => {
   const apiCallResults = [];
   let excludeWords = [currentBirdle.word];
   for await (const num of apiCallNums) {
-    console.log('apiCallNum: ', num);
+    // console.log('apiCallNum: ', num);
     if (num > 1) {
       excludeWords.push(apiCallResults[apiCallResults.length - 1]);
     }
