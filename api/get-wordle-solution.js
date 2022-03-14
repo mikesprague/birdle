@@ -1,7 +1,5 @@
 const chromium = require('chrome-aws-lambda');
-const playwright = process.env.AWS_EXECUTION_ENV
-  ? require('playwright-core')
-  : require('playwright');
+const playwright = require('playwright');
 
 module.exports = async (req, res) => {
   const browser = await playwright.chromium.launch(
