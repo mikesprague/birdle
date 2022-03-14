@@ -39,9 +39,9 @@ module.exports = async (req, res) => {
     (midnight.getTime() - now.getTime()) / 1000,
   );
 
-  // res.setHeader(
-  //   'Cache-Control',
-  //   `max-age=${secondsUntilMidnight}, s-maxage=${secondsUntilMidnight}`,
-  // );
+  res.setHeader(
+    'Cache-Control',
+    `max-age=${secondsUntilMidnight}, s-maxage=${secondsUntilMidnight}`,
+  );
   res.status(200).json(solution);
 };
