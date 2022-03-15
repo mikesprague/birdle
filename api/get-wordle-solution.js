@@ -15,6 +15,8 @@ module.exports = async (req, res) => {
   );
 
   const page = await browser.newPage();
+  
+  await page.emulateTimezone('America/New_York');
   await page.goto('https://www.nytimes.com/games/wordle/index.html');
 
   const gameState = await page.evaluate(() =>
