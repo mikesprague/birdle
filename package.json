@@ -34,7 +34,7 @@
     "puppeteer": "13.5.1",
     "puppeteer-core": "13.5.1",
     "register-service-worker": "1.7.2",
-    "sweetalert2": "11.4.6"
+    "sweetalert2": "11.4.7"
   },
   "devDependencies": {
     "@babel/core": "7.17.8",
