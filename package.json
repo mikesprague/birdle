@@ -72,7 +72,7 @@
     "prettier": "2.6.1",
     "prettier-eslint": "13.0.0",
     "stylelint-prettier": "2.0.0",
-    "sass": "1.49.9",
+    "sass": "1.49.10",
     "sass-loader": "12.6.0",
     "serve": "13.0.2",
     "style-loader": "3.3.1",
