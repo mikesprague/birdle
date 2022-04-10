@@ -81,7 +81,11 @@ body {
   }
 
   .guess {
+<<<<<<< HEAD
     @apply md:w-20 md:h-20 w-16 h-16 short:h-12 short:w-12 border-2 border-gray-600 box-border flex justify-center items-center text-gray-900 dark:text-gray-50 m-1 text-4xl md:text-3xl font-black;
+=======
+    @apply md:w-20 md:h-20 w-16 h-16 short:h-12 short:w-12 border-2 border-gray-600 box-border flex justify-center items-center text-gray-900 dark:text-gray-50 m-1 md:text-4xl text-3xl font-black;
+>>>>>>> main
   }
 }
 
