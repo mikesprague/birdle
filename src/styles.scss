@@ -40,7 +40,7 @@ body {
   }
 
   .guess {
-    @apply md:w-20 md:h-20 w-16 h-16 short:h-12 short:w-12 border-2 border-gray-600 box-border flex justify-center items-center text-gray-900 dark:text-gray-50 m-1 text-3xl font-black;
+    @apply md:w-20 md:h-20 w-16 h-16 short:h-12 short:w-12 border-2 border-gray-600 box-border flex justify-center items-center text-gray-900 dark:text-gray-50 m-1 md:text-4xl text-3xl font-black;
   }
 }
 
@@ -48,7 +48,7 @@ body {
   @apply w-full flex flex-wrap justify-center md:gap-x-1.5 gap-x-1 gap-y-1 touch-manipulation mb-2 px-0.5 short:p-2;
 
   .key {
-    @apply md:h-14 h-12 short:h-10 md:w-9 w-8 short:w-7 rounded-md border-0 flex basis-auto flex-grow text-sm md:text-base bg-gray-400 text-white items-center justify-center touch-manipulation;
+    @apply md:h-14 h-12 short:h-10 md:w-9 w-8 short:w-7 rounded-md border-0 flex basis-auto flex-grow text-sm md:text-base font-semibold bg-gray-400 text-white items-center justify-center touch-manipulation;
   }
 
   .key:nth-child(12) {
