@@ -25,7 +25,7 @@ module.exports = {
         correct: '#538d4e',
       },
       screens: {
-        short: { raw: '(max-height: 640px)' },
+        short: { raw: '(max-height: 664px)' },
         ...defaultTheme.screens,
       },
     },
