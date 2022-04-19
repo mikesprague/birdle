@@ -1,6 +1,6 @@
 {
   "name": "birdle",
-  "version": "1.7.2",
+  "version": "1.7.3",
   "description": "birdle",
   "private": true,
   "scripts": {
