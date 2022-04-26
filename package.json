@@ -43,7 +43,7 @@
     "@babel/preset-env": "7.16.11",
     "@babel/runtime": "7.17.9",
     "@fullhuman/postcss-purgecss": "4.1.3",
-    "@typescript-eslint/eslint-plugin": "5.20.0",
+    "@typescript-eslint/eslint-plugin": "5.21.0",
     "@typescript-eslint/parser": "5.20.0",
     "autoprefixer": "10.4.5",
     "babel-loader": "8.2.5",
