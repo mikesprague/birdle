@@ -27,7 +27,7 @@
   },
   "homepage": "https://birdle.app",
   "dependencies": {
-    "@sweetalert2/theme-dark": "5.0.10",
+    "@sweetalert2/theme-dark": "5.0.11",
     "clipboard": "2.0.11",
     "common-tags": "1.8.2",
     "dayjs": "1.11.2",

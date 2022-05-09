@@ -1075,10 +1075,10 @@
     magic-string "^0.25.0"
     string.prototype.matchall "^4.0.6"
 
-"@sweetalert2/theme-dark@5.0.10":
-  version "5.0.10"
-  resolved "https://registry.yarnpkg.com/@sweetalert2/theme-dark/-/theme-dark-5.0.10.tgz#c895fb0eb40c2e08aafdef1d53796800b94b48e6"
-  integrity sha512-RN/ChCzG7yZ4Zi01hWjz6n4pqWCbJHb9zvKTczcmPMAeCeiqkeIQlWc6IR5shUBZkYfbioLdjzwhceB07dXR4w==
+"@sweetalert2/theme-dark@5.0.11":
+  version "5.0.11"
+  resolved "https://registry.yarnpkg.com/@sweetalert2/theme-dark/-/theme-dark-5.0.11.tgz#a4596be171858a0dcc761f545dcb317ea7de6550"
+  integrity sha512-yw42SqvvFc1ObRVLNLSo5HpJo3vDTYlpS2ba+JkWHRcVIEXDnEOaDfAVRtDPSK75GJkvdz9IdfUrc18zdmiE2w==
 
 "@trysound/sax@0.2.0":
   version "0.2.0"
