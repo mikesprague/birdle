@@ -16,10 +16,16 @@
     "webpack": "webpack --color"
   },
   "keywords": [],
-  "repository": "https://github.com/mikesprague/birdle",
+  "repository": {
+    "url": "https://github.com/mikesprague/birdle"
+  },
   "author": {
     "name": "Michael Sprague",
     "email": "mikesprague@gmail.com"
+  },
+  "engines": {
+    "node": ">= 16.x",
+    "npm": ">= 8.x"
   },
   "license": "MIT",
   "bugs": {
