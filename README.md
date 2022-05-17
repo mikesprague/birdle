@@ -2,6 +2,8 @@
 
 Yet another Wordle clone
 
+[![Vercel Deployment Status](https://img.shields.io/github/deployments/mikesprague/birdle/production?label=Deploy%20to%20Vercel&logo=Vercel&logoColor=white)](https://vercel.com/m5ls5e/birdle/deployments)
+
 ## Features
 
 - :capital_abcd: Same rules and word lists as original (pre NYT) Wordle
@@ -41,4 +43,4 @@ Yet another Wordle clone
 1. Enter directory `cd birdle`
 1. Install dependencies `npm install`
 1. Run project locally `npm run dev`
-1. Visit http://localhost:1234 in browser
+1. Visit <http://localhost:1234> in browser
