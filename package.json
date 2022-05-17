@@ -4,7 +4,7 @@
   "description": "birdle",
   "private": true,
   "scripts": {
-    "build": "cross-env NODE_ENV=production npm run webpack --mode production",
+    "build": "cross-env NODE_ENV=production npm run webpack -- --mode production",
     "clean": "rm -rf ./dist",
     "dev": "concurrently 'npm run watch' 'npm run serve' --names '📦,🖥' --prefix '[{name}] ' --kill-others",
     "start": "npm run dev",
@@ -12,7 +12,7 @@
     "get-ver": "cross-env APP_VERSION=$(echo $npm_package_version)",
     "play": "npm show . version",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "cross-env NODE_ENV=development npm run webpack watch --mode development",
+    "watch": "cross-env NODE_ENV=development npm run webpack -- watch --mode development",
     "webpack": "webpack --color"
   },
   "keywords": [],
