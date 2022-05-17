@@ -2,7 +2,7 @@
   "name": "BIRDLE",
   "short_name": "BIRDLE",
   "description": "A new BIRDLE every day",
-  "version": "1.7.9",
+  "version": "1.8.0",
   "icons": [
     {
       "src": "https://res.cloudinary.com/mikesprague/image/upload/fl_preserve_transparency,w_32,h_32,c_scale/birdle/favicon.png",
