@@ -31,13 +31,13 @@ const webpackRules = [
         },
       },
       {
+        loader: 'postcss-loader',
+      },
+      {
         loader: 'sass-loader',
         options: {
           sourceMap: true,
         },
-      },
-      {
-        loader: 'postcss-loader',
       },
       {
         loader: 'esbuild-loader',
