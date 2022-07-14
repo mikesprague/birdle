@@ -13,9 +13,6 @@ RUN export DEBIAN_FRONTEND=noninteractive \
   && sudo apt-get update \
   && sudo apt-get -y install gh
 
-# install fly.io cli
-RUN curl -L https://fly.io/install.sh | sh
-
 # remove existing yarn executable (or latest version won't install)
 # and install some global npm dependencies
 RUN npm install --location=global npm n gitmoji-cli npm-check-updates
