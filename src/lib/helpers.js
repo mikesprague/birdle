@@ -447,8 +447,37 @@ export const initGame = (day = null, firstVisit = false) => {
     gameState = initialGameState;
   }
 
+  let wakelock = null;
+
+  const lockWakeState = () => {
+    if (!('wakeLock' in navigator)) {
+      return;
+    }
+
+    try {
+      wakelock = navigator.wakeLock.request();
+      // wakelock.addEventListener('release', () => {
+      //   console.log('Screen Wake State Locked:', !wakelock.released);
+      // });
+      // console.log('Screen Wake State Locked:', !wakelock.released);
+    } catch (e) {
+      console.error('Failed to lock wake state with reason:', e.message);
+    }
+  };
+
+  const releaseWakeState = () => {
+    if (wakelock) {
+      wakelock.release();
+    }
+
+    wakelock = null;
+  };
+
+  lockWakeState();
+
   buildGuessesRows(gameState.guessesRows);
   initKeys(keys, handleKey);
+
   document.getElementById('help').addEventListener('click', () => {
     showInstructions();
   });
@@ -463,6 +492,7 @@ export const initGame = (day = null, firstVisit = false) => {
     day === gameState.gameId
   ) {
     showStats();
+    releaseWakeState();
   }
 
   // color existing letters
