@@ -410,7 +410,31 @@ export const handleKey = (letter) => {
   }
 };
 
-export const initGame = (day = null, firstVisit = false) => {
+export const lockWakeState = async (wakelock) => {
+  if (!('wakeLock' in navigator)) {
+    return;
+  }
+
+  try {
+    wakelock = await navigator.wakeLock.request();
+
+    return wakelock;
+  } catch (e) {
+    console.error('Failed to lock wake state with reason:', e.message);
+  }
+};
+
+export const releaseWakeState = (wakelock) => {
+  if (wakelock) {
+    wakelock.release();
+  }
+
+  wakelock = null;
+
+  return wakelock;
+};
+
+export const initGame = async (day = null, firstVisit = false) => {
   const initialGameState = {
     currentRow: 0,
     currentGuess: 0,
@@ -447,36 +471,12 @@ export const initGame = (day = null, firstVisit = false) => {
     gameState = initialGameState;
   }
 
-  let wakelock = null;
-
-  const lockWakeState = () => {
-    if (!('wakeLock' in navigator)) {
-      return;
-    }
-
-    try {
-      wakelock = navigator.wakeLock.request();
-      // wakelock.addEventListener('release', () => {
-      //   console.log('Screen Wake State Locked:', !wakelock.released);
-      // });
-      // console.log('Screen Wake State Locked:', !wakelock.released);
-    } catch (e) {
-      console.error('Failed to lock wake state with reason:', e.message);
-    }
-  };
-
-  const releaseWakeState = () => {
-    if (wakelock) {
-      wakelock.release();
-    }
-
-    wakelock = null;
-  };
-
-  lockWakeState();
+  let wakestate;
 
   buildGuessesRows(gameState.guessesRows);
   initKeys(keys, handleKey);
+
+  await lockWakeState(wakestate);
 
   document.getElementById('help').addEventListener('click', () => {
     showInstructions();
@@ -492,7 +492,7 @@ export const initGame = (day = null, firstVisit = false) => {
     day === gameState.gameId
   ) {
     showStats();
-    releaseWakeState();
+    releaseWakeState(wakestate);
   }
 
   // color existing letters
