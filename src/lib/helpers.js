@@ -516,9 +516,11 @@ export const initGame = async (day = null, firstVisit = false) => {
     }
   });
   // watch for orientation change and reload to "fix" resize issues
-  window.addEventListener('orientationchange', () => {
-    location.reload(true);
-  });
+  window
+    .matchMedia('(orientation: portrait)')
+    .addEventListener('change', () => {
+      location.reload(true);
+    });
   // eslint-disable-next-line no-console
   console.log('🙈 nothing to see here, move along now');
 };
