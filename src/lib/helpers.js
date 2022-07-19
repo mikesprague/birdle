@@ -26,6 +26,27 @@ export const getBirdleOfDay = () => {
 };
 
 const birdle = getBirdleOfDay();
+let wakelock;
+
+const lockWakeState = async () => {
+  if (!('wakeLock' in navigator)) {
+    return;
+  }
+
+  try {
+    wakelock = await navigator.wakeLock.request();
+  } catch (e) {
+    console.error('failed to lock wake state:', e.message);
+  }
+};
+
+const releaseWakeState = () => {
+  if (wakelock) {
+    wakelock.release();
+  }
+
+  wakelock = null;
+};
 
 export const isSystemDarkTheme = window.matchMedia(
   '(prefers-color-scheme: dark)',
@@ -337,6 +358,7 @@ export const checkWord = () => {
           timerProgressBar: true,
           didDestroy: () => {
             showStats();
+            releaseWakeState();
           },
         });
       }, 1500);
@@ -372,6 +394,7 @@ export const checkWord = () => {
           timerProgressBar: true,
           didDestroy: () => {
             showStats();
+            releaseWakeState();
           },
         });
       }, 1500);
@@ -408,30 +431,6 @@ export const handleKey = (letter) => {
       addLetter(key);
     }
   }
-};
-
-export const lockWakeState = async (wakelock) => {
-  if (!('wakeLock' in navigator)) {
-    return;
-  }
-
-  try {
-    wakelock = await navigator.wakeLock.request();
-
-    return wakelock;
-  } catch (e) {
-    console.error('Failed to lock wake state with reason:', e.message);
-  }
-};
-
-export const releaseWakeState = (wakelock) => {
-  if (wakelock) {
-    wakelock.release();
-  }
-
-  wakelock = null;
-
-  return wakelock;
 };
 
 export const initGame = async (day = null, firstVisit = false) => {
@@ -471,12 +470,9 @@ export const initGame = async (day = null, firstVisit = false) => {
     gameState = initialGameState;
   }
 
-  let wakestate;
-
   buildGuessesRows(gameState.guessesRows);
   initKeys(keys, handleKey);
-
-  await lockWakeState(wakestate);
+  await lockWakeState();
 
   document.getElementById('help').addEventListener('click', () => {
     showInstructions();
@@ -492,7 +488,7 @@ export const initGame = async (day = null, firstVisit = false) => {
     day === gameState.gameId
   ) {
     showStats();
-    releaseWakeState(wakestate);
+    releaseWakeState();
   }
 
   // color existing letters

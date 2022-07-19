@@ -3,7 +3,6 @@ import {
   initAnalytics,
   initGame,
   initServiceWorker,
-  lockWakeState,
 } from './lib/helpers';
 import { getData } from './lib/local-storage';
 
