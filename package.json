@@ -39,7 +39,7 @@
     "dayjs": "1.11.4",
     "keyboardjs": "2.6.4",
     "register-service-worker": "1.7.2",
-    "sweetalert2": "11.4.23"
+    "sweetalert2": "11.4.24"
   },
   "devDependencies": {
     "@babel/core": "7.18.9",
