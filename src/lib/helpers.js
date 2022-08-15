@@ -1,6 +1,5 @@
 /* eslint-disable no-use-before-define */
 import Swal from 'sweetalert2/dist/sweetalert2.js';
-import { register } from 'register-service-worker';
 
 import { getData, setData } from './local-storage';
 import { initKeys, keys } from './keys';
@@ -94,37 +93,37 @@ export const buildGuessesRows = (guessesRows) => {
   });
 };
 
-export const initServiceWorker = (firstVisit = false) => {
-  register('./service-worker.js', {
-    // ready() {
-    //   console.log('Service worker is active.');
-    // },
-    // registered(registration) {
-    //   console.log('Service worker has been registered.', registration);
-    // },
-    // cached(registration) {
-    //   console.log('Content has been cached for offline use.', registration);
-    // },
-    // updatefound(registration) {
-    //   console.log('New content is downloading.', registration);
-    // },
-    updated() {
-      // updated(registration)
-      if (!firstVisit) {
-        location.reload(true);
-      }
-    },
-    offline() {
-      // eslint-disable-next-line no-console
-      console.info(
-        'No internet connection found. BIRDLE is running in offline mode.',
-      );
-    },
-    error(error) {
-      console.error('Error during service worker registration:', error);
-    },
-  });
-};
+// export const initServiceWorker = (firstVisit = false) => {
+//   register('./service-worker.js', {
+//     // ready() {
+//     //   console.log('Service worker is active.');
+//     // },
+//     // registered(registration) {
+//     //   console.log('Service worker has been registered.', registration);
+//     // },
+//     // cached(registration) {
+//     //   console.log('Content has been cached for offline use.', registration);
+//     // },
+//     // updatefound(registration) {
+//     //   console.log('New content is downloading.', registration);
+//     // },
+//     updated() {
+//       // updated(registration)
+//       if (!firstVisit) {
+//         location.reload(true);
+//       }
+//     },
+//     offline() {
+//       // eslint-disable-next-line no-console
+//       console.info(
+//         'No internet connection found. BIRDLE is running in offline mode.',
+//       );
+//     },
+//     error(error) {
+//       console.error('Error during service worker registration:', error);
+//     },
+//   });
+// };
 
 export const initAnalytics = () => {
   setTimeout(() => {

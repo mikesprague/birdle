@@ -19,9 +19,9 @@
     <link rel="dns-prefetch" href="https://birdle.app" />
     <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
     <link rel="dns-prefetch" href="https://www.google-analytics.com" />
-    <link rel="preload" as="script" type="text/javascript" href="./app.js" crossorigin="anonymous" />
-    <link rel="manifest" href="birdle.webmanifest" />
-    <link href="./styles.css" rel="stylesheet" />
+    <link rel="preload" as="script" type="text/javascript" href="./main.js" crossorigin="anonymous" />
+    <!-- <link rel="manifest" href="birdle.webmanifest" /> -->
+    <link href="./styles.scss" rel="stylesheet" />
     <link rel="icon" type="image/png"
       href="https://res.cloudinary.com/mikesprague/image/upload/fl_preserve_transparency,w_32,h_32,c_scale/birdle/favicon.png" />
     <link rel="shortcut icon"
@@ -40,8 +40,8 @@
           </path>
         </svg>
         <h1>Birdle<small><a
-              href="https://github.com/mikesprague/birdle/releases/tag/v<%= htmlWebpackPlugin.options.appVersion %>"
-              rel="noopener noreferrer" target="_blank">v<%= htmlWebpackPlugin.options.appVersion %></a></small>
+              href="https://github.com/mikesprague/birdle/releases/tag/v<%= appVersion %>"
+              rel="noopener noreferrer" target="_blank">v<%= appVersion %></a></small>
         </h1>
         <svg id="stats" class="icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
           <path d="M16,11V3H8v6H2v12h20V11H16z M10,5h4v14h-4V5z M4,11h4v8H4V11z M20,19h-4v-6h4V19z"></path>
@@ -50,6 +50,6 @@
       <div class="guesses-container"></div>
       <div class="keyboard-container"></div>
     </div>
-    <script src="./app.js"></script>
+    <script type="module" src="./main.js"></script>
   </body>
 </html>

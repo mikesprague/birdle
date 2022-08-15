@@ -3,17 +3,17 @@
   "version": "1.12.3",
   "description": "birdle",
   "private": true,
+  "type": "module",
   "scripts": {
-    "build": "cross-env NODE_ENV=production npm run webpack -- --mode production",
+    "build": "vite build",
     "clean": "rm -rf ./dist",
-    "dev": "concurrently 'npm run watch' 'npm run serve' --names '📦,🖥' --prefix '[{name}] ' --kill-others",
-    "start": "npm run dev",
-    "serve": "serve -S ./dist -p 1234",
+    "dev": "vite serve --port $PORT",
+    "start": "cross-env NODE_ENV=development vercel dev",
     "get-ver": "cross-env APP_VERSION=$(echo $npm_package_version)",
     "play": "npm show . version",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "cross-env NODE_ENV=development npm run webpack -- watch --mode development",
-    "webpack": "webpack --color"
+    "prebuild": "npm run clean",
+    "preview": "vite preview",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "repository": {
@@ -36,28 +36,19 @@
     "@sweetalert2/theme-dark": "5.0.11",
     "clipboard": "2.0.11",
     "common-tags": "1.8.2",
+    "cross-env": "7.0.3",
     "dayjs": "1.11.5",
     "keyboardjs": "2.6.4",
-    "register-service-worker": "1.7.2",
     "sweetalert2": "11.4.26"
   },
   "devDependencies": {
-    "@babel/core": "7.18.10",
     "@babel/eslint-parser": "7.18.9",
     "@babel/eslint-plugin": "7.18.10",
-    "@babel/plugin-transform-runtime": "7.18.10",
     "@babel/preset-env": "7.18.10",
-    "@babel/runtime": "7.18.9",
     "@fullhuman/postcss-purgecss": "4.1.3",
     "autoprefixer": "10.4.8",
     "charts.css": "0.9.0",
-    "compression-webpack-plugin": "10.0.0",
-    "concurrently": "7.3.0",
-    "copy-webpack-plugin": "11.0.0",
-    "cross-env": "7.0.3",
-    "css-loader": "6.7.1",
     "cssnano": "5.1.12",
-    "esbuild-loader": "2.19.0",
     "eslint": "8.21.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-config-stylelint": "15.1.0",
@@ -66,18 +57,11 @@
     "eslint-plugin-html": "7.1.0",
     "eslint-plugin-import": "2.26.0",
     "eslint-plugin-prettier": "4.2.1",
-    "file-loader": "6.2.0",
-    "html-webpack-plugin": "5.5.0",
-    "mini-css-extract-plugin": "2.6.1",
     "postcss": "8.4.16",
     "postcss-cli": "10.0.0",
-    "postcss-loader": "7.0.1",
     "prettier": "2.7.1",
     "prettier-eslint": "15.0.1",
     "sass": "1.54.4",
-    "sass-loader": "13.0.2",
-    "serve": "14.0.1",
-    "style-loader": "3.3.1",
     "stylelint": "14.10.0",
     "stylelint-config-prettier": "9.0.3",
     "stylelint-config-prettier-scss": "0.0.1",
@@ -85,23 +69,12 @@
     "stylelint-config-standard-scss": "5.0.0",
     "stylelint-prettier": "2.0.0",
     "tailwindcss": "3.1.8",
-    "url-loader": "4.1.1",
-    "webpack": "5.74.0",
-    "webpack-cli": "4.10.0",
-    "workbox-webpack-plugin": "6.5.4"
+    "vercel": "28.0.1",
+    "vite": "3.0.7",
+    "vite-plugin-html": "3.2.0",
+    "vite-plugin-pwa": "0.12.3"
   },
   "babel": {
-    "plugins": [
-      [
-        "@babel/plugin-transform-runtime",
-        {
-          "corejs": false,
-          "helpers": true,
-          "regenerator": true,
-          "useESModules": true
-        }
-      ]
-    ],
     "presets": [
       "@babel/preset-env"
     ]
@@ -119,7 +92,7 @@
   "eslintConfig": {
     "settings": {
       "jest": {
-        "version": 26
+        "version": 28
       }
     },
     "env": {
@@ -141,19 +114,20 @@
       "prettier"
     ],
     "parserOptions": {
-      "parser": "babel-parser",
-      "ecmaVersion": 2020,
+      "parser": "@babel/eslint-parser",
+      "ecmaVersion": 11,
       "sourceType": "module",
       "ecmaFeatures": {
         "impliedStrict": true,
         "modules": true
       }
     },
-    "rules": {},
+    "rules": {
+      "node/no-unpublished-import": "warn"
+    },
     "ignorePatterns": [
       "dist/",
       ".history/",
-      ".parcel-cache/",
       "node_modules/"
     ]
   },

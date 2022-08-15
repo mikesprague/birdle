@@ -2,7 +2,7 @@ import {
   getBirdleOfDay,
   initAnalytics,
   initGame,
-  initServiceWorker,
+  // initServiceWorker,
 } from './lib/helpers';
 import { getData } from './lib/local-storage';
 
@@ -14,7 +14,7 @@ import './styles.scss';
     (getData('gameState') === null || getData('gameState') === undefined) &&
     (getData('stats') === null || getData('stats') === undefined);
 
-  initServiceWorker(firstVisit);
+  // initServiceWorker(firstVisit);
   await initGame(birdle.day, firstVisit);
   initAnalytics();
 })();

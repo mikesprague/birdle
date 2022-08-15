@@ -1,4 +1,4 @@
-# BIRDLE :hatched_chick:
+# BIRDLE :hatched_chick
 
 Yet another Wordle clone
 
@@ -42,5 +42,5 @@ Yet another Wordle clone
 1. Clone repo `git clone https://github.com/mikesprague/birdle.git`
 1. Enter directory `cd birdle`
 1. Install dependencies `npm install`
-1. Run project locally `npm run dev`
-1. Visit <http://localhost:1234> in browser
+1. Run project locally `npm start`
+1. Visit <http://localhost:3000> in browser
