@@ -1,4 +1,4 @@
-# BIRDLE :hatched_chick
+# BIRDLE :hatched_chick:
 
 Yet another Wordle clone
 
