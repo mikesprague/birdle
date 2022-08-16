@@ -12,9 +12,6 @@ import { isSystemDarkTheme, supportsShareApi } from './helpers';
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
-// eslint-disable-next-line node/no-unpublished-import
-import 'charts.css';
-
 export const initStats = () => {
   const initialStatsObject = {
     currentStreak: 0,
