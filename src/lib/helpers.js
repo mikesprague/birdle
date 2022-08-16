@@ -1,5 +1,5 @@
-/* eslint-disable no-use-before-define */
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { registerSW } from 'virtual:pwa-register';
 
 import { getData, setData } from './local-storage';
 import { initKeys, keys } from './keys';
@@ -7,6 +7,25 @@ import { initStats, showStats, updateStats } from './stats';
 import { allowed } from './allowed';
 import { showInstructions } from './instructions';
 import { words } from './words';
+
+export const isLocal = () => {
+  if (
+    window.location.hostname === 'localhost' ||
+    window.location.hostname === '127.0.0.1'
+  ) {
+    return true;
+  }
+
+  return false;
+};
+
+export const isDev = () => {
+  if (isLocal() || window.location.hostname !== 'birdle.app') {
+    return true;
+  }
+
+  return false;
+};
 
 export const getBirdleOfDay = () => {
   const now = new Date();
@@ -93,37 +112,17 @@ export const buildGuessesRows = (guessesRows) => {
   });
 };
 
-// export const initServiceWorker = (firstVisit = false) => {
-//   register('./service-worker.js', {
-//     // ready() {
-//     //   console.log('Service worker is active.');
-//     // },
-//     // registered(registration) {
-//     //   console.log('Service worker has been registered.', registration);
-//     // },
-//     // cached(registration) {
-//     //   console.log('Content has been cached for offline use.', registration);
-//     // },
-//     // updatefound(registration) {
-//     //   console.log('New content is downloading.', registration);
-//     // },
-//     updated() {
-//       // updated(registration)
-//       if (!firstVisit) {
-//         location.reload(true);
-//       }
-//     },
-//     offline() {
-//       // eslint-disable-next-line no-console
-//       console.info(
-//         'No internet connection found. BIRDLE is running in offline mode.',
-//       );
-//     },
-//     error(error) {
-//       console.error('Error during service worker registration:', error);
-//     },
-//   });
-// };
+export const initServiceWorker = (firstVisit = false) => {
+  registerSW({
+    onNeedRefresh() {
+      if (!firstVisit) {
+        location.reload(true);
+      }
+    },
+    onOfflineReady() {},
+    immediate: true,
+  });
+};
 
 export const initAnalytics = () => {
   setTimeout(() => {
