@@ -16,6 +16,14 @@ export default defineConfig({
     strictPort: true,
   },
   plugins: [
+    createHtmlPlugin({
+      template: 'index.html',
+      inject: {
+        data: {
+          appVersion: appVersion,
+        },
+      },
+    }),
     VitePWA({
       injectRegister: 'auto',
       registerType: 'prompt',
@@ -101,14 +109,6 @@ export default defineConfig({
         display: 'standalone',
         background_color: '#181818',
         theme_color: '#581c87',
-      },
-    }),
-    createHtmlPlugin({
-      template: 'index.html',
-      inject: {
-        data: {
-          appVersion: appVersion,
-        },
       },
     }),
   ],
