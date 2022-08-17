@@ -39,7 +39,7 @@
     "cross-env": "7.0.3",
     "dayjs": "1.11.5",
     "keyboardjs": "2.6.4",
-    "sweetalert2": "11.4.26"
+    "sweetalert2": "11.4.27"
   },
   "devDependencies": {
     "@babel/eslint-parser": "7.18.9",
