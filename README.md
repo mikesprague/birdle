@@ -2,8 +2,6 @@
 
 Yet another Wordle clone
 
-[![Vercel Deployment Status](https://img.shields.io/github/deployments/mikesprague/birdle/production?label=Deploy%20to%20Vercel&logo=Vercel&logoColor=white)](https://vercel.com/m5ls5e/birdle/deployments)
-
 ## Features
 
 - :capital_abcd: Same rules and word lists as original (pre NYT) Wordle
