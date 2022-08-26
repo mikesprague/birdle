@@ -9,8 +9,6 @@
     "clean": "rm -rf ./dist",
     "dev": "vite serve --port 3000",
     "start": "cross-env NODE_ENV=development npm run dev",
-    "get-ver": "cross-env APP_VERSION=$(echo $npm_package_version)",
-    "play": "npm show . version",
     "prebuild": "npm run clean",
     "preview": "vite preview",
     "test": "echo \"Error: no test specified\" && exit 1"
