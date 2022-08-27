@@ -36,7 +36,7 @@
     "common-tags": "1.8.2",
     "cross-env": "7.0.3",
     "dayjs": "1.11.5",
-    "keyboardjs": "2.6.4",
+    "keyboardjs": "2.7.0",
     "sweetalert2": "11.4.29"
   },
   "devDependencies": {
