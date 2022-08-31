@@ -2,7 +2,7 @@
   Content-Security-Policy: form-action https:
   Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
   Permissions-Policy: sync-xhr=(self), fullscreen=(self)
-  X-XSS-Protection: 1; mode=bloc
+  X-XSS-Protection: 1; mode=block
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
