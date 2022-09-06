@@ -42,7 +42,7 @@
   "devDependencies": {
     "@babel/eslint-parser": "7.18.9",
     "@babel/eslint-plugin": "7.18.10",
-    "@babel/preset-env": "7.18.10",
+    "@babel/preset-env": "7.19.0",
     "@fullhuman/postcss-purgecss": "4.1.3",
     "autoprefixer": "10.4.8",
     "charts.css": "0.9.0",
