@@ -1,6 +1,6 @@
 {
   "name": "birdle",
-  "version": "1.13.6",
+  "version": "1.13.7",
   "description": "birdle",
   "private": true,
   "type": "module",
