@@ -1,8 +1,7 @@
 import { VitePWA } from 'vite-plugin-pwa';
 import { createHtmlPlugin } from 'vite-plugin-html';
 import { defineConfig } from 'vite';
-
-const appVersion = (await import('./package.json')).version;
+import { version } from './package.json';
 
 export default defineConfig({
   root: 'src',
@@ -20,13 +19,16 @@ export default defineConfig({
       template: 'index.html',
       inject: {
         data: {
-          appVersion: appVersion,
+          appVersion: version,
         },
       },
     }),
     VitePWA({
+      strategies: 'generateSW',
       injectRegister: 'auto',
       registerType: 'prompt',
+      filename: 'service-worker.js',
+      manifestFilename: 'birdle.webmanifest',
       workbox: {
         clientsClaim: true,
         skipWaiting: true,
@@ -37,7 +39,7 @@ export default defineConfig({
         name: 'BIRDLE',
         short_name: 'BIRDLE',
         description: 'A new BIRDLE every day',
-        version: appVersion,
+        version,
         icons: [
           {
             src: 'https://res.cloudinary.com/mikesprague/image/upload/fl_preserve_transparency,w_32,h_32,c_scale/birdle/favicon.png',
