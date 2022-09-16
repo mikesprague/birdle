@@ -54,7 +54,8 @@ const lockWakeState = async () => {
   try {
     wakelock = await navigator.wakeLock.request();
   } catch (e) {
-    console.error('failed to lock wake state:', e.message);
+    // console.error('failed to lock wake state:', e.message);
+    wakelock = null;
   }
 };
 
