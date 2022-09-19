@@ -11,6 +11,7 @@ export default defineConfig({
   publicDir: '../public',
   base: './',
   outDir: './',
+  appType: 'custom',
   server: {
     strictPort: true,
   },
