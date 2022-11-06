@@ -47,7 +47,7 @@
     "autoprefixer": "10.4.13",
     "charts.css": "0.9.0",
     "cssnano": "5.1.14",
-    "eslint": "8.26.0",
+    "eslint": "8.27.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-config-stylelint": "17.0.0",
     "eslint-plugin-babel": "5.3.1",
