@@ -31,13 +31,13 @@
   },
   "homepage": "https://birdle.app",
   "dependencies": {
-    "@sweetalert2/theme-dark": "5.0.13",
+    "@sweetalert2/theme-dark": "5.0.14",
     "clipboard": "2.0.11",
     "common-tags": "1.8.2",
     "cross-env": "7.0.3",
     "dayjs": "1.11.6",
     "keyboardjs": "2.7.0",
-    "sweetalert2": "11.6.5"
+    "sweetalert2": "11.6.6"
   },
   "devDependencies": {
     "@babel/eslint-parser": "7.19.1",
@@ -67,7 +67,7 @@
     "stylelint-config-standard-scss": "6.1.0",
     "stylelint-prettier": "2.0.0",
     "tailwindcss": "3.2.2",
-    "vite": "3.2.2",
+    "vite": "3.2.3",
     "vite-plugin-html": "3.2.0",
     "vite-plugin-pwa": "0.13.2"
   },
