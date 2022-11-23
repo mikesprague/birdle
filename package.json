@@ -31,13 +31,13 @@
   },
   "homepage": "https://birdle.app",
   "dependencies": {
-    "@sweetalert2/theme-dark": "5.0.14",
+    "@sweetalert2/theme-dark": "5.0.15",
     "clipboard": "2.0.11",
     "common-tags": "1.8.2",
     "cross-env": "7.0.3",
     "dayjs": "1.11.6",
     "keyboardjs": "2.7.0",
-    "sweetalert2": "11.6.10"
+    "sweetalert2": "11.6.13"
   },
   "devDependencies": {
     "@babel/eslint-parser": "7.19.1",
