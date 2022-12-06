@@ -35,7 +35,7 @@
     "clipboard": "2.0.11",
     "common-tags": "1.8.2",
     "cross-env": "7.0.3",
-    "dayjs": "1.11.6",
+    "dayjs": "1.11.7",
     "keyboardjs": "2.7.0",
     "sweetalert2": "11.6.15"
   },
