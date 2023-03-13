@@ -47,7 +47,7 @@
     "autoprefixer": "10.4.14",
     "charts.css": "1.0.0",
     "cssnano": "5.1.15",
-    "cz-git": "^1.5.3",
+    "cz-git": "^1.6.0",
     "eslint": "8.36.0",
     "eslint-config-prettier": "8.7.0",
     "eslint-config-stylelint": "18.0.0",
