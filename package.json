@@ -40,7 +40,7 @@
     "sweetalert2": "11.7.3"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "7.19.1",
+    "@babel/eslint-parser": "7.21.3",
     "@babel/eslint-plugin": "7.19.1",
     "@babel/preset-env": "7.20.2",
     "@fullhuman/postcss-purgecss": "5.0.0",
