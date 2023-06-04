@@ -48,7 +48,7 @@
     "charts.css": "1.0.0",
     "cssnano": "6.0.1",
     "cz-git": "^1.6.1",
-    "eslint": "8.41.0",
+    "eslint": "8.42.0",
     "eslint-config-prettier": "8.8.0",
     "eslint-config-stylelint": "18.0.0",
     "eslint-plugin-babel": "5.3.1",
@@ -61,14 +61,14 @@
     "prettier": "2.8.8",
     "prettier-eslint": "15.0.1",
     "sass": "1.62.1",
-    "stylelint": "15.6.2",
+    "stylelint": "15.6.3",
     "stylelint-config-standard": "33.0.0",
     "stylelint-config-standard-scss": "9.0.0",
     "stylelint-prettier": "3.0.0",
     "tailwindcss": "3.3.2",
     "vite": "4.3.9",
     "vite-plugin-html": "3.2.0",
-    "vite-plugin-pwa": "0.16.2"
+    "vite-plugin-pwa": "0.16.3"
   },
   "babel": {
     "presets": [
