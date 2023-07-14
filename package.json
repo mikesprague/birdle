@@ -48,7 +48,7 @@
     "charts.css": "1.0.0",
     "cssnano": "6.0.1",
     "cz-git": "^1.7.0",
-    "eslint": "8.44.0",
+    "eslint": "8.45.0",
     "eslint-config-prettier": "8.8.0",
     "eslint-config-stylelint": "19.0.0",
     "eslint-plugin-babel": "5.3.1",
