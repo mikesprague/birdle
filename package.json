@@ -49,7 +49,7 @@
     "cssnano": "6.0.1",
     "cz-git": "^1.7.0",
     "eslint": "8.46.0",
-    "eslint-config-prettier": "8.10.0",
+    "eslint-config-prettier": "9.0.0",
     "eslint-config-stylelint": "19.1.0",
     "eslint-plugin-babel": "5.3.1",
     "eslint-plugin-compat": "4.1.4",
