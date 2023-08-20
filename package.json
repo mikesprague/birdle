@@ -119,8 +119,8 @@
       }
     },
     "rules": {
-      "node/no-unpublished-import": "warn",
-      "node/no-missing-import": "warn"
+      "n/no-unpublished-import": "warn",
+      "n/no-missing-import": "warn"
     },
     "ignorePatterns": [
       "dist/",
