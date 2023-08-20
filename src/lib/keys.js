@@ -1,10 +1,10 @@
-import keyboardJs from 'keyboardjs';
+import { bindKey, unbindKey } from '@rwh/keystrokes';
 
 export const initKeyboardBindings = (keys, keyHandler) => {
   keys.forEach((keyVal) => {
     let letter = keyVal === 'back' ? 'backspace' : keyVal;
-    keyboardJs.bind(letter, (e) => {
-      e.preventRepeat();
+
+    bindKey(letter, () => {
       keyHandler(letter);
     });
   });
@@ -12,13 +12,16 @@ export const initKeyboardBindings = (keys, keyHandler) => {
 
 export const initKeys = (keys, keyHandler) => {
   const keyboardContainer = document.querySelector('.keyboard-container');
+
   keys.forEach((keyVal) => {
     if (keyVal === '--') {
       const breakEl = document.createElement('div');
+
       breakEl.classList.add('break-flex');
       keyboardContainer.append(breakEl);
     } else {
       const buttonEl = document.createElement('button');
+
       buttonEl.textContent = keyVal.toUpperCase();
       buttonEl.classList.add('key');
       buttonEl.setAttribute('id', keyVal);
@@ -32,7 +35,8 @@ export const initKeys = (keys, keyHandler) => {
 export const gameOver = (keys, keyHandler) => {
   keys.forEach((keyVal) => {
     let letter = keyVal === 'back' ? 'backspace' : keyVal;
-    keyboardJs.unbind(letter, () => keyHandler(letter));
+
+    unbindKey(letter, () => keyHandler(letter));
   });
 };
 
