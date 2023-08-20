@@ -37,7 +37,7 @@
     "common-tags": "1.8.2",
     "cross-env": "7.0.3",
     "dayjs": "1.11.9",
-    "sweetalert2": "11.7.23"
+    "sweetalert2": "11.7.27"
   },
   "devDependencies": {
     "@babel/eslint-parser": "7.22.10",
