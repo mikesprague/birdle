@@ -83,7 +83,9 @@ export const createShareText = () => {
   let shareText = '';
 
   for (let i = 0; i < finalRow; i += 1) {
-    const guesses = Array.from(document.getElementById(`guessRow-${i}`).childNodes);
+    const guesses = Array.from(
+      document.getElementById(`guessRow-${i}`).childNodes
+    );
     // eslint-disable-next-line array-callback-return
     const rowEmoji = guesses.map((guess) => {
       if (guess.classList.contains('correct-overlay')) {

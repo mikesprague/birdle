@@ -101,7 +101,10 @@ export const buildGuessesRows = (guessesRows) => {
     guessRow.forEach((guess, guessIndex) => {
       const guessEl = document.createElement('div');
 
-      guessEl.setAttribute('id', `guessRow-${guessRowIndex}-guess-${guessIndex}`);
+      guessEl.setAttribute(
+        'id',
+        `guessRow-${guessRowIndex}-guess-${guessIndex}`
+      );
       guessEl.textContent = guess.length ? guess.toUpperCase() : '';
       guessEl.classList.add('guess');
       rowEl.append(guessEl);
