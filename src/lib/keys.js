@@ -2,7 +2,7 @@ import { bindKey, unbindKey } from '@rwh/keystrokes';
 
 export const initKeyboardBindings = (keys, keyHandler) => {
   keys.forEach((keyVal) => {
-    let letter = keyVal === 'back' ? 'backspace' : keyVal;
+    const letter = keyVal === 'back' ? 'backspace' : keyVal;
 
     bindKey(letter, () => {
       keyHandler(letter);
@@ -34,7 +34,7 @@ export const initKeys = (keys, keyHandler) => {
 
 export const gameOver = (keys, keyHandler) => {
   keys.forEach((keyVal) => {
-    let letter = keyVal === 'back' ? 'backspace' : keyVal;
+    const letter = keyVal === 'back' ? 'backspace' : keyVal;
 
     unbindKey(letter, () => keyHandler(letter));
   });

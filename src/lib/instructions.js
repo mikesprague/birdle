@@ -1,5 +1,5 @@
-import Swal from 'sweetalert2';
 import { html } from 'common-tags';
+import Swal from 'sweetalert2';
 import { isSystemDarkTheme } from './helpers';
 
 export const showInstructions = () => {

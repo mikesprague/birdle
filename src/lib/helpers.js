@@ -1,11 +1,11 @@
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { registerSW } from 'virtual:pwa-register';
 
-import { getData, setData } from './local-storage';
-import { initKeys, keys } from './keys';
-import { initStats, showStats, updateStats } from './stats';
 import { allowed } from './allowed';
 import { showInstructions } from './instructions';
+import { initKeys, keys } from './keys';
+import { getData, setData } from './local-storage';
+import { initStats, showStats, updateStats } from './stats';
 import { words } from './words';
 
 export const isLocal = () => {
@@ -68,7 +68,7 @@ const releaseWakeState = () => {
 };
 
 export const isSystemDarkTheme = window.matchMedia(
-  '(prefers-color-scheme: dark)',
+  '(prefers-color-scheme: dark)'
 ).matches;
 
 export const supportsShareApi = () =>
@@ -101,10 +101,7 @@ export const buildGuessesRows = (guessesRows) => {
     guessRow.forEach((guess, guessIndex) => {
       const guessEl = document.createElement('div');
 
-      guessEl.setAttribute(
-        'id',
-        `guessRow-${guessRowIndex}-guess-${guessIndex}`,
-      );
+      guessEl.setAttribute('id', `guessRow-${guessRowIndex}-guess-${guessIndex}`);
       guessEl.textContent = guess.length ? guess.toUpperCase() : '';
       guessEl.classList.add('guess');
       rowEl.append(guessEl);
@@ -132,12 +129,12 @@ export const initAnalytics = () => {
 
     cloudFlareScript.setAttribute(
       'src',
-      'https://static.cloudflareinsights.com/beacon.min.js',
+      'https://static.cloudflareinsights.com/beacon.min.js'
     );
     cloudFlareScript.setAttribute('defer', '');
     cloudFlareScript.setAttribute(
       'data-cf-beacon',
-      '{"token": "29d2c844068c46f2889b0399d73c78c6"}',
+      '{"token": "29d2c844068c46f2889b0399d73c78c6"}'
     );
     document.querySelector('body').appendChild(cloudFlareScript);
     // google analytics
@@ -145,18 +142,15 @@ export const initAnalytics = () => {
 
     googleAnalyticsScript.setAttribute(
       'src',
-      'https://www.googletagmanager.com/gtag/js?id=G-KDCMVB11KQ',
+      'https://www.googletagmanager.com/gtag/js?id=G-KDCMVB11KQ'
     );
     googleAnalyticsScript.setAttribute('async', '');
     document.querySelector('body').appendChild(googleAnalyticsScript);
     window.dataLayer = window.dataLayer || [];
 
     function gtag() {
-      /* eslint-disable no-undef */
-      /* eslint-disable prefer-rest-params */
+      // biome-ignore lint/style/noArguments: <explanation>
       dataLayer.push(arguments);
-      /* eslint-enable no-undef */
-      /* eslint-enable prefer-rest-params */
     }
 
     gtag('js', new Date());
@@ -165,13 +159,13 @@ export const initAnalytics = () => {
 };
 
 export const deleteLetter = () => {
-  let gameState = getData('gameState');
+  const gameState = getData('gameState');
   let { currentRow, currentGuess } = gameState;
 
   if (currentGuess > 0) {
     currentGuess -= 1;
     const el = document.getElementById(
-      `guessRow-${currentRow}-guess-${currentGuess}`,
+      `guessRow-${currentRow}-guess-${currentGuess}`
     );
 
     el.textContent = '';
@@ -183,15 +177,15 @@ export const deleteLetter = () => {
 };
 
 export const addLetter = (letter) => {
-  let gameState = getData('gameState');
-  let { currentRow, currentGuess, guessesRows } = gameState;
+  const gameState = getData('gameState');
+  const { currentRow, currentGuess, guessesRows } = gameState;
 
   if (
     currentGuess < guessesRows[currentRow].length &&
     currentRow < guessesRows.length
   ) {
     const el = document.getElementById(
-      `guessRow-${currentRow}-guess-${currentGuess}`,
+      `guessRow-${currentRow}-guess-${currentGuess}`
     );
 
     el.textContent = letter.toUpperCase();
@@ -259,7 +253,7 @@ export const colorGuess = (currentRow) => {
     gameState.isGameOver
   ) {
     let checkBirdle = birdle.word;
-    let guessArray = Array.from(guesses).map((guess) => {
+    const guessArray = Array.from(guesses).map((guess) => {
       return {
         letter: guess.textContent.toLowerCase(),
         color: 'absent-overlay',
@@ -297,15 +291,15 @@ export const colorGuess = (currentRow) => {
 
           colorKeyboardLetter(dataLetter, guessArray[guessIndex].color);
         },
-        !gameState.isGameOver ? 300 * guessIndex : 0,
+        !gameState.isGameOver ? 300 * guessIndex : 0
       );
     });
   }
 };
 
 export const checkWord = () => {
-  let gameState = getData('gameState');
-  let { currentRow, currentGuess, guessesRows, guessesSubmitted } = gameState;
+  const gameState = getData('gameState');
+  const { currentRow, currentGuess, guessesRows, guessesSubmitted } = gameState;
 
   if (!guessesSubmitted) {
     gameState.guessesSubmitted = [];
@@ -408,8 +402,8 @@ export const checkWord = () => {
 };
 
 export const handleKey = (letter) => {
-  let gameState = getData('gameState');
-  let { isGameOver } = gameState;
+  const gameState = getData('gameState');
+  const { isGameOver } = gameState;
 
   if (!isGameOver) {
     const key = typeof letter === 'object' ? letter.target.id : letter;

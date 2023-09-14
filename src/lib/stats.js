@@ -1,13 +1,13 @@
 /* eslint-disable no-console */
 import ClipboardJS from 'clipboard';
-import Swal from 'sweetalert2';
-import dayjs from 'dayjs';
 import { html } from 'common-tags';
+import dayjs from 'dayjs';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
+import Swal from 'sweetalert2';
 
-import { getData, setData } from './local-storage';
 import { isSystemDarkTheme, supportsShareApi } from './helpers';
+import { getData, setData } from './local-storage';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -35,7 +35,7 @@ export const initStats = () => {
 export const updateStats = (won = true) => {
   const lastGameData = getData('gameState');
   const { currentRow } = lastGameData;
-  let stats = getData('stats');
+  const stats = getData('stats');
 
   // increment every game
   stats.gamesPlayed += 1;
@@ -83,9 +83,7 @@ export const createShareText = () => {
   let shareText = '';
 
   for (let i = 0; i < finalRow; i += 1) {
-    const guesses = Array.from(
-      document.getElementById(`guessRow-${i}`).childNodes,
-    );
+    const guesses = Array.from(document.getElementById(`guessRow-${i}`).childNodes);
     // eslint-disable-next-line array-callback-return
     const rowEmoji = guesses.map((guess) => {
       if (guess.classList.contains('correct-overlay')) {
@@ -117,7 +115,7 @@ export const createShareText = () => {
 export const handleShareClick = (e) => {
   e.preventDefault();
   const gameResults = createShareText();
-  let useWebSharingApi = supportsShareApi() && navigator.share;
+  const useWebSharingApi = supportsShareApi() && navigator.share;
 
   // console.log('useWebSharingApi: ', useWebSharingApi);
 
@@ -191,7 +189,9 @@ export const initCountdown = () => {
     const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((diff % (1000 * 60)) / 1000);
     // prettier-ignore
-    const timeString = `${hours.toString().padStart(2, 0)}:${minutes.toString().padStart(2, 0)}:${seconds.toString().padStart(2, 0)}`;
+    const timeString = `${hours.toString().padStart(2, 0)}:${minutes
+      .toString()
+      .padStart(2, 0)}:${seconds.toString().padStart(2, 0)}`;
 
     document.querySelector('.timer').innerHTML = timeString;
   }, 1000);
@@ -293,10 +293,11 @@ export const showStats = () => {
                 <th scope="row">1</th>
                 <td
                   class="text-gray-50"
-                  style="--color: ${currentGuessCount && currentGuessCount === 1
-                    ? '#581c87;'
-                    : '#333;'} --size:calc((${stats
-                    .guesses[1]} * ${scale}) / 100)"
+                  style="--color: ${
+                    currentGuessCount && currentGuessCount === 1
+                      ? '#581c87;'
+                      : '#333;'
+                  } --size:calc((${stats.guesses[1]} * ${scale}) / 100)"
                 >
                   <span class="data"
                     >${stats.guesses[1] ? stats.guesses[1] : '&nbsp;'}</span
@@ -307,10 +308,11 @@ export const showStats = () => {
                 <th scope="row">2</th>
                 <td
                   class="text-gray-50"
-                  style="--color: ${currentGuessCount && currentGuessCount === 2
-                    ? '#581c87;'
-                    : '#333;'} --size:calc((${stats
-                    .guesses[2]} * ${scale}) / 100)"
+                  style="--color: ${
+                    currentGuessCount && currentGuessCount === 2
+                      ? '#581c87;'
+                      : '#333;'
+                  } --size:calc((${stats.guesses[2]} * ${scale}) / 100)"
                 >
                   <span class="data"
                     >${stats.guesses[2] ? stats.guesses[2] : '&nbsp;'}</span
@@ -321,10 +323,11 @@ export const showStats = () => {
                 <th scope="row">3</th>
                 <td
                   class="text-gray-50"
-                  style="--color: ${currentGuessCount && currentGuessCount === 3
-                    ? '#581c87;'
-                    : '#333;'}; --size:calc((${stats
-                    .guesses[3]} * ${scale}) / 100)"
+                  style="--color: ${
+                    currentGuessCount && currentGuessCount === 3
+                      ? '#581c87;'
+                      : '#333;'
+                  }; --size:calc((${stats.guesses[3]} * ${scale}) / 100)"
                 >
                   <span class="data"
                     >${stats.guesses[3] ? stats.guesses[3] : '&nbsp;'}</span
@@ -335,10 +338,11 @@ export const showStats = () => {
                 <th scope="row">4</th>
                 <td
                   class="text-gray-50"
-                  style="--color: ${currentGuessCount && currentGuessCount === 4
-                    ? '#581c87;'
-                    : '#333;'}; --size:calc((${stats
-                    .guesses[4]} * ${scale}) / 100)"
+                  style="--color: ${
+                    currentGuessCount && currentGuessCount === 4
+                      ? '#581c87;'
+                      : '#333;'
+                  }; --size:calc((${stats.guesses[4]} * ${scale}) / 100)"
                 >
                   <span class="data"
                     >${stats.guesses[4] ? stats.guesses[4] : '&nbsp;'}</span
@@ -349,10 +353,11 @@ export const showStats = () => {
                 <th scope="row">5</th>
                 <td
                   class="text-gray-50"
-                  style="--color: ${currentGuessCount && currentGuessCount === 5
-                    ? '#581c87;'
-                    : '#333;'}; --size:calc((${stats
-                    .guesses[5]} * ${scale}) / 100)"
+                  style="--color: ${
+                    currentGuessCount && currentGuessCount === 5
+                      ? '#581c87;'
+                      : '#333;'
+                  }; --size:calc((${stats.guesses[5]} * ${scale}) / 100)"
                 >
                   <span class="data"
                     >${stats.guesses[5] ? stats.guesses[5] : '&nbsp;'}</span
@@ -363,10 +368,11 @@ export const showStats = () => {
                 <th scope="row">6</th>
                 <td
                   class="text-gray-50"
-                  style="--color: ${currentGuessCount && currentGuessCount === 6
-                    ? '#581c87;'
-                    : '#333;'} --size:calc((${stats
-                    .guesses[6]} * ${scale}) / 100)"
+                  style="--color: ${
+                    currentGuessCount && currentGuessCount === 6
+                      ? '#581c87;'
+                      : '#333;'
+                  } --size:calc((${stats.guesses[6]} * ${scale}) / 100)"
                 >
                   <span class="data"
                     >${stats.guesses[6] ? stats.guesses[6] : '&nbsp;'}</span
