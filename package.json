@@ -40,8 +40,8 @@
     "sweetalert2": "11.7.28"
   },
   "devDependencies": {
-    "@babel/preset-env": "7.22.15",
-    "@biomejs/biome": "1.2.0",
+    "@babel/preset-env": "7.22.20",
+    "@biomejs/biome": "1.2.2",
     "@fullhuman/postcss-purgecss": "5.0.0",
     "autoprefixer": "10.4.15",
     "charts.css": "1.0.0",
