@@ -22,7 +22,7 @@
     "email": "mikesprague@gmail.com"
   },
   "engines": {
-    "node": ">= 16.x",
+    "node": ">= 18.x",
     "npm": ">= 8.x"
   },
   "license": "MIT",
@@ -40,7 +40,6 @@
     "sweetalert2": "11.7.28"
   },
   "devDependencies": {
-    "@babel/preset-env": "7.22.20",
     "@biomejs/biome": "1.2.2",
     "@fullhuman/postcss-purgecss": "5.0.0",
     "autoprefixer": "10.4.15",
@@ -57,9 +56,6 @@
     "vite": "4.4.9",
     "vite-plugin-html": "3.2.0",
     "vite-plugin-pwa": "0.16.5"
-  },
-  "babel": {
-    "presets": ["@babel/preset-env"]
   },
   "browserslist": {
     "development": ["last 1 version"],
