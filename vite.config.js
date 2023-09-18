@@ -1,6 +1,6 @@
-import { VitePWA } from 'vite-plugin-pwa';
-import { createHtmlPlugin } from 'vite-plugin-html';
 import { defineConfig } from 'vite';
+import { createHtmlPlugin } from 'vite-plugin-html';
+import { VitePWA } from 'vite-plugin-pwa';
 import { version } from './package.json';
 
 export default defineConfig({

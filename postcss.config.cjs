@@ -1,6 +1,5 @@
 const cssSafelistClassArray = [/swal2/, /w-1\/2/];
 
-// Export all plugins our postcss should use
 module.exports = {
   plugins: [
     require('autoprefixer'),
@@ -12,6 +11,6 @@ module.exports = {
       content: ['./src/**/*.html', './src/**/*.js'],
       fontFace: true,
       safelist: cssSafelistClassArray,
-    })
+    }),
   ],
 };
