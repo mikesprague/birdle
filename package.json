@@ -37,7 +37,7 @@
     "common-tags": "1.8.2",
     "cross-env": "7.0.3",
     "dayjs": "1.11.10",
-    "sweetalert2": "11.7.29"
+    "sweetalert2": "11.7.31"
   },
   "devDependencies": {
     "@biomejs/biome": "1.2.2",
