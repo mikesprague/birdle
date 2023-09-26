@@ -517,6 +517,6 @@ export const initGame = async (day = null, firstVisit = false) => {
     .addEventListener('change', () => {
       location.reload(true);
     });
-  // eslint-disable-next-line no-console
+
   console.log('🙈 nothing to see here, move along now');
 };
