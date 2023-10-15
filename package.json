@@ -37,6 +37,7 @@
     "common-tags": "1.8.2",
     "cross-env": "7.0.3",
     "dayjs": "1.11.10",
+    "emojisplosion": "2.6.1",
     "sweetalert2": "11.7.32"
   },
   "devDependencies": {
