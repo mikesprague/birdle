@@ -342,10 +342,10 @@ export const checkWord = () => {
     colorGuess(currentRow);
 
     if (guess.toLowerCase() === birdle.word) {
-      const { cancel } = emojisplosions({
-        emojiCount: 50 / (currentRow + 1),
-      });
       setTimeout(() => {
+        const { cancel } = emojisplosions({
+          emojiCount: 50 / (currentRow + 1),
+        });
         Swal.fire({
           html: `<strong>${successStrings[currentRow]}</strong>`,
           showConfirmButton: false,
