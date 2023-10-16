@@ -345,6 +345,24 @@ export const checkWord = () => {
       setTimeout(() => {
         const { cancel } = emojisplosions({
           emojiCount: 50 / (currentRow + 1),
+          emojis: [
+            '🦃',
+            '🐔',
+            '🐓',
+            '🐦',
+            '🐧',
+            '🕊️',
+            '🦅',
+            '🦆',
+            '🐥',
+            '🐣',
+            '🐤',
+            '🦢',
+            '🦉',
+            '🦤',
+            '🦩',
+            '🦜',
+          ],
         });
         Swal.fire({
           html: `<strong>${successStrings[currentRow]}</strong>`,
