@@ -1,3 +1,4 @@
+import { emojisplosion, emojisplosions } from 'emojisplosion';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { registerSW } from 'virtual:pwa-register';
 
@@ -341,6 +342,9 @@ export const checkWord = () => {
     colorGuess(currentRow);
 
     if (guess.toLowerCase() === birdle.word) {
+      const { cancel } = emojisplosions({
+        emojiCount: 50 / (currentRow + 1),
+      });
       setTimeout(() => {
         Swal.fire({
           html: `<strong>${successStrings[currentRow]}</strong>`,
@@ -355,6 +359,7 @@ export const checkWord = () => {
           didDestroy: () => {
             showStats();
             releaseWakeState();
+            cancel();
           },
         });
       }, 1500);
