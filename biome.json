@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.4.0/schema.json",
+  "$schema": "node_modules/@biomejs/biome/configuration_schema.json",
   "files": {
     "ignore": [
       "**/.devcontainer/*",
@@ -37,6 +37,7 @@
     "formatter": {
       "quoteProperties": "preserve",
       "arrowParentheses": "always",
+      "bracketSpacing": true,
       "jsxQuoteStyle": "double",
       "quoteStyle": "single",
       "semicolons": "always",
