@@ -31,7 +31,7 @@
   },
   "homepage": "https://birdle.app",
   "dependencies": {
-    "@rwh/keystrokes": "1.4.0",
+    "@rwh/keystrokes": "1.5.1",
     "@sweetalert2/theme-dark": "5.0.15",
     "clipboard": "2.0.11",
     "common-tags": "1.8.2",
