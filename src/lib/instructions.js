@@ -56,7 +56,7 @@ export const showInstructions = () => {
               <div class="guess">i</div>
               <div class="guess">l</div>
             </div>
-            <p class="examples-text">The letter I is not in the word.</p>
+            <p class="examples-text">The letter U is not in the word.</p>
           </div>
         </div>
         <hr />
