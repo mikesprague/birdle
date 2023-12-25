@@ -50,11 +50,11 @@ export const showInstructions = () => {
           </div>
           <div>
             <div class="guess-row">
-              <div class="guess">b</div>
-              <div class="guess absent-overlay">i</div>
-              <div class="guess">r</div>
-              <div class="guess">d</div>
-              <div class="guess">s</div>
+              <div class="guess">q</div>
+              <div class="guess absent-overlay">u</div>
+              <div class="guess">a</div>
+              <div class="guess">i</div>
+              <div class="guess">l</div>
             </div>
             <p class="examples-text">The letter I is not in the word.</p>
           </div>
