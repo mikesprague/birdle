@@ -1,6 +1,6 @@
 {
   "name": "birdle",
-  "version": "1.15.11",
+  "version": "1.15.12",
   "description": "birdle",
   "private": true,
   "type": "module",
@@ -22,8 +22,8 @@
     "email": "mikesprague@gmail.com"
   },
   "engines": {
-    "node": ">= 18.x",
-    "npm": ">= 8.x"
+    "node": ">= 20.x",
+    "npm": ">= 10.x"
   },
   "license": "MIT",
   "bugs": {
