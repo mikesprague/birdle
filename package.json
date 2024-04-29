@@ -36,7 +36,7 @@
     "clipboard": "2.0.11",
     "common-tags": "1.8.2",
     "cross-env": "7.0.3",
-    "dayjs": "1.11.10",
+    "dayjs": "1.11.11",
     "emojisplosion": "4.0.0",
     "sweetalert2": "11.10.8"
   },
