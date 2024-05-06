@@ -41,7 +41,7 @@
     "sweetalert2": "11.10.8"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.7.2",
+    "@biomejs/biome": "1.7.3",
     "@fullhuman/postcss-purgecss": "6.0.0",
     "autoprefixer": "10.4.19",
     "charts.css": "1.1.0",
