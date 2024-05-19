@@ -59,8 +59,14 @@
     "vite-plugin-pwa": "0.20.0"
   },
   "browserslist": {
-    "development": ["last 1 version"],
-    "production": ["> 1%", "last 2 versions", "not ie <= 10"]
+    "development": [
+      "last 1 version"
+    ],
+    "production": [
+      "> 1%",
+      "last 2 versions",
+      "not ie <= 10"
+    ]
   },
   "config": {
     "commitizen": {
@@ -68,7 +74,7 @@
     }
   },
   "volta": {
-    "node": "21.7.1",
-    "npm": "10.5.0"
+    "node": "22.2.0",
+    "npm": "10.8.0"
   }
 }
