@@ -216,7 +216,7 @@ export const showStats = () => {
 
   let scale = 100 / Math.max(...guessCountArray);
 
-  scale = scale === Infinity ? 0 : scale;
+  scale = scale === Number.Infinity ? 0 : scale;
   const currentGuessCount =
     gameState.isGameOver && gameState.wonGame ? gameState.currentRow + 1 : null;
   let timerHandle;
