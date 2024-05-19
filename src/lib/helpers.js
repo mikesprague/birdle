@@ -292,7 +292,7 @@ export const colorGuess = (currentRow) => {
           guess.classList.add(guessArray[guessIndex].color);
 
           if (!gameState.isGameOver) {
-            guess.classList.add('flip-vertical-right');
+            guess.classList.add('flip-horizontal');
           }
 
           colorKeyboardLetter(dataLetter, guessArray[guessIndex].color);
