@@ -54,6 +54,7 @@ const lockWakeState = async () => {
 
   try {
     wakelock = await navigator.wakeLock.request();
+    // biome-ignore lint/correctness/noUnusedVariables: <explanation>
   } catch (e) {
     // console.error('failed to lock wake state:', e.message);
     wakelock = null;
@@ -154,6 +155,7 @@ export const initAnalytics = () => {
 
     function gtag() {
       // biome-ignore lint/style/noArguments: <explanation>
+      // biome-ignore lint/correctness/noUndeclaredVariables: <explanation>
       dataLayer.push(arguments);
     }
 
@@ -272,7 +274,7 @@ export const colorGuess = (currentRow) => {
       }
     });
 
-    guessArray.forEach((guess) => {
+    for (const guess of guessArray) {
       if (
         checkBirdle.includes(guess.letter) &&
         guess.color !== 'correct-overlay'
@@ -280,7 +282,7 @@ export const colorGuess = (currentRow) => {
         guess.color = 'present-overlay';
         checkBirdle = checkBirdle.replace(guess.letter, '');
       }
-    });
+    }
 
     guesses.forEach((guess, guessIndex) => {
       const dataLetter = guess.textContent.toLowerCase();
