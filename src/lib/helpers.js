@@ -1,6 +1,6 @@
-import { emojisplosions } from 'emojisplosion';
-import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { registerSW } from 'virtual:pwa-register';
+import { emojiBlasts } from 'emoji-blast';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 import { allowed } from './allowed';
 import { showInstructions } from './instructions';
@@ -343,7 +343,7 @@ export const checkWord = () => {
 
     if (guess.toLowerCase() === birdle.word) {
       setTimeout(() => {
-        const { cancel } = emojisplosions({
+        const { cancel } = emojiBlasts({
           emojiCount: (guessesRows.length * 10) / (currentRow + 1),
           emojis: [
             '🦃',
