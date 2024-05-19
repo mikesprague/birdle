@@ -1,7 +1,7 @@
+@import '@sweetalert2/theme-dark/dark';
 @tailwind base;
 @tailwind components;
 
-@import '@sweetalert2/theme-dark/dark.scss';
 
 * {
   @apply touch-manipulation;
@@ -13,7 +13,7 @@ body {
 }
 
 body {
-  @apply bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans touch-manipulation md:pb-2 pb-1 short:pb-0.5;
+  @apply bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans touch-manipulation md:pb-5 pb-5 short:pb-3;
 }
 
 .app {
