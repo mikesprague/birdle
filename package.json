@@ -37,7 +37,7 @@
     "common-tags": "1.8.2",
     "cross-env": "7.0.3",
     "dayjs": "1.11.11",
-    "emojisplosion": "4.0.0",
+    "emoji-blast": "0.10.0",
     "sweetalert2": "11.11.0"
   },
   "devDependencies": {
@@ -59,14 +59,8 @@
     "vite-plugin-pwa": "0.20.0"
   },
   "browserslist": {
-    "development": [
-      "last 1 version"
-    ],
-    "production": [
-      "> 1%",
-      "last 2 versions",
-      "not ie <= 10"
-    ]
+    "development": ["last 1 version"],
+    "production": ["> 1%", "last 2 versions", "not ie <= 10"]
   },
   "config": {
     "commitizen": {
