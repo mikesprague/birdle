@@ -46,7 +46,7 @@
     "autoprefixer": "10.4.19",
     "charts.css": "1.1.0",
     "cssnano": "7.0.4",
-    "cz-git": "^1.9.3",
+    "cz-git": "^1.9.4",
     "postcss": "8.4.39",
     "postcss-cli": "11.0.0",
     "sass": "1.77.8",
