@@ -9,7 +9,7 @@
     "clean": "rm -rf ./dist",
     "dev": "vite serve --port 3000",
     "start": "cross-env NODE_ENV=development npm run dev",
-    "prebuild": "npm run clean",
+    "prebuild": "npm run clean && npm install",
     "preview": "vite preview",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
