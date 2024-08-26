@@ -1,4 +1,5 @@
 import { registerSW } from 'virtual:pwa-register';
+import { balloons } from 'balloons-js';
 import { emojiBlasts } from 'emoji-blast';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
@@ -377,6 +378,7 @@ export const checkWord = () => {
           timer: 2500,
           timerProgressBar: true,
           didDestroy: () => {
+            balloons();
             showStats();
             releaseWakeState();
             cancel();
