@@ -340,32 +340,60 @@ export const checkWord = () => {
       return;
     }
 
+    const defaultBirds = [
+      '🦃',
+      '🐔',
+      '🐓',
+      '🐦',
+      '🐧',
+      '🕊️',
+      '🦅',
+      '🦆',
+      '🐥',
+      '🐣',
+      '🐤',
+      '🦢',
+      '🦉',
+      '🦤',
+      '🦩',
+      '🦜',
+    ];
+
+    const halloweenEmojis = [
+      '👻',
+      '🎃',
+      '🦇',
+      '🕷️',
+      '🕸️',
+      '🧙‍♀️',
+      '🧛‍♂️',
+      '🧟‍♀️',
+      '🧟‍♂️',
+      '👾',
+      '👹',
+      '👽',
+      '☠️',
+      '💀',
+      '🤡',
+      '😱',
+    ];
+
     gameState.guessesSubmitted.push(guess.toLowerCase());
     setData('gameState', gameState);
     colorGuess(currentRow);
+
+    // var with current date
+    const today = new Date();
+    // var that returns true if today is in October
+    const isHalloween = today.getMonth() === 9;
+    // var that returns true if today is in Novermber
+    const isThanksgiving = today.getMonth() === 10;
 
     if (guess.toLowerCase() === birdle.word) {
       setTimeout(() => {
         const { cancel } = emojiBlasts({
           emojiCount: (guessesRows.length * 10) / (currentRow + 1),
-          emojis: [
-            '🦃',
-            '🐔',
-            '🐓',
-            '🐦',
-            '🐧',
-            '🕊️',
-            '🦅',
-            '🦆',
-            '🐥',
-            '🐣',
-            '🐤',
-            '🦢',
-            '🦉',
-            '🦤',
-            '🦩',
-            '🦜',
-          ],
+          emojis: isHalloween ? halloweenEmojis : defaultBirds,
         });
         Swal.fire({
           html: `<strong>${successStrings[currentRow]}</strong>`,
