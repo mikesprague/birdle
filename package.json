@@ -48,7 +48,7 @@
     "charts.css": "1.1.0",
     "cssnano": "7.0.6",
     "cz-git": "^1.11.0",
-    "postcss": "8.4.48",
+    "postcss": "8.4.49",
     "postcss-cli": "11.0.0",
     "sass": "1.80.6",
     "stylelint": "16.10.0",
