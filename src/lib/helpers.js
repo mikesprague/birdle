@@ -378,6 +378,83 @@ export const checkWord = () => {
       '😱',
     ];
 
+    const thanksGivingEmojis = [
+      '🍽️',
+      '🍴',
+      '🦃',
+      '👏',
+      '🌽',
+      '🌰',
+      '🍗',
+      '🏡',
+      '💕',
+      '🙌',
+      '👪',
+      '🔥',
+      '☕',
+      '🍾',
+      '🍁',
+      '🍂',
+      '🥕',
+      '🥞',
+      '🙏',
+      '🥃',
+      '🤤',
+      '🥂',
+      '🥄',
+      '🥓',
+      '🥜',
+      '🥧',
+      '🧣',
+      '🧤',
+      '🏈',
+      '🥔',
+    ];
+
+    const christmasEmojis = [
+      '🔔',
+      '🍴',
+      '🎁',
+      '👶',
+      '🕯️',
+      '🎅',
+      '👼',
+      '🎶',
+      '🛐',
+      '⛪',
+      '🤶',
+      '✝️',
+      '❄️',
+      '☃️',
+      '👪',
+      '⛄',
+      '🌟',
+      '🔥',
+      '🎄',
+      '🍷',
+      '🦌',
+      '🍪',
+      '🥛',
+      '🧝‍♀️',
+      '🧦',
+      '🧝‍♂️',
+      '🧑‍🎄',
+      '🧝',
+      '🥕',
+      '💝',
+      '🌨️',
+      '💟',
+      '🛷',
+      '📜',
+      '⭐',
+      '🍰',
+      '🍫',
+      '🍬',
+      '🌠',
+      '🌌',
+      '🧩',
+    ];
+
     gameState.guessesSubmitted.push(guess.toLowerCase());
     setData('gameState', gameState);
     colorGuess(currentRow);
@@ -385,15 +462,26 @@ export const checkWord = () => {
     // var with current date
     const today = new Date();
     // var that returns true if today is in October
-    const isHalloween = today.getMonth() === 9;
+    const isHalloween =
+      today.getMonth() === 9 && today.getDate() > 21 && today.getDate() <= 31;
     // var that returns true if today is in Novermber
-    const isThanksgiving = today.getMonth() === 10;
+    const isThanksgiving =
+      today.getMonth() === 10 && today.getDate() > 20 && today.getDate() <= 28;
+
+    const isChristmas =
+      today.getMonth() === 11 && today.getDate() > 10 && today.getDate() <= 25;
 
     if (guess.toLowerCase() === birdle.word) {
       setTimeout(() => {
         const { cancel } = emojiBlasts({
           emojiCount: (guessesRows.length * 10) / (currentRow + 1),
-          emojis: isHalloween ? halloweenEmojis : defaultBirds,
+          emojis: isHalloween
+            ? halloweenEmojis
+            : isThanksgiving
+              ? thanksGivingEmojis
+              : isChristmas
+                ? christmasEmojis
+                : defaultBirds,
         });
         Swal.fire({
           html: `<strong>${successStrings[currentRow]}</strong>`,
