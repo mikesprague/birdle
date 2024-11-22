@@ -1,7 +1,7 @@
-const colors = require('tailwindcss/colors');
-const defaultTheme = require('tailwindcss/defaultTheme');
+import * as colors from 'tailwindcss/colors';
+import * as defaultTheme from 'tailwindcss/defaultTheme';
 
-module.exports = {
+export default {
   mode: 'jit',
   darkMode: 'media',
   content: ['./src/**/*.{html,js,ts,jsx,tsx}'],
