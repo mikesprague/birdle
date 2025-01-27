@@ -1,18 +1,14 @@
 export default {
-  extends: ['stylelint-config-standard', 'stylelint-config-standard-scss'],
+  extends: ['stylelint-config-standard'],
   rules: {
-    'scss/at-rule-no-unknown': [
+    'at-rule-no-unknown': [
       true,
       {
-        ignoreAtRules: [
-          'tailwind',
-          'apply',
-          'variants',
-          'responsive',
-          'screen',
-        ],
+        ignoreAtRules: ['tailwind', 'theme', 'apply', 'utilities'],
       },
     ],
     'no-descending-specificity': null,
+    'import-notation': null,
+    'custom-property-pattern': null,
   },
 };

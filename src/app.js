@@ -4,10 +4,10 @@ import {
   initGame,
   initServiceWorker,
   isDev,
-} from './lib/helpers';
-import { getData } from './lib/local-storage';
+} from './lib/helpers.js';
+import { getData } from './lib/local-storage.js';
 
-import './styles.scss';
+import './styles.css';
 
 (async () => {
   if (isDev()) {

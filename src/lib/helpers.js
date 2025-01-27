@@ -3,12 +3,12 @@ import { balloons } from 'balloons-js';
 import { emojiBlasts } from 'emoji-blast';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
-import { allowed } from './allowed';
-import { showInstructions } from './instructions';
-import { initKeys, keys } from './keys';
-import { getData, setData } from './local-storage';
-import { initStats, showStats, updateStats } from './stats';
-import { words } from './words';
+import { allowed } from './allowed.js';
+import { showInstructions } from './instructions.js';
+import { initKeys, keys } from './keys.js';
+import { getData, setData } from './local-storage.js';
+import { initStats, showStats, updateStats } from './stats.js';
+import { words } from './words.js';
 
 export const isLocal = () => {
   if (
@@ -100,7 +100,14 @@ export const buildGuessesRows = (guessesRows) => {
     const rowEl = document.createElement('div');
 
     rowEl.setAttribute('id', `guessRow-${guessRowIndex}`);
-    rowEl.classList.add('guess-row');
+    rowEl.classList.add(
+      'guess-row',
+      'flex',
+      'manipulation',
+      'justify-center',
+      'items-center',
+      'flex-row'
+    );
     guessRow.forEach((guess, guessIndex) => {
       const guessEl = document.createElement('div');
 
@@ -109,9 +116,29 @@ export const buildGuessesRows = (guessesRows) => {
         `guessRow-${guessRowIndex}-guess-${guessIndex}`
       );
       guessEl.textContent = guess.length ? guess.toUpperCase() : '';
-      guessEl.classList.add('guess');
+      guessEl.classList.add(
+        'box-border',
+        'flex',
+        'items-center',
+        'justify-center',
+        'w-17',
+        'h-17',
+        'max-[480px]:w-16',
+        'max-[680px]:h-16',
+        'm-1.25',
+        'text-3xl',
+        'font-black',
+        'text-gray-900',
+        'border-2',
+        'border-gray-600',
+        'md:w-20',
+        'md:h-20',
+        'dark:text-gray-50',
+        'md:text-4xl'
+      );
       rowEl.append(guessEl);
     });
+    console.log(rowEl);
     guessesContainer.append(rowEl);
   });
 };
