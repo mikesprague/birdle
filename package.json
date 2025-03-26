@@ -43,7 +43,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
-    "@tailwindcss/vite": "4.0.16",
+    "@tailwindcss/vite": "4.0.17",
     "charts.css": "1.1.0",
     "cz-git": "^1.11.1",
     "prettier": "3.5.3",
