@@ -524,22 +524,22 @@ export const checkWord = () => {
             textBalloons([
               {
                 text: defaultBirds.slice(0, 4).join(''),
-                fontSize: 120,
+                fontSize: Math.min(window.innerWidth / 5, 160),
                 color: '#000000',
               },
               {
                 text: defaultBirds.slice(4, 8).join(''),
-                fontSize: 120,
+                fontSize: Math.min(window.innerWidth / 5, 160),
                 color: '#000000',
               },
               {
-                text: defaultBirds.slice(9, 12).join(''),
-                fontSize: 120,
+                text: defaultBirds.slice(8, 12).join(''),
+                fontSize: Math.min(window.innerWidth / 5, 160),
                 color: '#000000',
               },
               {
-                text: defaultBirds.slice(13, 16).join(''),
-                fontSize: 120,
+                text: defaultBirds.slice(12, 16).join(''),
+                fontSize: Math.min(window.innerWidth / 5, 160),
                 color: '#000000',
               },
             ]);
