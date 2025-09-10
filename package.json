@@ -42,7 +42,7 @@
     "sweetalert2": "11.23.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.2.3",
+    "@biomejs/biome": "2.2.4",
     "@tailwindcss/vite": "4.1.13",
     "charts.css": "1.2.0",
     "cz-git": "^1.12.0",
