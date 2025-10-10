@@ -39,7 +39,7 @@
     "cross-env": "10.1.0",
     "dayjs": "1.11.18",
     "emoji-blast": "0.10.2",
-    "sweetalert2": "11.25.0"
+    "sweetalert2": "11.26.0"
   },
   "devDependencies": {
     "@biomejs/biome": "2.2.5",
