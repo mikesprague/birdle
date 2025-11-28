@@ -53,11 +53,17 @@
     "tailwindcss": "4.1.17",
     "vite": "7.2.4",
     "vite-plugin-html": "3.2.2",
-    "vite-plugin-pwa": "1.1.0"
+    "vite-plugin-pwa": "1.2.0"
   },
   "browserslist": {
-    "development": ["last 1 version"],
-    "production": ["> 1%", "last 2 versions", "not ie <= 10"]
+    "development": [
+      "last 1 version"
+    ],
+    "production": [
+      "> 1%",
+      "last 2 versions",
+      "not ie <= 10"
+    ]
   },
   "config": {
     "commitizen": {
@@ -65,7 +71,7 @@
     }
   },
   "volta": {
-    "node": "22.13.1",
-    "npm": "10.9.2"
+    "node": "25.2.1",
+    "npm": "11.6.4"
   }
 }
