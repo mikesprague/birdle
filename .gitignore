@@ -116,6 +116,7 @@ dist
 .pnp.*
 
 # Misc
+.DS_Store
 .history
 .vercel
 local-storage/*

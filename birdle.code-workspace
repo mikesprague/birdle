@@ -25,8 +25,20 @@
       "source.organizeImports.biome": "always",
       "quickfix.biome": "always"
     },
-    "cSpell.words": ["birdle", "KDCMVB", "wakelock"],
-    "cSpell.ignoreWords": ["Swal", "Womp", "sweetalert"]
+    "cSpell.ignoreWords": [
+      "Swal",
+      "Womp",
+      "sweetalert",
+      "birdle",
+      "indexeddb",
+      "KDCMVB",
+      "lucide",
+      "negotiables",
+      "shadcn",
+      "tinybase",
+      "wakelock",
+      "Wordle"
+    ]
   },
   "extensions": {
     "recommendations": ["biomejs.biome"]
