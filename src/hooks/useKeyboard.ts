@@ -6,7 +6,7 @@
  */
 
 import { bindKey, unbindKey } from '@rwh/keystrokes';
-import { useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 import type { KeyStatus } from '@/types';
 import { calculateKeyboardStatuses } from '@/utils';
 
@@ -46,7 +46,20 @@ export function useKeyboard(
     return calculateKeyboardStatuses(guesses, answer);
   }, [guesses, answer]);
 
-  // Setup physical keyboard bindings
+  // Use ref to store the callback to avoid rebinding keys
+  const onKeyPressRef = useRef(onKeyPress);
+
+  // Update ref when callback changes
+  useEffect(() => {
+    onKeyPressRef.current = onKeyPress;
+  }, [onKeyPress]);
+
+  // Stable handler that uses the ref
+  const handleKeyPress = useCallback((key: string) => {
+    onKeyPressRef.current(key);
+  }, []);
+
+  // Setup physical keyboard bindings (only once)
   useEffect(() => {
     // Don't bind keys if game is over
     if (isGameOver) {
@@ -60,27 +73,29 @@ export function useKeyboard(
       letterKeys.push(letter);
 
       bindKey(letter, () => {
-        onKeyPress(letter);
+        handleKeyPress(letter);
       });
     }
 
     // Bind Enter key
     bindKey('Enter', () => {
-      onKeyPress('enter');
+      handleKeyPress('enter');
     });
 
     // Bind Backspace key
     bindKey('Backspace', () => {
-      onKeyPress('backspace');
+      handleKeyPress('backspace');
     });
 
     // Cleanup: unbind all keys on unmount or when game ends
     return () => {
-      letterKeys.forEach((key) => unbindKey(key));
+      for (const key of letterKeys) {
+        unbindKey(key);
+      }
       unbindKey('Enter');
       unbindKey('Backspace');
     };
-  }, [onKeyPress, isGameOver]);
+  }, [isGameOver, handleKeyPress]);
 
   return {
     keyStatuses,

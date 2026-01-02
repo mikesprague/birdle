@@ -5,7 +5,7 @@
  * Integrates with game state and provides visual feedback based on letter usage.
  */
 
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import type { Store } from 'tinybase';
 import { KEYBOARD_ROWS, useGameState, useKeyboard } from '@/hooks';
 import { Key } from './Key';
@@ -58,7 +58,22 @@ export function Keyboard({ store }: KeyboardProps) {
 
   const isGameOver = gameState?.isGameOver || false;
 
+  // Create stable onClick handlers for each key (prevents inline arrow functions)
+  const keyHandlers = useMemo(() => {
+    const handlers = new Map<string, () => void>();
+    const allKeys = [
+      ...KEYBOARD_ROWS[0],
+      ...KEYBOARD_ROWS[1],
+      ...KEYBOARD_ROWS[2],
+    ];
+    for (const letter of allKeys) {
+      handlers.set(letter, () => handleKeyPress(letter));
+    }
+    return handlers;
+  }, [handleKeyPress]);
+
   return (
+    // biome-ignore lint/a11y/useSemanticElements: intentional, not part of a form
     <div
       className="w-full max-w-xl mx-auto px-2 pb-4"
       role="group"
@@ -66,51 +81,69 @@ export function Keyboard({ store }: KeyboardProps) {
     >
       <div className="flex flex-col gap-1">
         {/* Row 1: Q W E R T Y U I O P */}
-        <div className="flex justify-center gap-1">
-          {KEYBOARD_ROWS[0].map((letter) => (
-            <Key
-              key={letter}
-              letter={letter}
-              status={getKeyStatus(letter)}
-              onClick={() => handleKeyPress(letter)}
-              disabled={isGameOver}
-            />
-          ))}
+        <div className="flex justify-center gap-1 flex-row">
+          {KEYBOARD_ROWS[0].map((letter) => {
+            const handler = keyHandlers.get(letter);
+            if (!handler) {
+              return null;
+            }
+            return (
+              <Key
+                key={letter}
+                letter={letter}
+                status={getKeyStatus(letter)}
+                onClick={handler}
+                disabled={isGameOver}
+              />
+            );
+          })}
         </div>
 
         {/* Row 2: A S D F G H J K L */}
-        <div className="flex justify-center gap-1">
-          {KEYBOARD_ROWS[1].map((letter) => (
-            <Key
-              key={letter}
-              letter={letter}
-              status={getKeyStatus(letter)}
-              onClick={() => handleKeyPress(letter)}
-              disabled={isGameOver}
-            />
-          ))}
+        <div className="flex justify-center gap-1 flex-row">
+          {KEYBOARD_ROWS[1].map((letter) => {
+            const handler = keyHandlers.get(letter);
+            if (!handler) {
+              return null;
+            }
+            return (
+              <Key
+                key={letter}
+                letter={letter}
+                status={getKeyStatus(letter)}
+                onClick={handler}
+                disabled={isGameOver}
+              />
+            );
+          })}
         </div>
 
         {/* Row 3: ENTER Z X C V B N M BACKSPACE */}
-        <div className="flex justify-center gap-1">
-          {KEYBOARD_ROWS[2].map((letter) => (
-            <Key
-              key={letter}
-              letter={letter}
-              status={
-                letter === 'enter' || letter === 'backspace'
-                  ? 'unused'
-                  : getKeyStatus(letter)
-              }
-              onClick={() => handleKeyPress(letter)}
-              size={
-                letter === 'enter' || letter === 'backspace'
-                  ? 'large'
-                  : 'normal'
-              }
-              disabled={isGameOver}
-            />
-          ))}
+        <div className="flex justify-center gap-1 flex-row">
+          {KEYBOARD_ROWS[2].map((letter) => {
+            const handler = keyHandlers.get(letter);
+            if (!handler) {
+              return null;
+            }
+            return (
+              <Key
+                key={letter}
+                letter={letter}
+                status={
+                  letter === 'enter' || letter === 'backspace'
+                    ? 'unused'
+                    : getKeyStatus(letter)
+                }
+                onClick={handler}
+                size={
+                  letter === 'enter' || letter === 'backspace'
+                    ? 'large'
+                    : 'normal'
+                }
+                disabled={isGameOver}
+              />
+            );
+          })}
         </div>
       </div>
     </div>

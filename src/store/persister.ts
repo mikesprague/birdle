@@ -7,6 +7,7 @@
 
 import type { Store } from 'tinybase';
 import { createIndexedDbPersister } from 'tinybase/persisters/persister-indexed-db';
+import { storeLogger } from '@/utils/logger';
 
 /**
  * IndexedDB database name
@@ -39,10 +40,10 @@ export async function createGamePersister(store: Store) {
   await persister.startAutoSave();
 
   // Log persister status
-  console.log('✅ IndexedDB persister initialized');
-  console.log(`   Database: ${persister.getDbName()}`);
-  console.log(`   Auto-loading: ${persister.isAutoLoading()}`);
-  console.log(`   Auto-saving: ${persister.isAutoSaving()}`);
+  storeLogger.info('✅ IndexedDB persister initialized');
+  storeLogger.debug(`   Database: ${persister.getDbName()}`);
+  storeLogger.debug(`   Auto-loading: ${persister.isAutoLoading()}`);
+  storeLogger.debug(`   Auto-saving: ${persister.isAutoSaving()}`);
 
   return persister;
 }
@@ -66,10 +67,10 @@ export async function createGamePersisterWithDefaults(store: Store) {
   // Start auto-persisting with the store's current content as initial fallback
   await persister.startAutoPersisting();
 
-  console.log('✅ IndexedDB persister initialized with defaults');
-  console.log(`   Database: ${persister.getDbName()}`);
-  console.log(`   Auto-loading: ${persister.isAutoLoading()}`);
-  console.log(`   Auto-saving: ${persister.isAutoSaving()}`);
+  storeLogger.info('✅ IndexedDB persister initialized with defaults');
+  storeLogger.debug(`   Database: ${persister.getDbName()}`);
+  storeLogger.debug(`   Auto-loading: ${persister.isAutoLoading()}`);
+  storeLogger.debug(`   Auto-saving: ${persister.isAutoSaving()}`);
 
   return persister;
 }
@@ -83,7 +84,7 @@ export async function destroyPersister(
   persister: ReturnType<typeof createIndexedDbPersister>
 ) {
   await persister.destroy();
-  console.log('🗑️  IndexedDB persister destroyed');
+  storeLogger.info('🗑️  IndexedDB persister destroyed');
 }
 
 /**
@@ -96,7 +97,7 @@ export async function manualSave(
   persister: ReturnType<typeof createIndexedDbPersister>
 ) {
   await persister.save();
-  console.log('💾 Manual save to IndexedDB completed');
+  storeLogger.debug('💾 Manual save to IndexedDB completed');
 }
 
 /**
@@ -109,7 +110,7 @@ export async function manualLoad(
   persister: ReturnType<typeof createIndexedDbPersister>
 ) {
   await persister.load();
-  console.log('📥 Manual load from IndexedDB completed');
+  storeLogger.debug('📥 Manual load from IndexedDB completed');
 }
 
 /**

@@ -5,6 +5,7 @@
  * Displays appropriate colors based on letter status and handles click events.
  */
 
+import { memo } from 'react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import type { KeyStatus } from '@/types';
@@ -27,12 +28,12 @@ export interface KeyProps {
 }
 
 /**
- * Key component
+ * Key component (memoized to prevent unnecessary re-renders)
  *
  * @example
  * <Key letter="a" status="correct" onClick={() => handleLetter('a')} />
  */
-export function Key({
+export const Key = memo(function Key({
   letter,
   status,
   onClick,
@@ -47,17 +48,18 @@ export function Key({
 
   // Size classes
   const sizeClasses =
-    size === 'large' ? 'min-w-16 px-4' : 'min-w-10 px-2 sm:min-w-12 sm:px-3';
+    size === 'large' ? 'min-w-16 px-4' : 'min-w-4 w-8 max-w-10 px-2';
 
   return (
     <Button
       onClick={onClick}
       disabled={disabled}
+      variant={'ghost'}
       className={cn(
         // Base styles
-        'h-14 min-h-[44px] rounded font-bold uppercase transition-all duration-200',
-        'hover:scale-105 active:scale-95',
-        'text-sm sm:text-base',
+        'flex rounded uppercase transition-all duration-200',
+        // 'hover:scale-105 active:scale-95',
+        'text-sm leading-6',
         'focus-visible:ring-2 focus-visible:ring-[rgb(var(--color-correct))] focus-visible:ring-offset-2',
         // Size classes
         sizeClasses,
@@ -71,7 +73,7 @@ export function Key({
       {label}
     </Button>
   );
-}
+});
 
 /**
  * Get display label for key
@@ -105,3 +107,5 @@ function getStatusClasses(status: KeyStatus): string {
       return 'bg-muted hover:bg-muted/80 text-muted-foreground border-muted';
   }
 }
+
+Key.displayName = 'Key';

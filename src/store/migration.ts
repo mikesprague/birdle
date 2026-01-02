@@ -27,7 +27,7 @@ const MIGRATION_FLAG_KEY = 'birdle-migrated-to-tinybase';
 const LEGACY_KEYS = {
   GAME_STATE: 'gameState',
   STATS: 'stats',
-} as const;
+} as const satisfies Record<string, string>;
 
 /**
  * Migration result information

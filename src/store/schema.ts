@@ -215,7 +215,7 @@ export const TABLES = {
   GAMES: 'games',
   STATS: 'stats',
   SETTINGS: 'settings',
-} as const;
+} as const satisfies Record<string, string>;
 
 /**
  * Row IDs for singleton tables (constants for type safety)
@@ -223,4 +223,4 @@ export const TABLES = {
 export const ROW_IDS = {
   STATS_CURRENT: 'current',
   SETTINGS_CURRENT: 'current',
-} as const;
+} as const satisfies Record<string, string>;

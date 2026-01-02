@@ -5,6 +5,7 @@
  * Handles status calculation and animations for the entire row.
  */
 
+import { memo, useMemo } from 'react';
 import type { BoxStatus } from '@/types';
 import { calculateLetterStatuses } from '@/utils';
 import { Box } from './Box';
@@ -30,7 +31,7 @@ export interface RowProps {
 }
 
 /**
- * Row component
+ * Row component (memoized to prevent unnecessary re-renders)
  *
  * @example
  * <Row
@@ -41,7 +42,7 @@ export interface RowProps {
  *   animated={true}
  * />
  */
-export function Row({
+export const Row = memo(function Row({
   letters,
   answer,
   rowIndex,
@@ -49,11 +50,13 @@ export function Row({
   isSubmitted = false,
   animated = false,
 }: RowProps) {
-  // Calculate statuses for submitted rows
-  const statuses: BoxStatus[] =
-    isSubmitted && answer
-      ? calculateLetterStatuses(letters.join(''), answer)
-      : letters.map((letter) => (letter ? 'empty' : 'empty'));
+  // Calculate statuses for submitted rows (memoized)
+  const statuses: BoxStatus[] = useMemo(() => {
+    if (isSubmitted && answer) {
+      return calculateLetterStatuses(letters.join(''), answer);
+    }
+    return letters.map((letter) => (letter ? 'empty' : 'empty'));
+  }, [isSubmitted, answer, letters]);
 
   return (
     <div
@@ -64,7 +67,8 @@ export function Row({
     >
       {letters.map((letter, position) => (
         <Box
-          key={`${rowIndex}-${position}`}
+          // biome-ignore lint/suspicious/noArrayIndexKey: Position is stable within row (boxes don't reorder)
+          key={position}
           letter={letter}
           status={statuses[position]}
           position={position}
@@ -74,4 +78,6 @@ export function Row({
       ))}
     </div>
   );
-}
+});
+
+Row.displayName = 'Row';

@@ -2,23 +2,22 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark light" />
     <title>BIRDLE</title>
     <meta name="description" content="A new BIRDLE every day" />
     <meta name="author" content="Michael Sprague" />
     <meta name="apple-mobile-web-app-title" content="BIRDLE" />
     <meta name="application-name" content="BIRDLE" />
-    <link rel="preconnect" href="https://birdle.app" />
+
+    <!-- Critical resource hints for faster loading -->
+    <link rel="preconnect" href="https://res.cloudinary.com" crossorigin />
     <link rel="preconnect" href="https://www.googletagmanager.com" />
     <link rel="preconnect" href="https://www.google-analytics.com" />
     <link rel="preconnect" href="https://static.cloudflareinsights.com" />
-    <link rel="preconnect" href="https://cloudflareinsights.com" />
-    <link rel="dns-prefetch" href="https://static.cloudflareinsights.com" />
-    <link rel="dns-prefetch" href="https://cloudflareinsights.com" />
     <link rel="dns-prefetch" href="https://birdle.app" />
-    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
-    <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+
+    <!-- Favicon (preloaded for faster display) -->
     <link rel="icon" type="image/png"
           href="https://res.cloudinary.com/mikesprague/image/upload/fl_preserve_transparency,w_32,h_32,c_scale/birdle/favicon.png" />
     <link rel="shortcut icon"
@@ -27,6 +26,33 @@
         href="https://res.cloudinary.com/mikesprague/image/upload/fl_preserve_transparency,w_192,h_192,c_scale/birdle/favicon.png" />
     <link rel="mask-icon" class="favicon"
         href="https://res.cloudinary.com/mikesprague/image/upload/fl_preserve_transparency,w_192,h_192,c_scale/birdle/favicon.png" />
+
+    <!-- Inline critical CSS for theme before JS loads -->
+    <style>
+      :root {
+        color-scheme: dark light;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --color-background: 10 10 10;
+          --color-foreground: 250 250 250;
+        }
+      }
+
+      @media (prefers-color-scheme: light) {
+        :root {
+          --color-background: 255 255 255;
+          --color-foreground: 10 10 10;
+        }
+      }
+
+      body {
+        margin: 0;
+        background-color: rgb(var(--color-background, 10 10 10));
+        color: rgb(var(--color-foreground, 250 250 250));
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>

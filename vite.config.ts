@@ -15,6 +15,67 @@ export default defineConfig({
     strictPort: true,
     port: 3001,
   },
+  build: {
+    // Vite 7 default target for better browser support
+    target: 'baseline-widely-available',
+
+    // Use Lightning CSS for faster CSS minification (Vite 7 default)
+    cssMinify: 'lightningcss',
+
+    // Optimize chunk splitting
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          // Separate React vendor code
+          'react-vendor': ['react', 'react-dom'],
+          // Separate TinyBase (largest dependency)
+          'tinybase': ['tinybase', 'tinybase/ui-react'],
+          // Radix UI components
+          'radix-ui': [
+            '@radix-ui/react-dialog',
+            '@radix-ui/react-label',
+            '@radix-ui/react-separator',
+            '@radix-ui/react-slot',
+            '@radix-ui/react-switch',
+          ],
+          // UI utilities (smaller bundle)
+          'ui-utils': [
+            'sonner',
+            'lucide-react',
+            'clsx',
+            'tailwind-merge',
+            'class-variance-authority',
+          ],
+          // Heavy utilities (for potential code splitting)
+          'utils': ['dayjs', '@rwh/keystrokes', 'next-themes'],
+        },
+      },
+      // Tree-shaking optimization
+      treeshake: {
+        moduleSideEffects: false,
+        propertyReadSideEffects: false,
+      },
+    },
+
+    // Minification options
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true, // Remove console.* in production
+        drop_debugger: true,
+        pure_funcs: ['console.log', 'console.debug'], // Remove specific console calls
+      },
+      format: {
+        comments: false, // Remove comments
+      },
+    },
+
+    // Source maps for production debugging (can disable for smaller builds)
+    sourcemap: false,
+
+    // Increase chunk size warning limit (TinyBase is ~150kb)
+    chunkSizeWarningLimit: 600,
+  },
   plugins: [
     react(),
     tailwindcss(),
@@ -28,8 +89,54 @@ export default defineConfig({
         clientsClaim: true,
         skipWaiting: true,
         cleanupOutdatedCaches: true,
+        // Cache game assets for offline play
+        runtimeCaching: [
+          {
+            urlPattern: /^https:\/\/res\.cloudinary\.com\/.*/i,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'cloudinary-images',
+              expiration: {
+                maxEntries: 50,
+                maxAgeSeconds: 60 * 60 * 24 * 30, // 30 days
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
+          {
+            urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
+            handler: 'StaleWhileRevalidate',
+            options: {
+              cacheName: 'google-fonts-stylesheets',
+            },
+          },
+          {
+            urlPattern: /^https:\/\/fonts\.gstatic\.com\/.*/i,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'google-fonts-webfonts',
+              expiration: {
+                maxEntries: 30,
+                maxAgeSeconds: 60 * 60 * 24 * 365, // 1 year
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
+        ],
+        // Exclude analytics and tracking scripts from precache
+        globIgnores: ['**/node_modules/**/*'],
+        // Include game data files
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
       },
       includeAssets: ['./favicon.png'],
+      devOptions: {
+        enabled: false, // Disable in dev to avoid conflicts
+        type: 'module',
+      },
       manifest: {
         name: 'BIRDLE',
         short_name: 'BIRDLE',

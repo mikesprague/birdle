@@ -6,10 +6,11 @@
  * actions for playing the game (adding letters, submitting guesses, etc.)
  */
 
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { toast } from 'sonner';
 import type { Store } from 'tinybase';
 import { useRow } from 'tinybase/ui-react';
+import type { GamesTableRow } from '@/store/schema';
 import { gameStateToRow, rowToGameState, TABLES } from '@/store/schema';
 import type { BirdleOfDay, GameState } from '@/types';
 import {
@@ -64,6 +65,9 @@ export function useGameState(store: Store): UseGameStateReturn {
   // Get today's Birdle word
   const birdle = useMemo(() => getBirdleOfDay(), []);
 
+  // Track if we've initialized this game day
+  const initializedDayRef = useRef<number | null>(null);
+
   // Subscribe to current game state from TinyBase
   const gameRow = useRow(TABLES.GAMES, birdle.day.toString(), store);
 
@@ -74,7 +78,7 @@ export function useGameState(store: Store): UseGameStateReturn {
     }
 
     try {
-      return rowToGameState(gameRow as any);
+      return rowToGameState(gameRow as GamesTableRow);
     } catch (error) {
       console.error('Failed to parse game state:', error);
       return null;
@@ -82,22 +86,33 @@ export function useGameState(store: Store): UseGameStateReturn {
   }, [gameRow]);
 
   // Initialize game if it doesn't exist or is from a previous day
+  // Uses ref to prevent re-initialization on every gameState change
   useEffect(() => {
+    // Only initialize once per game day
+    if (initializedDayRef.current === birdle.day) {
+      return;
+    }
+
     if (!gameState || gameState.gameId !== birdle.day) {
       const initialState = createInitialGameState(birdle.day);
       const row = gameStateToRow(initialState);
       store.setRow(TABLES.GAMES, birdle.day.toString(), row);
+      initializedDayRef.current = birdle.day;
     }
   }, [store, birdle.day, gameState]);
 
   // Computed properties
   const canAddLetter = useMemo(() => {
-    if (!gameState || gameState.isGameOver) return false;
+    if (!gameState || gameState.isGameOver) {
+      return false;
+    }
     return gameState.currentGuess < 5;
   }, [gameState]);
 
   const canSubmit = useMemo(() => {
-    if (!gameState || gameState.isGameOver) return false;
+    if (!gameState || gameState.isGameOver) {
+      return false;
+    }
     return gameState.currentGuess === 5;
   }, [gameState]);
 
@@ -106,7 +121,9 @@ export function useGameState(store: Store): UseGameStateReturn {
    */
   const handleLetter = useCallback(
     (letter: string) => {
-      if (!gameState || !canAddLetter) return;
+      if (!gameState || !canAddLetter) {
+        return;
+      }
 
       const { currentRow, currentGuess, guessesRows } = gameState;
 
@@ -167,7 +184,9 @@ export function useGameState(store: Store): UseGameStateReturn {
    * Submit the current guess
    */
   const submitGuess = useCallback(() => {
-    if (!gameState || !canSubmit) return;
+    if (!gameState || !canSubmit) {
+      return;
+    }
 
     const { currentRow, guessesRows, guessesSubmitted } = gameState;
     const guess = guessesRows[currentRow].join('');

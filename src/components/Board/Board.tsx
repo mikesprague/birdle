@@ -5,7 +5,7 @@
  * Displays all 6 rows with appropriate status coloring for submitted guesses.
  */
 
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import type { Store } from 'tinybase';
 import { useGameState } from '@/hooks';
 import { Row } from './Row';
@@ -25,9 +25,35 @@ export function Board({ store }: BoardProps) {
   const { gameState, birdle } = useGameState(store);
   const [announcement, setAnnouncement] = useState('');
 
+  // Memoize row props to prevent recalculation on every render
+  const rowsData = useMemo(
+    () =>
+      gameState?.guessesRows.map((letters, rowIndex) => ({
+        letters,
+        rowIndex,
+        isSubmitted: rowIndex < (gameState?.guessesSubmitted.length ?? 0),
+        isCurrentRow: rowIndex === (gameState?.currentRow ?? 0),
+        shouldAnimate:
+          rowIndex < (gameState?.guessesSubmitted.length ?? 0) &&
+          rowIndex === (gameState?.currentRow ?? 0) - 1,
+        answer:
+          rowIndex < (gameState?.guessesSubmitted.length ?? 0)
+            ? birdle.word
+            : undefined,
+      })) ?? [],
+    [
+      gameState?.guessesRows,
+      gameState?.guessesSubmitted.length,
+      gameState?.currentRow,
+      birdle.word,
+    ]
+  );
+
   // Announce game state changes for screen readers
   useEffect(() => {
-    if (!gameState) return;
+    if (!gameState) {
+      return;
+    }
 
     if (gameState.isGameOver) {
       if (gameState.wonGame) {
@@ -43,6 +69,7 @@ export function Board({ store }: BoardProps) {
     gameState?.wonGame,
     gameState?.currentRow,
     birdle.word,
+    gameState,
   ]);
 
   if (!gameState) {
@@ -66,28 +93,21 @@ export function Board({ store }: BoardProps) {
       </div>
 
       <div
-        className="flex flex-col gap-1 p-4"
+        className="flex flex-col gap-1 py-2"
         role="grid"
         aria-label="Birdle game board with 6 rows of 5 letter boxes"
       >
-        {gameState.guessesRows.map((letters, rowIndex) => {
-          const isSubmitted = rowIndex < gameState.guessesSubmitted.length;
-          const isCurrentRow = rowIndex === gameState.currentRow;
-          const shouldAnimate =
-            isSubmitted && rowIndex === gameState.currentRow - 1;
-
-          return (
-            <Row
-              key={rowIndex}
-              letters={letters}
-              answer={isSubmitted ? birdle.word : undefined}
-              rowIndex={rowIndex}
-              isCurrentRow={isCurrentRow}
-              isSubmitted={isSubmitted}
-              animated={shouldAnimate}
-            />
-          );
-        })}
+        {rowsData.map((row) => (
+          <Row
+            key={`row-${row.rowIndex}`}
+            letters={row.letters}
+            answer={row.answer}
+            rowIndex={row.rowIndex}
+            isCurrentRow={row.isCurrentRow}
+            isSubmitted={row.isSubmitted}
+            animated={row.shouldAnimate}
+          />
+        ))}
       </div>
     </>
   );

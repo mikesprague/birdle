@@ -10,6 +10,7 @@ import type { Store } from 'tinybase';
 import { useCell } from 'tinybase/ui-react';
 
 import { Board } from '@/components/Board/Board';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { Header } from '@/components/Header';
 import { Keyboard } from '@/components/Keyboard/Keyboard';
 import { GameEndDialog } from '@/components/Modals/GameEndDialog';
@@ -220,7 +221,7 @@ export function GameShell({ store }: GameShellProps) {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-background text-foreground">
+    <div className="flex flex-col h-full bg-background text-foreground">
       {/* Header with navigation */}
       <Header
         store={store}
@@ -230,14 +231,31 @@ export function GameShell({ store }: GameShellProps) {
       />
 
       {/* Main game area with board */}
-      <main className="flex-1 flex items-center justify-center p-4">
+      <main className="flex-1 flex items-center justify-center px-2 py-2 overflow-y-auto min-h-0">
         <div className="w-full max-w-lg">
-          <Board store={store} />
+          <ErrorBoundary
+            fallback={(_error, reset) => (
+              <div className="text-center p-8 space-y-4">
+                <p className="text-destructive font-semibold">
+                  Game board error
+                </p>
+                <button
+                  type="button"
+                  onClick={reset}
+                  className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90"
+                >
+                  Retry
+                </button>
+              </div>
+            )}
+          >
+            <Board store={store} />
+          </ErrorBoundary>
         </div>
       </main>
 
       {/* Keyboard */}
-      <footer className="pb-4 px-2">
+      <footer className="shrink-0 pb-2 px-2">
         <div className="w-full max-w-2xl mx-auto">
           <Keyboard store={store} />
         </div>

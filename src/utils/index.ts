@@ -31,7 +31,22 @@ export {
   isSameDay,
   successStrings,
 } from './game-logic';
-
+// Logger utilities
+export {
+  analyticsLogger,
+  createLogger,
+  gameLogger,
+  logger,
+  pwLogger,
+  storeLogger,
+} from './logger';
+// Resource hints utilities (React 19)
+export {
+  dnsPrefetchOrigin,
+  initializeResourceHints,
+  preconnectToOrigin,
+  prefetchResource,
+} from './resource-hints';
 // Share functionality utilities
 export {
   copyToClipboard,
@@ -43,7 +58,6 @@ export {
   isShareApiSupported,
   shareResults,
 } from './share';
-
 // Theme management utilities
 export {
   applyTheme,
@@ -56,7 +70,6 @@ export {
   toggleTheme,
   updateThemeColorMeta,
 } from './theme';
-
 // Wake lock utilities
 export {
   isWakeLockActive,

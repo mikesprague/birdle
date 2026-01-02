@@ -8,6 +8,7 @@
 
 import type { Store } from 'tinybase';
 import type { GameState, Stats, Theme } from '@/types';
+import { storeLogger } from '@/utils/logger';
 import {
   gameStateToRow,
   ROW_IDS,
@@ -30,12 +31,14 @@ import {
  */
 export function getGameState(store: Store, gameId: number): GameState | null {
   const row = store.getRow(TABLES.GAMES, gameId.toString());
-  if (!row) return null;
+  if (!row) {
+    return null;
+  }
 
   try {
     return rowToGameState(row as any);
   } catch (error) {
-    console.error('Failed to parse game state:', error);
+    storeLogger.error('Failed to parse game state:', error);
     return null;
   }
 }
@@ -76,7 +79,7 @@ export function getAllGameStates(store: Store): GameState[] {
       const gameState = rowToGameState(row as any);
       gameStates.push(gameState);
     } catch (error) {
-      console.error('Failed to parse game state:', error);
+      storeLogger.error('Failed to parse game state:', error);
     }
   }
 
@@ -117,12 +120,14 @@ export function updateGameState(
  */
 export function getStats(store: Store): Stats | null {
   const row = store.getRow(TABLES.STATS, ROW_IDS.STATS_CURRENT);
-  if (!row) return null;
+  if (!row) {
+    return null;
+  }
 
   try {
     return rowToStats(row as any);
   } catch (error) {
-    console.error('Failed to parse stats:', error);
+    storeLogger.error('Failed to parse stats:', error);
     return null;
   }
 }

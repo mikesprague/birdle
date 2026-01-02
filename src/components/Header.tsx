@@ -5,13 +5,13 @@
  * instructions, and settings.
  */
 
-import { BarChart3, HelpCircle, Settings } from "lucide-react";
-import type { Store } from "tinybase";
+import { BarChart3, HelpCircle, Settings } from 'lucide-react';
+import type { Store } from 'tinybase';
 
-import { Button } from "@/components/ui/button";
-import { useGameState } from "@/hooks";
+import { Button } from '@/components/ui/button';
+import { useGameState } from '@/hooks';
 
-import { version } from "../../package.json";
+import { version } from '../../package.json';
 
 export interface HeaderProps {
   /** TinyBase store instance */
@@ -47,9 +47,9 @@ export function Header({
   const { birdle } = useGameState(store);
 
   return (
-    <header className="w-full border-b border-border bg-background">
+    <header className="w-full shrink-0 border-b border-border bg-background">
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-14 sm:h-16">
           {/* Left: Menu/Help button */}
           <div className="flex items-center gap-2 min-w-16">
             <Button

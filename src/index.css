@@ -147,6 +147,10 @@
   * {
     @apply border-border outline-ring/50;
   }
+  html,
+  body {
+    @apply h-full;
+  }
   body {
     @apply bg-background text-foreground;
   }
@@ -210,7 +214,7 @@
 }
 
 /* Reduced motion preference */
-@media (prefers-reduced-motion: reduce) {
+/* @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
@@ -218,20 +222,20 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-}
+} */
 
 /* Focus visible styles for accessibility */
-:focus-visible {
+/* :focus-visible {
   outline: 2px solid rgb(var(--color-correct));
   outline-offset: 2px;
-}
+} */
 
 /* Ensure minimum touch target size for accessibility */
-@media (pointer: coarse) {
+/* @media (pointer: coarse) {
   button,
   a,
   input {
     min-height: 44px;
     min-width: 44px;
   }
-}
+} */

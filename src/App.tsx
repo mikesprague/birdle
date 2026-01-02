@@ -3,75 +3,71 @@
  *
  * Root application component that initializes the TinyBase store,
  * sets up persistence, runs migrations, and renders the game.
+ * Uses React 19 use() API for async initialization.
  */
 
-import { useEffect, useState } from 'react';
+import { use } from 'react';
 import { Provider } from 'tinybase/ui-react';
+
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { GameShell } from '@/components/GameShell';
 import { Toaster } from '@/components/Toaster';
+
 import { migrateFromLocalStorage } from '@/store/migration';
 import { createGamePersister } from '@/store/persister';
 import { createGameStore } from '@/store/store';
-import './App.css';
+import { gameLogger } from '@/utils/logger';
+
+/**
+ * Initialize store with async operations
+ * Used with React 19 use() API
+ * Created once at module level to prevent re-creation on renders
+ */
+async function initializeStore() {
+  const store = createGameStore();
+
+  try {
+    // Setup IndexedDB persister
+    await createGamePersister(store);
+    gameLogger.info('Store persister initialized');
+
+    // Run localStorage migration (if needed)
+    const migrationResult = await migrateFromLocalStorage(store);
+    if (migrationResult.migrated) {
+      gameLogger.info('Successfully migrated legacy data to TinyBase');
+    }
+
+    return store;
+  } catch (err) {
+    gameLogger.error('Failed to initialize store', { error: err });
+    // Return store anyway to allow game to work without persistence
+    return store;
+  }
+}
+
+// Create promise at module level (only once)
+const storePromise = initializeStore();
 
 function App() {
-  // Create store instance (only once)
-  const [store] = useState(() => createGameStore());
-  const [isReady, setIsReady] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  // Initialize store with persistence and migration
-  useEffect(() => {
-    const initStore = async () => {
-      try {
-        // Setup IndexedDB persister
-        await createGamePersister(store);
-
-        // Run localStorage migration (if needed)
-        const migrationResult = await migrateFromLocalStorage(store);
-        if (migrationResult.migrated) {
-          console.log('Successfully migrated legacy data to TinyBase');
-        }
-
-        // Mark as ready
-        setIsReady(true);
-      } catch (err) {
-        console.error('Failed to initialize store:', err);
-        setError(
-          err instanceof Error ? err.message : 'Failed to initialize game'
-        );
-        // Still mark as ready to allow game to work without persistence
-        setIsReady(true);
-      }
-    };
-
-    initStore();
-  }, [store]);
-
-  // Loading state
-  if (!isReady) {
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-background text-foreground">
-        <div className="text-center">
-          <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" />
-          <p className="mt-4 text-lg">Loading Birdle...</p>
-        </div>
-      </div>
-    );
-  }
-
-  // Error state (still render game, just show warning)
-  if (error) {
-    console.warn('App initialization warning:', error);
-  }
+  // Use React 19 use() API to suspend on async initialization
+  const store = use(storePromise);
 
   return (
-    <Provider store={store}>
-      <div className="app min-h-screen bg-background text-foreground">
-        <GameShell store={store} />
-        <Toaster store={store} />
-      </div>
-    </Provider>
+    <ErrorBoundary
+      onError={(error, errorInfo) => {
+        // Log to console for debugging
+        gameLogger.error('App Error', { error, errorInfo });
+        // In production, you could send to error tracking service
+        // trackError(error, errorInfo);
+      }}
+    >
+      <Provider store={store}>
+        <div className="app h-dvh bg-background text-foreground overflow-hidden">
+          <GameShell store={store} />
+          <Toaster store={store} />
+        </div>
+      </Provider>
+    </ErrorBoundary>
   );
 }
 

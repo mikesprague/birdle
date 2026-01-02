@@ -5,6 +5,7 @@
  * Uses shadcn Dialog (replaces sweetalert2).
  */
 
+import { useCallback } from 'react';
 import type { Store } from 'tinybase';
 import { useCell } from 'tinybase/ui-react';
 import { Button } from '@/components/ui/button';
@@ -46,6 +47,14 @@ export interface SettingsModalProps {
 export function SettingsModal({ open, onClose, store }: SettingsModalProps) {
   const { theme, setTheme } = useTheme(store);
 
+  // Stable handler for theme changes
+  const handleThemeChange = useCallback(
+    (value: Theme) => {
+      setTheme(value);
+    },
+    [setTheme]
+  );
+
   // Get celebration settings from store
   const emojiBlasts =
     (useCell(
@@ -83,11 +92,11 @@ export function SettingsModal({ open, onClose, store }: SettingsModalProps) {
   };
 
   // Theme options
-  const themeOptions: { value: Theme; label: string }[] = [
+  const themeOptions = [
     { value: 'light', label: 'Light' },
     { value: 'dark', label: 'Dark' },
     { value: 'system', label: 'System' },
-  ];
+  ] as const satisfies readonly { value: Theme; label: string }[];
 
   return (
     <Dialog open={open} onOpenChange={(isOpen) => !isOpen && onClose()}>
@@ -107,7 +116,7 @@ export function SettingsModal({ open, onClose, store }: SettingsModalProps) {
               {themeOptions.map((option) => (
                 <Button
                   key={option.value}
-                  onClick={() => setTheme(option.value)}
+                  onClick={() => handleThemeChange(option.value)}
                   variant={theme === option.value ? 'default' : 'outline'}
                   size="sm"
                   className="flex-1"

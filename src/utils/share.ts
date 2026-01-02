@@ -13,7 +13,7 @@ const SHARE_EMOJIS = {
   absent: '🥚',
   present: '🐣',
   correct: '🐥',
-} as const;
+} as const satisfies Record<string, string>;
 
 /**
  * Create shareable text representation of game results
@@ -50,7 +50,9 @@ export function createShareText(gameState: GameState, answer: string): string {
       return statuses
         .map((status) => {
           // Only include non-empty statuses in share text
-          if (status === 'empty') return '';
+          if (status === 'empty') {
+            return '';
+          }
           return SHARE_EMOJIS[status as keyof typeof SHARE_EMOJIS];
         })
         .join('');
@@ -67,7 +69,9 @@ export function createShareText(gameState: GameState, answer: string): string {
  * @returns true if navigator.share is available
  */
 export function isShareApiSupported(): boolean {
-  if (typeof navigator === 'undefined') return false;
+  if (typeof navigator === 'undefined') {
+    return false;
+  }
   return typeof navigator.share === 'function';
 }
 
@@ -77,7 +81,9 @@ export function isShareApiSupported(): boolean {
  * @returns true if mobile with Chrome or Safari
  */
 export function isMobileShareSupported(): boolean {
-  if (typeof navigator === 'undefined') return false;
+  if (typeof navigator === 'undefined') {
+    return false;
+  }
 
   const userAgent = navigator.userAgent;
   const isMobile = /Mobi/i.test(userAgent);
@@ -144,7 +150,9 @@ export async function copyToClipboard(text: string): Promise<boolean> {
  * @returns boolean - true if successful
  */
 function copyToClipboardLegacy(text: string): boolean {
-  if (typeof document === 'undefined') return false;
+  if (typeof document === 'undefined') {
+    return false;
+  }
 
   const textArea = document.createElement('textarea');
   textArea.value = text;

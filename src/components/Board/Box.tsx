@@ -5,6 +5,7 @@
  * Displays a letter with appropriate status coloring and animations.
  */
 
+import { memo } from 'react';
 import { cn } from '@/lib/utils';
 import type { BoxStatus } from '@/types';
 
@@ -26,12 +27,12 @@ export interface BoxProps {
 }
 
 /**
- * Box component
+ * Box component (memoized to prevent unnecessary re-renders)
  *
  * @example
  * <Box letter="a" status="correct" position={0} rowIndex={0} />
  */
-export function Box({
+export const Box = memo(function Box({
   letter,
   status,
   position,
@@ -74,7 +75,7 @@ export function Box({
       {letter}
     </div>
   );
-}
+});
 
 /**
  * Get Tailwind classes for box status
@@ -94,3 +95,5 @@ function getStatusClasses(status: BoxStatus): string {
       return 'border-[rgb(var(--color-empty))] bg-transparent text-foreground';
   }
 }
+
+Box.displayName = 'Box';
