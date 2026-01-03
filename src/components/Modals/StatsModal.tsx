@@ -6,9 +6,16 @@
  */
 
 import { useEffect, useState } from 'react';
+import { Bar, BarChart, XAxis, YAxis } from 'recharts';
 import type { Store } from 'tinybase';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  type ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from '@/components/ui/chart';
 import {
   Dialog,
   DialogContent,
@@ -62,6 +69,13 @@ export function StatsModal({
   const { stats } = useStats(store);
   const [timeUntilNext, setTimeUntilNext] = useState('');
 
+  const chartConfig = {
+    guesses: {
+      label: 'Guesses',
+      color: 'var(--chart-1)',
+    },
+  } satisfies ChartConfig;
+
   // Calculate time until next Birdle (midnight)
   useEffect(() => {
     const updateCountdown = () => {
@@ -114,7 +128,8 @@ export function StatsModal({
   }
 
   // Find max guess count for chart scaling
-  const maxGuessCount = Math.max(
+  // @ts-expect-error -- ignore --
+  const _maxGuessCount = Math.max(
     stats.guesses[1],
     stats.guesses[2],
     stats.guesses[3],
@@ -123,6 +138,29 @@ export function StatsModal({
     stats.guesses[6],
     stats.guesses.fail
   );
+
+  const chartData = [];
+  for (const key in stats.guesses) {
+    chartData.push({
+      guesses: key,
+      count: stats.guesses[key as keyof typeof stats.guesses],
+      isCurrentGuess:
+        gameState?.wonGame && gameState.currentRow + 1 === Number(key),
+    });
+  }
+
+  // const chartData = [1, 2, 3, 4, 5, 6].map((guessNum) => {
+  //   const count = stats.guesses[guessNum as 1 | 2 | 3 | 4 | 5 | 6];
+  //   const percentage = maxGuessCount > 0 ? (count / maxGuessCount) * 100 : 0;
+  //   const isCurrentGuess =
+  //     gameState?.wonGame && gameState.currentRow + 1 === guessNum;
+  //   return {
+  //     guesses: guessNum,
+  //     percentage,
+  //     isCurrentGuess: isCurrentGuess,
+  //   };
+  // });
+  console.log('chartData', chartData);
 
   return (
     <Dialog open={open} onOpenChange={(isOpen) => !isOpen && onClose()}>
@@ -156,14 +194,16 @@ export function StatsModal({
             <Card className="text-center p-3">
               <CardContent className="p-0">
                 <div className="text-3xl font-bold">{stats.currentStreak}</div>
-                <div className="text-xs text-muted-foreground">Current</div>
+                <div className="text-xs text-muted-foreground">
+                  Current Streak
+                </div>
               </CardContent>
             </Card>
 
             <Card className="text-center p-3">
               <CardContent className="p-0">
                 <div className="text-3xl font-bold">{stats.maxStreak}</div>
-                <div className="text-xs text-muted-foreground">Max</div>
+                <div className="text-xs text-muted-foreground">Max Streak</div>
               </CardContent>
             </Card>
           </div>
@@ -171,7 +211,46 @@ export function StatsModal({
           <Separator />
 
           {/* Guess Distribution */}
-          <div>
+          <Card>
+            <CardHeader>
+              <CardTitle>Guess Distribution</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ChartContainer config={chartConfig}>
+                <BarChart
+                  accessibilityLayer
+                  data={chartData}
+                  layout="vertical"
+                  margin={{
+                    left: -20,
+                  }}
+                >
+                  <XAxis type="number" dataKey="guesses" hide />
+                  <YAxis
+                    dataKey="guesses"
+                    type="category"
+                    tickLine={false}
+                    tickMargin={10}
+                    axisLine={false}
+                  />
+                  <ChartTooltip
+                    cursor={false}
+                    content={<ChartTooltipContent hideLabel />}
+                  />
+                  <Bar
+                    dataKey="count"
+                    fill="{isCurrentGuess ? 'var(--chart-2))' : 'var(--chart-1)'}"
+                    radius={5}
+                    label={{
+                      position: 'right',
+                      formatter: (value: number) => `${Math.round(value)}%`,
+                    }}
+                  />
+                </BarChart>
+              </ChartContainer>
+            </CardContent>
+          </Card>
+          {/* <div>
             <h3 className="text-lg font-semibold mb-3">Guess Distribution</h3>
             <div className="space-y-1">
               {[1, 2, 3, 4, 5, 6].map((guessNum) => {
@@ -200,9 +279,9 @@ export function StatsModal({
                     </div>
                   </div>
                 );
-              })}
-              {/* Fail row */}
-              <div className="flex items-center gap-2">
+              })} */}
+          {/* Fail row */}
+          {/* <div className="flex items-center gap-2">
                 <div className="w-4 text-sm font-medium">X</div>
                 <div className="flex-1 relative h-7">
                   <div
@@ -221,7 +300,7 @@ export function StatsModal({
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
 
           {/* Next Birdle Countdown */}
           {gameState?.isGameOver && (

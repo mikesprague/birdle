@@ -93,7 +93,7 @@ export function Board({ store }: BoardProps) {
       </div>
 
       <div
-        className="flex flex-col gap-1 py-2"
+        className="flex flex-col gap-1 md:gap-1.5 py-2"
         role="grid"
         aria-label="Birdle game board with 6 rows of 5 letter boxes"
       >

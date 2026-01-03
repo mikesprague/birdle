@@ -56,9 +56,11 @@ export const Box = memo(function Box({
     <div
       className={cn(
         // Base styles
-        'relative flex h-14 w-14 items-center justify-center',
-        'border-2 text-2xl font-bold uppercase transition-all duration-300',
-        'sm:h-16 sm:w-16 sm:text-3xl',
+        'relative flex items-center justify-center',
+        'border-2 uppercase transition-all duration-300',
+        'h-15 w-15 text-4xl font-semibold',
+        'sm:h-17 sm:w-17 sm:text-4xl font-bold',
+        'md:h-18 md:w-18 md:text-4xl font-bold',
         // Status-specific styles
         statusClasses,
         // Animation classes

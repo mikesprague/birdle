@@ -60,7 +60,7 @@ export const Row = memo(function Row({
 
   return (
     <div
-      className="flex gap-1 justify-center"
+      className="flex gap-1 md:gap-1.5 justify-center"
       data-row-index={rowIndex}
       data-is-current={isCurrentRow}
       data-is-submitted={isSubmitted}

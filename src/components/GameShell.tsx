@@ -268,7 +268,7 @@ export function GameShell({ store }: GameShellProps) {
           open={gameEndOpen}
           onClose={() => setGameEndOpen(false)}
           gameState={gameState}
-          answer={gameState.guessesSubmitted[gameState.currentRow] || ''}
+          answer={birdle?.word}
           onCelebrate={triggerWinEffects}
         />
       )}

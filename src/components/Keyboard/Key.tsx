@@ -47,7 +47,8 @@ export const Key = memo(function Key({
   const statusClasses = getStatusClasses(status);
 
   // Size classes
-  const sizeClasses = size === 'large' ? 'min-w-12' : 'w-8 md:w-12 sm:w-10 w-8';
+  const sizeClasses =
+    size === 'large' ? 'min-w-12 px-2' : 'w-8 md:w-12 sm:w-10 w-8 px-2';
 
   return (
     <Button
@@ -56,13 +57,13 @@ export const Key = memo(function Key({
       variant={'ghost'}
       className={cn(
         // Base styles
-        'flex rounded uppercase transition-all duration-200 px-2',
+        'flex rounded uppercase transition-all duration-200',
         // Hover effects
         'hover:scale-105 active:scale-95',
         // Text size
-        'md:text-lg sm:text-base text-sm leading-4',
+        'md:text-xl sm:text-lg text-base leading-6',
         // Height
-        'md:h-14 sm:h-12 h-10',
+        'md:h-15 sm:h-13 h-11',
         // Focus styles
         'focus-visible:ring-2 focus-visible:ring-[rgb(var(--color-correct))] focus-visible:ring-offset-2',
         // Size classes
