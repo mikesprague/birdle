@@ -5,7 +5,7 @@
  * game flow, modal states, and win/loss effects.
  */
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import type { Store } from 'tinybase';
 import { useCell } from 'tinybase/ui-react';
 
@@ -29,6 +29,16 @@ import {
   thanksGivingEmojis,
 } from '@/utils/emoji';
 import { setupAutoWakeLock } from '@/utils/wake-lock';
+
+const DEBUG_WIN_SEQUENCE = true;
+
+function debugWinSequence(message: string, data?: Record<string, unknown>) {
+  if (!DEBUG_WIN_SEQUENCE) {
+    return;
+  }
+  // Keep logs easy to filter in the console.
+  console.log(`[win-sequence] ${message}`, data ?? {});
+}
 
 export interface GameShellProps {
   /** TinyBase store instance */
@@ -74,6 +84,36 @@ export function GameShell({ store }: GameShellProps) {
   const [statsOpen, setStatsOpen] = useState(false);
   const [instructionsOpen, setInstructionsOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
+
+  /**
+   * Flip reveal timing:
+   * - Each tile flip is 0.5s and we stagger by 0.5s per position (see Box.tsx).
+   * - Total reveal time for 5 tiles = 0.5s (duration) + 0.5s * (4 delays) = 2.5s.
+   *
+   * This constant defines when we should run "post-reveal" UX (toast/celebrations).
+   */
+  const REVEAL_TOTAL_MS = 2500;
+
+  /**
+   * Track whether the game was already over when this component mounted.
+   * If it was, we treat it as a reload and should not run win celebrations/toast.
+   *
+   * We set this once, on the first render, based on the initial gameState snapshot.
+   * This avoids violating hook dependency lint rules.
+   */
+  const mountedWithGameOverRef = useRef<boolean>(
+    Boolean(gameState?.isGameOver)
+  );
+
+  /**
+   * Ensure the win post-reveal UX (toast + celebrations + delayed stats) runs only once
+   * per gameId per session, even if effects re-run (e.g. due to state changes).
+   */
+  const winUxStateRef = useRef<{
+    gameId: number | null;
+    revealTimeoutId: number | null;
+    statsTimeoutId: number | null;
+  }>({ gameId: null, revealTimeoutId: null, statsTimeoutId: null });
 
   /**
    * Trigger win celebration effects
@@ -170,59 +210,171 @@ export function GameShell({ store }: GameShellProps) {
     gameState?.guessesRows.length,
   ]);
 
-  // Watch for game end
+  /**
+   * Update stats and analytics once per completed game (idempotent across reloads).
+   * This stays immediate on completion so persistence is correct even if the user
+   * closes the tab during the reveal animation.
+   *
+   * IMPORTANT:
+   * - `countGameIfNeeded` returns false both on reloads *and* if this session
+   *   reaches game-over for a game that was already counted earlier (e.g. due to
+   *   previous bugs that double-counted or partial state).
+   * - For UX sequencing (flip -> toast+celebrate -> stats), we instead treat a
+   *   transition into game-over as the signal for a "new completion in this session".
+   *   Reloads are distinguished by the fact that the component mounts already in game-over
+   *   (no transition).
+   */
   useEffect(() => {
     if (!gameState?.isGameOver) {
       return;
     }
 
-    // If stats aren't available yet, bail out and let the effect run again once they load.
     if (!stats) {
+      debugWinSequence('stats effect: stats not available yet; waiting', {
+        gameId: gameState.gameId,
+        isGameOver: gameState.isGameOver,
+        wonGame: gameState.wonGame,
+      });
       return;
     }
 
-    // Calculate attempts (currentRow is 0-indexed, so +1 for actual attempt count)
     const attempts = gameState.currentRow + 1;
 
-    // Count this daily game into aggregate stats at most once (idempotent across reloads)
+    debugWinSequence('stats effect: game over detected; counting if needed', {
+      gameId: gameState.gameId,
+      attempts,
+      wonGame: gameState.wonGame,
+      lastCountedGameId: stats.lastCountedGameId,
+    });
+
     const didUpdateStats = countGameIfNeeded(
       gameState.gameId,
       gameState.wonGame,
       attempts
     );
 
+    debugWinSequence('stats effect: countGameIfNeeded result', {
+      gameId: gameState.gameId,
+      didUpdateStats,
+    });
+
+    // Track analytics only when we actually counted the game.
     if (didUpdateStats) {
-      // Track game completion event only when we actually counted the game
       trackEvent('game_completed', {
         won: gameState.wonGame,
         attempts,
         gameId: gameState.gameId,
       });
     }
+  }, [countGameIfNeeded, gameState, stats]);
 
-    if (gameState.wonGame) {
-      // Only run win celebrations/toast when we actually counted the game.
-      // Otherwise, reloads would duplicate the UX (toast, emojis, balloons).
-      if (didUpdateStats) {
-        // Celebration effects (previously triggered by GameEndDialog)
-        triggerWinEffects();
-
-        // UX: toast shows the success message, then stats opens after the toast duration
-        // getSuccessMessage expects a 0-indexed row (same value previously used by GameEndDialog)
-        showWinToast(getSuccessMessage(gameState.currentRow));
-
-        window.setTimeout(() => {
-          setStatsOpen(true);
-        }, TOAST_CONFIG.duration);
-      } else {
-        // Reload (or already-counted game): open stats immediately with no delay.
-        setStatsOpen(true);
-      }
-    } else {
-      // For losses, immediately open stats modal (no end-of-game dialog)
-      setStatsOpen(true);
+  /**
+   * Post-reveal UX orchestration:
+   * - After a win, wait for the 5-tile flip reveal to finish.
+   * - Then show the toast + start celebrations.
+   * - When the toast auto-closes (2.5s), open the stats modal.
+   *
+   * On reloads (mounting already in game-over), we open stats immediately with no delay.
+   */
+  useEffect(() => {
+    if (!gameState) {
+      return;
     }
-  }, [countGameIfNeeded, gameState, stats, triggerWinEffects]);
+
+    debugWinSequence('ux effect: evaluate', {
+      gameId: gameState.gameId,
+      isGameOver: gameState.isGameOver,
+      wonGame: gameState.wonGame,
+      currentRow: gameState.currentRow,
+      guessesSubmittedLen: gameState.guessesSubmitted.length,
+      lastCountedGameId: stats?.lastCountedGameId,
+      mountedWithGameOver: mountedWithGameOverRef.current,
+      statsOpen,
+    });
+
+    // Loss behavior is unchanged: show stats immediately when game ends.
+    if (gameState.isGameOver && !gameState.wonGame) {
+      debugWinSequence('ux effect: loss -> open stats immediately', {
+        gameId: gameState.gameId,
+      });
+      setStatsOpen(true);
+      return;
+    }
+
+    if (!gameState.isGameOver || !gameState.wonGame) {
+      return;
+    }
+
+    // Reload behavior: if we mounted already-over, open stats immediately; no toast/celebrations.
+    if (mountedWithGameOverRef.current) {
+      debugWinSequence(
+        'ux effect: mounted with game over -> open stats immediately',
+        {
+          gameId: gameState.gameId,
+        }
+      );
+      setStatsOpen(true);
+      return;
+    }
+
+    // If we've already scheduled win UX for this gameId, do nothing.
+    // Importantly, do NOT return a cleanup function that cancels already-scheduled timeouts
+    // on subsequent effect re-runs.
+    if (winUxStateRef.current.gameId === gameState.gameId) {
+      debugWinSequence(
+        'ux effect: win UX already scheduled for game; skipping',
+        {
+          gameId: gameState.gameId,
+        }
+      );
+      return;
+    }
+
+    // Schedule once for this gameId.
+    winUxStateRef.current.gameId = gameState.gameId;
+
+    debugWinSequence('ux effect: scheduling post-reveal win sequence', {
+      gameId: gameState.gameId,
+      revealMs: REVEAL_TOTAL_MS,
+      toastMs: TOAST_CONFIG.duration,
+    });
+
+    const revealTimeoutId = window.setTimeout(() => {
+      debugWinSequence(
+        'ux effect: reveal finished -> show toast + start celebrations',
+        {
+          gameId: gameState.gameId,
+        }
+      );
+
+      showWinToast(getSuccessMessage(gameState.currentRow));
+      triggerWinEffects();
+
+      const statsTimeoutId = window.setTimeout(() => {
+        debugWinSequence('ux effect: toast duration elapsed -> open stats', {
+          gameId: gameState.gameId,
+        });
+        setStatsOpen(true);
+      }, TOAST_CONFIG.duration);
+
+      winUxStateRef.current.statsTimeoutId = statsTimeoutId;
+    }, REVEAL_TOTAL_MS);
+
+    winUxStateRef.current.revealTimeoutId = revealTimeoutId;
+  }, [gameState, stats, triggerWinEffects, statsOpen]);
+
+  // Cleanup any scheduled win UX timers on unmount.
+  useEffect(() => {
+    return () => {
+      const { revealTimeoutId, statsTimeoutId } = winUxStateRef.current;
+      if (revealTimeoutId !== null) {
+        window.clearTimeout(revealTimeoutId);
+      }
+      if (statsTimeoutId !== null) {
+        window.clearTimeout(statsTimeoutId);
+      }
+    };
+  }, []);
 
   // Wake lock management with auto visibility handling
   useEffect(() => {
