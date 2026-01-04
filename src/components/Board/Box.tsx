@@ -13,6 +13,7 @@
  */
 
 import { memo } from 'react';
+import { getTileFlipDelayMs } from '@/constants/revealTiming';
 import { cn } from '@/lib/utils';
 import type { BoxStatus } from '@/types';
 
@@ -66,9 +67,10 @@ export const Box = memo(function Box({
       : '';
 
   // Animation delay for cascade effect:
-  // Flip animation is 0.5s in CSS, so stagger by 500ms to ensure one box finishes
-  // before the next begins (sequential reveal).
-  const animationDelay = isRevealing ? `${position * 500}ms` : '0ms';
+  // Stagger is centralized so Box timing stays in sync with keyboard + post-reveal UX.
+  const animationDelay = isRevealing
+    ? `${getTileFlipDelayMs(position)}ms`
+    : '0ms';
 
   return (
     <div

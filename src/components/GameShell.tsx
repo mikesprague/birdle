@@ -30,7 +30,7 @@ import {
 } from '@/utils/emoji';
 import { setupAutoWakeLock } from '@/utils/wake-lock';
 
-const DEBUG_WIN_SEQUENCE = true;
+const DEBUG_WIN_SEQUENCE = false;
 
 function debugWinSequence(message: string, data?: Record<string, unknown>) {
   if (!DEBUG_WIN_SEQUENCE) {
@@ -92,7 +92,7 @@ export function GameShell({ store }: GameShellProps) {
    *
    * This constant defines when we should run "post-reveal" UX (toast/celebrations).
    */
-  const REVEAL_TOTAL_MS = 2500;
+  const REVEAL_TOTAL_MS = 1250;
 
   /**
    * Track whether the game was already over when this component mounted.
@@ -293,11 +293,18 @@ export function GameShell({ store }: GameShellProps) {
     });
 
     // Loss behavior is unchanged: show stats immediately when game ends.
+
+    // However, only auto-open once per gameId so the user can dismiss the modal.
     if (gameState.isGameOver && !gameState.wonGame) {
       debugWinSequence('ux effect: loss -> open stats immediately', {
         gameId: gameState.gameId,
       });
-      setStatsOpen(true);
+
+      if (winUxStateRef.current.gameId !== gameState.gameId) {
+        winUxStateRef.current.gameId = gameState.gameId;
+        setStatsOpen(true);
+      }
+
       return;
     }
 
@@ -306,6 +313,7 @@ export function GameShell({ store }: GameShellProps) {
     }
 
     // Reload behavior: if we mounted already-over, open stats immediately; no toast/celebrations.
+    // Only auto-open once per gameId so the user can dismiss the modal.
     if (mountedWithGameOverRef.current) {
       debugWinSequence(
         'ux effect: mounted with game over -> open stats immediately',
@@ -313,7 +321,12 @@ export function GameShell({ store }: GameShellProps) {
           gameId: gameState.gameId,
         }
       );
-      setStatsOpen(true);
+
+      if (winUxStateRef.current.gameId !== gameState.gameId) {
+        winUxStateRef.current.gameId = gameState.gameId;
+        setStatsOpen(true);
+      }
+
       return;
     }
 

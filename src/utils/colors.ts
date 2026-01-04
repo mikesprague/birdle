@@ -1,25 +1,22 @@
 /**
- * Color and status calculation utilities for Birdle
- * Pure functions for determining letter and key statuses based on guesses and answers
+ * Game colors and status calculation utilities
+ *
+ * Contains functions to calculate letter statuses for guesses,
+ * keyboard key statuses, and status priority for comparisons.
  */
 
 import type { BoxStatus, KeyStatus, LetterStatus } from '@/types';
 
 /**
- * Calculate the status for each letter in a guess compared to the answer
- * This implements Wordle-style logic:
- * - Correct position letters are marked first
- * - Remaining letters are checked for presence in remaining answer letters
- * - Each letter in the answer can only be "used" once
+ * Calculate letter statuses for a guess compared to the answer
  *
- * @param guess - The guessed word (5 letters)
- * @param answer - The correct answer (5 letters)
- * @returns Array of BoxStatus for each letter
+ * @param guess - The guessed word
+ * @param answer - The correct answer
+ * @returns Array of statuses for each letter
  *
  * @example
  * calculateLetterStatuses('TRASH', 'SHIRT')
- * // Returns: ['absent', 'correct', 'present', 'absent', 'present']
- * // T=absent, R=correct(pos1), A=present, S=absent, H=present
+ * // Returns ['present', 'present', 'absent', 'absent', 'present']
  */
 export function calculateLetterStatuses(
   guess: string,
@@ -32,27 +29,32 @@ export function calculateLetterStatuses(
   // Track which letters in the answer have been used
   let remainingAnswer = answerLower;
 
-  // First pass: Mark all correct (exact position) letters
-  for (let i = 0; i < 5; i++) {
+  // First pass: mark correct letters
+  for (let i = 0; i < guessLower.length; i++) {
     if (guessLower[i] === answerLower[i]) {
       statuses[i] = 'correct';
-      // Remove this letter from remaining answer letters
-      remainingAnswer = remainingAnswer.replace(guessLower[i], '');
+      // Remove this letter from remaining answer
+      remainingAnswer =
+        remainingAnswer.slice(0, i) + '_' + remainingAnswer.slice(i + 1);
     }
   }
 
-  // Second pass: Mark present letters (wrong position but in word)
-  for (let i = 0; i < 5; i++) {
-    // Skip if already marked as correct
+  // Second pass: mark present letters
+  for (let i = 0; i < guessLower.length; i++) {
     if (statuses[i] === 'correct') {
       continue;
     }
 
-    // Check if letter exists in remaining answer letters
-    if (remainingAnswer.includes(guessLower[i])) {
+    const letter = guessLower[i];
+    const index = remainingAnswer.indexOf(letter);
+
+    if (index !== -1) {
       statuses[i] = 'present';
-      // Remove this letter from remaining answer letters
-      remainingAnswer = remainingAnswer.replace(guessLower[i], '');
+      // Remove this letter from remaining answer
+      remainingAnswer =
+        remainingAnswer.slice(0, index) +
+        '_' +
+        remainingAnswer.slice(index + 1);
     }
   }
 
@@ -60,11 +62,11 @@ export function calculateLetterStatuses(
 }
 
 /**
- * Calculate the status for each letter in a guess and return as LetterStatus array
+ * Calculate guess with individual letter statuses
  *
- * @param guess - The guessed word (5 letters)
- * @param answer - The correct answer (5 letters)
- * @returns Array of LetterStatus objects
+ * @param guess - The guessed word
+ * @param answer - The correct answer
+ * @returns Array of letter objects with status
  */
 export function calculateGuessWithStatuses(
   guess: string,
@@ -80,12 +82,35 @@ export function calculateGuessWithStatuses(
 }
 
 /**
- * Calculate keyboard key statuses based on all guesses made so far
- * Priority order: correct > present > absent > unused
+ * Merge a key's current status with an incoming status using Wordle-style precedence:
+ * correct > present > absent > unused.
+ *
+ * This is used to support incremental keyboard reveals without ever "downgrading"
+ * a key that has already reached a higher confidence status.
+ *
+ * @param current - Existing status for the key (if any)
+ * @param incoming - New status to merge in
+ * @returns The merged status
+ */
+export function mergeKeyStatus(
+  current: KeyStatus | undefined,
+  incoming: KeyStatus
+): KeyStatus {
+  if (!current) {
+    return incoming;
+  }
+
+  return getStatusPriority(incoming) > getStatusPriority(current)
+    ? incoming
+    : current;
+}
+
+/**
+ * Calculate keyboard key statuses based on all guesses
  *
  * @param guesses - Array of guessed words
  * @param answer - The correct answer
- * @returns Map of letter to KeyStatus
+ * @returns Map of letter to status
  *
  * @example
  * calculateKeyboardStatuses(['TRASH', 'SHIRT'], 'SHIRT')
@@ -104,16 +129,10 @@ export function calculateKeyboardStatuses(
 
     for (let i = 0; i < guessLower.length; i++) {
       const letter = guessLower[i];
-      const newStatus = letterStatuses[i];
+      const newStatus = letterStatuses[i] as KeyStatus;
       const currentStatus = keyStatuses.get(letter);
 
-      // Update key status based on priority: correct > present > absent
-      if (
-        !currentStatus ||
-        getStatusPriority(newStatus) > getStatusPriority(currentStatus)
-      ) {
-        keyStatuses.set(letter, newStatus as KeyStatus);
-      }
+      keyStatuses.set(letter, mergeKeyStatus(currentStatus, newStatus));
     }
   }
 

@@ -3,12 +3,18 @@
  *
  * Handles keyboard input for the game, including both physical keyboard
  * and on-screen keyboard. Calculates key statuses based on submitted guesses.
+ *
+ * UX: incremental keyboard reveal
+ * - When a guess is submitted, tiles flip one-by-one revealing statuses.
+ * - The keyboard should update in the same cadence to avoid "spoiling" results early.
  */
 
 import { bindKey, unbindKey } from '@rwh/keystrokes';
-import { useCallback, useEffect, useMemo, useRef } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { KEYBOARD_REVEAL_STEP_MS } from '@/constants/revealTiming';
 import type { KeyStatus } from '@/types';
 import { calculateKeyboardStatuses } from '@/utils';
+import { calculateLetterStatuses, mergeKeyStatus } from '@/utils/colors';
 
 /**
  * Return whether a KeyboardEvent should be ignored for game input.
@@ -75,10 +81,23 @@ export function useKeyboard(
   answer: string,
   isGameOver = false
 ): UseKeyboardReturn {
-  // Calculate keyboard key statuses based on submitted guesses
-  const keyStatuses = useMemo(() => {
-    return calculateKeyboardStatuses(guesses, answer);
-  }, [guesses, answer]);
+  // Flip reveal timing: centralized so keyboard stays in sync with tile flips + post-reveal UX.
+  const REVEAL_STEP_MS = KEYBOARD_REVEAL_STEP_MS;
+
+  /**
+   * Reveal state:
+   * - revealedGuessCount: number of whole guesses fully revealed on the keyboard.
+   * - revealedTilesInCurrentGuess: number of tiles (0-5) revealed for the next guess (if any).
+   */
+  const [revealedGuessCount, setRevealedGuessCount] = useState<number>(0);
+  const [revealedTilesInCurrentGuess, setRevealedTilesInCurrentGuess] =
+    useState<number>(0);
+
+  // Track scheduled timers so we can cancel on changes/unmount.
+  const revealTimersRef = useRef<number[]>([]);
+
+  // Ensure we don't re-run the initial mount snap more than once.
+  const hasInitializedRevealRef = useRef<boolean>(false);
 
   // Use ref to store the callback to avoid rebinding keys
   const onKeyPressRef = useRef(onKeyPress);
@@ -134,6 +153,95 @@ export function useKeyboard(
       });
     };
   }, [handleKeyPress, isGameOver]);
+
+  // Incremental keyboard reveal: reveal one tile per 0.5s for a newly submitted guess.
+  useEffect(() => {
+    // Clear any pending timeouts
+    for (const id of revealTimersRef.current) {
+      window.clearTimeout(id);
+    }
+    revealTimersRef.current = [];
+
+    // On mount (or reload with existing guesses), don't animate: show everything immediately.
+    if (!hasInitializedRevealRef.current) {
+      hasInitializedRevealRef.current = true;
+      setRevealedGuessCount(guesses.length);
+      setRevealedTilesInCurrentGuess(0);
+      return;
+    }
+
+    // If guesses were reset or reduced, snap back.
+    if (guesses.length < revealedGuessCount) {
+      setRevealedGuessCount(guesses.length);
+      setRevealedTilesInCurrentGuess(0);
+      return;
+    }
+
+    // If no new guess was added, nothing to do.
+    if (guesses.length <= revealedGuessCount) {
+      return;
+    }
+
+    // New guess submitted: schedule 5 steps, one per tile flip.
+    setRevealedTilesInCurrentGuess(0);
+
+    for (let step = 1; step <= 5; step++) {
+      const id = window.setTimeout(() => {
+        setRevealedTilesInCurrentGuess(step);
+
+        if (step === 5) {
+          setRevealedGuessCount((prev) => Math.min(prev + 1, guesses.length));
+          setRevealedTilesInCurrentGuess(0);
+        }
+      }, REVEAL_STEP_MS * step);
+      revealTimersRef.current.push(id);
+    }
+
+    return () => {
+      for (const id of revealTimersRef.current) {
+        window.clearTimeout(id);
+      }
+      revealTimersRef.current = [];
+    };
+  }, [guesses, revealedGuessCount, REVEAL_STEP_MS]);
+
+  // Calculate keyboard key statuses based on progressively revealed guesses.
+  const keyStatuses = useMemo(() => {
+    const fullyRevealedGuesses = guesses.slice(0, revealedGuessCount);
+
+    // Start from the fully revealed state (existing behavior)
+    const baseMap = calculateKeyboardStatuses(fullyRevealedGuesses, answer);
+
+    // If we're in the middle of revealing the next guess, apply letter-by-letter updates.
+    if (revealedTilesInCurrentGuess <= 0) {
+      return baseMap;
+    }
+
+    const inProgressIndex = revealedGuessCount;
+    if (inProgressIndex >= guesses.length) {
+      return baseMap;
+    }
+
+    const guess = guesses[inProgressIndex];
+    const statuses = calculateLetterStatuses(guess, answer);
+    const lettersToReveal = Math.min(
+      5,
+      Math.max(0, revealedTilesInCurrentGuess)
+    );
+
+    for (let i = 0; i < lettersToReveal; i++) {
+      const letter = guess[i]?.toLowerCase();
+      if (!letter) {
+        continue;
+      }
+
+      const incoming = statuses[i] as KeyStatus;
+      const current = baseMap.get(letter);
+      baseMap.set(letter, mergeKeyStatus(current, incoming));
+    }
+
+    return baseMap;
+  }, [answer, guesses, revealedGuessCount, revealedTilesInCurrentGuess]);
 
   // Setup physical keyboard bindings (only once)
   useEffect(() => {
