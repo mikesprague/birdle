@@ -154,6 +154,22 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  /*
+   * Dialog theming fix:
+   * Ensure dialog content has readable foreground/background colors in light theme.
+   * We target shadcn/ui dialog data-slots rather than modifying ui components.
+   */
+  [data-slot="dialog-content"] {
+    color: var(--foreground);
+    background-color: var(--background);
+  }
+
+  /* Ensure SVG icons inside dialogs inherit the text color */
+  [data-slot="dialog-content"] svg {
+    color: currentColor;
+    fill: currentColor;
+  }
 }
 
 /* Game-specific animations */
