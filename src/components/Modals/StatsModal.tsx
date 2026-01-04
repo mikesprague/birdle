@@ -5,7 +5,7 @@
  * streaks, and guess distribution. Uses shadcn Dialog (replaces sweetalert2).
  */
 
-import { useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { Bar, BarChart, XAxis, YAxis } from 'recharts';
 import type { Store } from 'tinybase';
 import { Button } from '@/components/ui/button';
@@ -29,6 +29,51 @@ import { showCopiedToast, showCopyFailedToast } from '@/hooks/useToast';
 import type { GameState } from '@/types';
 import { createShareText, shareResults } from '@/utils';
 import { trackEvent } from '@/utils/analytics';
+
+const NextBirdleCountdown = memo(function NextBirdleCountdown({
+  open,
+  isGameOver,
+}: {
+  open: boolean;
+  isGameOver: boolean;
+}) {
+  const [timeUntilNext, setTimeUntilNext] = useState('00:00:00');
+
+  useEffect(() => {
+    if (!open || !isGameOver) {
+      return;
+    }
+
+    const updateCountdown = () => {
+      const now = new Date();
+      const tomorrow = new Date(now);
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      tomorrow.setHours(0, 0, 0, 0);
+
+      const diff = tomorrow.getTime() - now.getTime();
+      const hours = Math.floor(diff / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      setTimeUntilNext(
+        `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
+      );
+    };
+
+    updateCountdown();
+    const interval = setInterval(updateCountdown, 1000);
+    return () => clearInterval(interval);
+  }, [open, isGameOver]);
+
+  return (
+    <div className="text-center">
+      <h3 className="text-sm font-semibold mb-2">Next Birdle</h3>
+      <div className="text-3xl font-mono font-bold tabular-nums">
+        {timeUntilNext}
+      </div>
+    </div>
+  );
+});
 
 export interface StatsModalProps {
   /** Whether the modal is open */
@@ -67,39 +112,12 @@ export function StatsModal({
   answer,
 }: StatsModalProps) {
   const { stats } = useStats(store);
-  const [timeUntilNext, setTimeUntilNext] = useState('');
-
   const chartConfig = {
     guesses: {
       label: 'Guesses',
       color: 'var(--chart-1)',
     },
   } satisfies ChartConfig;
-
-  // Calculate time until next Birdle (midnight)
-  useEffect(() => {
-    const updateCountdown = () => {
-      const now = new Date();
-      const tomorrow = new Date(now);
-      tomorrow.setDate(tomorrow.getDate() + 1);
-      tomorrow.setHours(0, 0, 0, 0);
-
-      const diff = tomorrow.getTime() - now.getTime();
-      const hours = Math.floor(diff / (1000 * 60 * 60));
-      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-      setTimeUntilNext(
-        `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
-      );
-    };
-
-    if (open) {
-      updateCountdown();
-      const interval = setInterval(updateCountdown, 1000);
-      return () => clearInterval(interval);
-    }
-  }, [open]);
 
   // Handle share button click
   const handleShare = async () => {
@@ -243,7 +261,7 @@ export function StatsModal({
                     radius={5}
                     label={{
                       position: 'right',
-                      formatter: (value: number) => `${Math.round(value)}%`,
+                      formatter: (value: number) => `${Number(value)}%`,
                     }}
                   />
                 </BarChart>
@@ -306,12 +324,7 @@ export function StatsModal({
           {gameState?.isGameOver && (
             <>
               <Separator />
-              <div className="text-center">
-                <h3 className="text-sm font-semibold mb-2">Next Birdle</h3>
-                <div className="text-3xl font-mono font-bold tabular-nums">
-                  {timeUntilNext}
-                </div>
-              </div>
+              <NextBirdleCountdown open={open} isGameOver />
             </>
           )}
 
