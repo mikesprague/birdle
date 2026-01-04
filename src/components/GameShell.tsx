@@ -5,7 +5,7 @@
  * game flow, modal states, and win/loss effects.
  */
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import type { Store } from 'tinybase';
 import { useCell } from 'tinybase/ui-react';
 
@@ -13,13 +13,14 @@ import { Board } from '@/components/Board/Board';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { Header } from '@/components/Header';
 import { Keyboard } from '@/components/Keyboard/Keyboard';
-import { GameEndDialog } from '@/components/Modals/GameEndDialog';
 import { InstructionsModal } from '@/components/Modals/InstructionsModal';
 import { SettingsModal } from '@/components/Modals/SettingsModal';
 import { StatsModal } from '@/components/Modals/StatsModal';
 
 import { useGameState, useStats } from '@/hooks';
+import { showWinToast, TOAST_CONFIG } from '@/hooks/useToast';
 import { ROW_IDS, TABLES } from '@/store/schema';
+import { getSuccessMessage } from '@/utils';
 import { trackEvent } from '@/utils/analytics';
 import {
   christmasEmojis,
@@ -50,7 +51,7 @@ export interface GameShellProps {
 export function GameShell({ store }: GameShellProps) {
   // Game state and actions
   const { gameState, birdle } = useGameState(store);
-  const { updateStats } = useStats(store);
+  const { stats, countGameIfNeeded } = useStats(store);
 
   // Get celebration settings from store
   const emojiBlasts =
@@ -70,19 +71,15 @@ export function GameShell({ store }: GameShellProps) {
     ) as boolean) ?? true;
 
   // Modal states
-  const [gameEndOpen, setGameEndOpen] = useState(false);
   const [statsOpen, setStatsOpen] = useState(false);
   const [instructionsOpen, setInstructionsOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
-
-  // Track if we've already processed this game end
-  const [processedGameId, setProcessedGameId] = useState<number | null>(null);
 
   /**
    * Trigger win celebration effects
    * Lazy loads emoji-blast and balloons-js libraries based on settings
    */
-  const triggerWinEffects = async () => {
+  const triggerWinEffects = useCallback(async () => {
     try {
       if (emojiBlasts) {
         // Lazy load and trigger emoji-blast if enabled
@@ -166,35 +163,66 @@ export function GameShell({ store }: GameShellProps) {
       // Effects failed to load, that's okay
       console.log('Win effects not available:', error);
     }
-  };
+  }, [
+    balloons,
+    emojiBlasts,
+    gameState?.currentRow,
+    gameState?.guessesRows.length,
+  ]);
 
   // Watch for game end
   useEffect(() => {
-    if (
-      gameState?.isGameOver &&
-      !gameEndOpen &&
-      processedGameId !== gameState.gameId
-    ) {
-      // Calculate attempts (currentRow is 0-indexed, so +1 for actual attempt count)
-      const attempts = gameState.currentRow + 1;
+    if (!gameState?.isGameOver) {
+      return;
+    }
 
-      // Update stats
-      updateStats(gameState.wonGame, attempts);
+    // If stats aren't available yet, bail out and let the effect run again once they load.
+    if (!stats) {
+      return;
+    }
 
-      // Track game completion event
+    // Calculate attempts (currentRow is 0-indexed, so +1 for actual attempt count)
+    const attempts = gameState.currentRow + 1;
+
+    // Count this daily game into aggregate stats at most once (idempotent across reloads)
+    const didUpdateStats = countGameIfNeeded(
+      gameState.gameId,
+      gameState.wonGame,
+      attempts
+    );
+
+    if (didUpdateStats) {
+      // Track game completion event only when we actually counted the game
       trackEvent('game_completed', {
         won: gameState.wonGame,
         attempts,
         gameId: gameState.gameId,
       });
-
-      // Open game end dialog
-      setGameEndOpen(true);
-
-      // Mark this game as processed
-      setProcessedGameId(gameState.gameId);
     }
-  }, [gameState, gameEndOpen, processedGameId, updateStats]);
+
+    if (gameState.wonGame) {
+      // Only run win celebrations/toast when we actually counted the game.
+      // Otherwise, reloads would duplicate the UX (toast, emojis, balloons).
+      if (didUpdateStats) {
+        // Celebration effects (previously triggered by GameEndDialog)
+        triggerWinEffects();
+
+        // UX: toast shows the success message, then stats opens after the toast duration
+        // getSuccessMessage expects a 0-indexed row (same value previously used by GameEndDialog)
+        showWinToast(getSuccessMessage(gameState.currentRow));
+
+        window.setTimeout(() => {
+          setStatsOpen(true);
+        }, TOAST_CONFIG.duration);
+      } else {
+        // Reload (or already-counted game): open stats immediately with no delay.
+        setStatsOpen(true);
+      }
+    } else {
+      // For losses, immediately open stats modal (no end-of-game dialog)
+      setStatsOpen(true);
+    }
+  }, [countGameIfNeeded, gameState, stats, triggerWinEffects]);
 
   // Wake lock management with auto visibility handling
   useEffect(() => {
@@ -262,17 +290,6 @@ export function GameShell({ store }: GameShellProps) {
       </footer>
 
       {/* Modals */}
-      {gameState && (
-        <GameEndDialog
-          store={store}
-          open={gameEndOpen}
-          onClose={() => setGameEndOpen(false)}
-          gameState={gameState}
-          answer={birdle?.word}
-          onCelebrate={triggerWinEffects}
-        />
-      )}
-
       <StatsModal
         store={store}
         open={statsOpen}

@@ -261,7 +261,7 @@ export function StatsModal({
                     radius={5}
                     label={{
                       position: 'right',
-                      formatter: (value: number) => `${Number(value)}%`,
+                      formatter: (value: unknown) => `${Number(value)}%`,
                     }}
                   />
                 </BarChart>
@@ -320,14 +320,6 @@ export function StatsModal({
             </div>
           </div> */}
 
-          {/* Next Birdle Countdown */}
-          {gameState?.isGameOver && (
-            <>
-              <Separator />
-              <NextBirdleCountdown open={open} isGameOver />
-            </>
-          )}
-
           {/* Share Button */}
           {gameState?.isGameOver && (
             <>
@@ -340,6 +332,14 @@ export function StatsModal({
               >
                 Share Results
               </Button>
+            </>
+          )}
+
+          {/* Next Birdle Countdown */}
+          {gameState?.isGameOver && (
+            <>
+              <Separator />
+              <NextBirdleCountdown open={open} isGameOver />
             </>
           )}
         </div>

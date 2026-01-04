@@ -10,6 +10,11 @@
  * 3. Transform and write to TinyBase tables
  * 4. Mark migration as complete
  * 5. Optionally preserve or remove legacy data
+ *
+ * Notes:
+ * - We also attempt to preserve idempotency markers used by the new stats flow.
+ *   If the legacy game state indicates the current daily game was already completed,
+ *   we set `lastCountedGameId` to that migrated `gameId` so stats won't be double-counted.
  */
 
 import type { Store } from 'tinybase';
@@ -164,14 +169,29 @@ function migrateGameState(store: Store, gameState: GameState): void {
  * @param store - TinyBase store instance
  * @param stats - Stats to migrate
  */
-function migrateStats(store: Store, stats: Stats): void {
+function migrateStats(
+  store: Store,
+  stats: Stats,
+  completedGameId?: number
+): void {
   const row = statsToRow(stats);
+
+  // If the legacy game indicates today's game was already completed, persist the
+  // idempotency marker so we don't increment stats again on first load.
+  if (typeof completedGameId === 'number') {
+    (row as unknown as Record<string, string | number | boolean>)[
+      'lastCountedGameId'
+    ] = completedGameId;
+  }
 
   store.setRow(TABLES.STATS, 'current', row);
   console.log('✅ Migrated stats:', {
     gamesPlayed: stats.gamesPlayed,
     gamesWon: stats.gamesWon,
     winPercentage: stats.winPercentage,
+    ...(typeof completedGameId === 'number'
+      ? { lastCountedGameId: completedGameId }
+      : {}),
   });
 }
 
@@ -258,7 +278,12 @@ export async function migrateFromLocalStorage(
     // Migrate stats
     if (legacyStats) {
       try {
-        migrateStats(store, legacyStats);
+        const completedGameId =
+          legacyGameState?.isGameOver === true
+            ? legacyGameState.gameId
+            : undefined;
+
+        migrateStats(store, legacyStats, completedGameId);
         result.hadStats = true;
       } catch (error) {
         const errorMsg = `Failed to migrate stats: ${error}`;

@@ -10,7 +10,7 @@ import { toast } from 'sonner';
 /**
  * Toast configuration constants
  */
-const TOAST_CONFIG = {
+export const TOAST_CONFIG = {
   duration: 2500,
   position: 'top-center' as const,
 };
@@ -22,6 +22,21 @@ const TOAST_CONFIG = {
 export function showInvalidWordToast(): void {
   toast.error('Not in word list', {
     duration: TOAST_CONFIG.duration,
+    position: TOAST_CONFIG.position,
+  });
+}
+
+/**
+ * Show dedicated "win" toast with guaranteed 2.5s duration.
+ *
+ * Note: This intentionally does not reuse any global defaults outside this file,
+ * so end-of-game UX stays stable even if other toasts change.
+ *
+ * @param message - Win message to display (e.g., from getSuccessMessage()).
+ */
+export function showWinToast(message: string): void {
+  toast.success(message, {
+    duration: 2500,
     position: TOAST_CONFIG.position,
   });
 }

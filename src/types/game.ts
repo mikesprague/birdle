@@ -79,6 +79,12 @@ export interface Stats {
 
   /** Average number of guesses to win */
   averageGuesses: number;
+
+  /**
+   * Last gameId that was already counted into these aggregate stats.
+   * Used to prevent incrementing stats multiple times across reloads.
+   */
+  lastCountedGameId?: number;
 }
 
 /**

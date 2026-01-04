@@ -71,9 +71,15 @@ export interface GamesTableRow {
  *     winPercentage: number,
  *     gamesPlayed: number,
  *     gamesWon: number,
- *     averageGuesses: number
+ *     averageGuesses: number,
+ *     lastCountedGameId?: number
  *   }
  * }
+ *
+ * Note:
+ * - `lastCountedGameId` is stored as an optional cell in TinyBase, but is not part of the
+ *   strict `StatsTableRow` interface to avoid optional-cell typing conflicts with TinyBase's
+ *   row/cell types. It is handled explicitly in `statsToRow()` and `rowToStats()`.
  */
 export interface StatsTableRow {
   currentStreak: number;
@@ -162,7 +168,7 @@ export function rowToGameState(row: GamesTableRow): GameState {
  * Helper: Convert Stats to TinyBase row format
  */
 export function statsToRow(stats: Stats): StatsTableRow {
-  return {
+  const row: StatsTableRow = {
     currentStreak: stats.currentStreak,
     maxStreak: stats.maxStreak,
     guesses: JSON.stringify(stats.guesses),
@@ -171,13 +177,22 @@ export function statsToRow(stats: Stats): StatsTableRow {
     gamesWon: stats.gamesWon,
     averageGuesses: stats.averageGuesses,
   };
+
+  // Store optional idempotency marker as an extra TinyBase cell (only when present).
+  if (typeof stats.lastCountedGameId === 'number') {
+    (row as unknown as Record<string, string | number | boolean>)[
+      'lastCountedGameId'
+    ] = stats.lastCountedGameId;
+  }
+
+  return row;
 }
 
 /**
  * Helper: Convert TinyBase row to Stats format
  */
 export function rowToStats(row: StatsTableRow): Stats {
-  return {
+  const stats: Stats = {
     currentStreak: row.currentStreak,
     maxStreak: row.maxStreak,
     guesses: JSON.parse(row.guesses),
@@ -186,6 +201,16 @@ export function rowToStats(row: StatsTableRow): Stats {
     gamesWon: row.gamesWon,
     averageGuesses: row.averageGuesses,
   };
+
+  // Read optional idempotency marker (may exist as an extra TinyBase cell).
+  const maybeLastCountedGameId = (row as unknown as Record<string, unknown>)[
+    'lastCountedGameId'
+  ];
+  if (typeof maybeLastCountedGameId === 'number') {
+    stats.lastCountedGameId = maybeLastCountedGameId;
+  }
+
+  return stats;
 }
 
 /**
