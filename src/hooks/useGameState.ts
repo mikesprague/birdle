@@ -39,6 +39,12 @@ export interface UseGameStateReturn {
   /** Delete the last letter */
   deleteLetter: () => void;
 
+  /**
+   * Clear the current row (Cmd/Ctrl+Backspace UX).
+   * Clears all letters in the active row and resets the cursor to the first position.
+   */
+  clearCurrentRow: () => void;
+
   /** Submit the current guess */
   submitGuess: () => void;
 
@@ -181,6 +187,33 @@ export function useGameState(store: Store): UseGameStateReturn {
   }, [gameState, store, birdle.day]);
 
   /**
+   * Clear the current row
+   *
+   * Intended for Cmd/Ctrl+Backspace UX: clears all letters in the active row
+   * and resets the cursor to the first position.
+   */
+  const clearCurrentRow = useCallback(() => {
+    if (!gameState || gameState.isGameOver) {
+      return;
+    }
+
+    const { currentRow, guessesRows } = gameState;
+
+    const newGuessesRows = guessesRows.map((row, idx) =>
+      idx === currentRow ? row.map(() => '') : row
+    );
+
+    const updatedState: GameState = {
+      ...gameState,
+      guessesRows: newGuessesRows,
+      currentGuess: 0,
+    };
+
+    const row = gameStateToRow(updatedState);
+    store.setRow(TABLES.GAMES, birdle.day.toString(), row);
+  }, [gameState, store, birdle.day]);
+
+  /**
    * Submit the current guess
    */
   const submitGuess = useCallback(() => {
@@ -236,6 +269,7 @@ export function useGameState(store: Store): UseGameStateReturn {
     isLoading: !gameState,
     handleLetter,
     deleteLetter,
+    clearCurrentRow,
     submitGuess,
     resetGame,
     canAddLetter,

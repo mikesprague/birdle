@@ -22,8 +22,14 @@ export interface KeyboardProps {
  * <Keyboard store={store} />
  */
 export function Keyboard({ store }: KeyboardProps) {
-  const { gameState, birdle, handleLetter, deleteLetter, submitGuess } =
-    useGameState(store);
+  const {
+    gameState,
+    birdle,
+    handleLetter,
+    deleteLetter,
+    clearCurrentRow,
+    submitGuess,
+  } = useGameState(store);
 
   // Handle key press from virtual or physical keyboard
   const handleKeyPress = useCallback(
@@ -36,11 +42,13 @@ export function Keyboard({ store }: KeyboardProps) {
         submitGuess();
       } else if (key === 'backspace') {
         deleteLetter();
+      } else if (key === 'clear-row') {
+        clearCurrentRow();
       } else {
         handleLetter(key);
       }
     },
-    [gameState, handleLetter, deleteLetter, submitGuess]
+    [gameState, handleLetter, deleteLetter, clearCurrentRow, submitGuess]
   );
 
   // Get key statuses based on submitted guesses

@@ -11,6 +11,40 @@ import type { KeyStatus } from '@/types';
 import { calculateKeyboardStatuses } from '@/utils';
 
 /**
+ * Return whether a KeyboardEvent should be ignored for game input.
+ *
+ * We ignore common browser/system shortcuts (Cmd/Ctrl combos) so they don't
+ * accidentally type into the game (e.g. Cmd+R / Ctrl+R for reload).
+ *
+ * Exception:
+ * - Cmd/Ctrl+Backspace is treated as an in-game "clear row" command.
+ */
+function shouldIgnoreKeyEvent(event: KeyboardEvent): boolean {
+  // Ignore IME composition keystrokes.
+  if (event.isComposing) {
+    return true;
+  }
+
+  // Allow Cmd/Ctrl+Backspace through so we can implement "clear row".
+  if (
+    (event.metaKey || event.ctrlKey) &&
+    event.key.toLowerCase() === 'backspace'
+  ) {
+    return false;
+  }
+
+  // If any modifier is held, treat it as a shortcut chord and ignore.
+  // This prevents Cmd/Ctrl+<letter> from typing letters into the grid.
+  if (event.metaKey || event.ctrlKey || event.altKey) {
+    return true;
+  }
+
+  // Shift is special: it is required to type many characters and should not
+  // globally disable input. We do not ignore shift-only combos.
+  return false;
+}
+
+/**
  * Hook return type
  */
 export interface UseKeyboardReturn {
@@ -58,6 +92,48 @@ export function useKeyboard(
   const handleKeyPress = useCallback((key: string) => {
     onKeyPressRef.current(key);
   }, []);
+
+  // Global capture listener to ignore modifier shortcuts before keystrokes processes them.
+  // We use capture so we can stop propagation early for Cmd/Ctrl combos (e.g. Cmd+R).
+  useEffect(() => {
+    if (isGameOver) {
+      return;
+    }
+
+    const onKeyDownCapture = (event: KeyboardEvent) => {
+      const isClearRowCombo =
+        (event.metaKey || event.ctrlKey) &&
+        event.key.toLowerCase() === 'backspace';
+
+      if (isClearRowCombo) {
+        // Treat Cmd/Ctrl+Backspace as an explicit in-game command.
+        // We *do* preventDefault here to avoid browser/system "delete line" behaviors
+        // and to keep the UX consistent across platforms.
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        event.stopPropagation();
+        handleKeyPress('clear-row');
+        return;
+      }
+
+      if (!shouldIgnoreKeyEvent(event)) {
+        return;
+      }
+
+      // Prevent the keystrokes library listener (and our bindKey handlers) from seeing this.
+      // We intentionally do NOT call preventDefault so browser shortcuts (reload, etc.) still work.
+      event.stopImmediatePropagation();
+      event.stopPropagation();
+    };
+
+    window.addEventListener('keydown', onKeyDownCapture, { capture: true });
+
+    return () => {
+      window.removeEventListener('keydown', onKeyDownCapture, {
+        capture: true,
+      });
+    };
+  }, [handleKeyPress, isGameOver]);
 
   // Setup physical keyboard bindings (only once)
   useEffect(() => {

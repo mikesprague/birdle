@@ -1,4 +1,5 @@
 @import "tailwindcss";
+
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
@@ -182,13 +183,13 @@
 /* Game-specific animations */
 @keyframes flip {
   0% {
-    transform: rotateX(0);
+    transform: rotateY(0);
   }
   50% {
-    transform: rotateX(-90deg);
+    transform: rotateY(-90deg);
   }
   100% {
-    transform: rotateX(0);
+    transform: rotateY(0);
   }
 }
 
@@ -237,15 +238,47 @@
 }
 
 /* Reduced motion preference */
-/* @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+@media (prefers-reduced-motion: reduce) {
+  .box-flip,
+  .box-pop,
+  .row-shake {
+    animation: none !important;
   }
-} */
+}
+
+/*
+ * Keyboard: keep status backgrounds + text colors stable on hover.
+ *
+ * The virtual keyboard uses shadcn/ui Button underneath. Some variants apply a
+ * hover background/text color via CSS variables (e.g. --accent/--accent-foreground)
+ * which can visually override our per-key status colors.
+ *
+ * We target only our keyboard keys (class added in Key.tsx) and only when a key
+ * has a resolved status (correct/present/absent).
+ */
+.keyboard-key[data-status="correct"]:hover,
+.keyboard-key[data-status="correct"]:focus-visible {
+  background-color: rgb(var(--color-correct)) !important;
+  border-color: rgb(var(--color-correct)) !important;
+  color: rgb(var(--color-correct-foreground)) !important;
+  opacity: 1 !important;
+}
+
+.keyboard-key[data-status="present"]:hover,
+.keyboard-key[data-status="present"]:focus-visible {
+  background-color: rgb(var(--color-present)) !important;
+  border-color: rgb(var(--color-present)) !important;
+  color: rgb(var(--color-present-foreground)) !important;
+  opacity: 1 !important;
+}
+
+.keyboard-key[data-status="absent"]:hover,
+.keyboard-key[data-status="absent"]:focus-visible {
+  background-color: rgb(var(--color-absent)) !important;
+  border-color: rgb(var(--color-absent)) !important;
+  color: rgb(var(--color-absent-foreground)) !important;
+  opacity: 1 !important;
+}
 
 /* Focus visible styles for accessibility */
 /* :focus-visible {

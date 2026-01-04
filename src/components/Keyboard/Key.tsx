@@ -50,6 +50,9 @@ export const Key = memo(function Key({
   const sizeClasses =
     size === 'large' ? 'min-w-12 px-2' : 'w-8 md:w-12 sm:w-10 w-8 px-2';
 
+  const interactionClasses =
+    status === 'unused' ? 'hover:scale-105 active:scale-95' : '';
+
   return (
     <Button
       onClick={onClick}
@@ -57,9 +60,9 @@ export const Key = memo(function Key({
       variant={'ghost'}
       className={cn(
         // Base styles
-        'flex rounded uppercase transition-all duration-200',
-        // Hover effects
-        'hover:scale-105 active:scale-95',
+        'keyboard-key flex rounded uppercase transition-all duration-200',
+        // Hover/active interactions (only for unused keys)
+        interactionClasses,
         // Text size
         'md:text-xl sm:text-lg text-base leading-6',
         // Height

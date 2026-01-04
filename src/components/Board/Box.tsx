@@ -44,13 +44,15 @@ export const Box = memo(function Box({
 
   // Animation classes
   const animationClasses = animated
-    ? 'animate-flip-in'
+    ? 'box-flip'
     : letter && status === 'empty'
-      ? 'animate-pop'
+      ? 'box-pop'
       : '';
 
-  // Animation delay for cascade effect
-  const animationDelay = animated ? `${position * 100}ms` : '0ms';
+  // Animation delay for cascade effect:
+  // Flip animation is 0.5s in CSS, so stagger by 500ms to ensure one box finishes
+  // before the next begins (sequential reveal).
+  const animationDelay = animated ? `${position * 500}ms` : '0ms';
 
   return (
     <div
