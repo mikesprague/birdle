@@ -5,8 +5,9 @@
  * Integrates with game state and provides visual feedback based on letter usage.
  */
 
-import { useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { Store } from 'tinybase';
+import { REVEAL_TOTAL_MS } from '@/constants/revealTiming';
 import { KEYBOARD_ROWS, useGameState, useKeyboard } from '@/hooks';
 import { Key } from './Key';
 
@@ -34,6 +35,8 @@ export function Keyboard({ store }: KeyboardProps) {
   // Handle key press from virtual or physical keyboard
   const handleKeyPress = useCallback(
     (key: string) => {
+      // Virtual keyboard is disabled when game over (see `isInputDisabled` below),
+      // but keep this guard as a last line of defense.
       if (!gameState || gameState.isGameOver) {
         return;
       }
@@ -64,7 +67,77 @@ export function Keyboard({ store }: KeyboardProps) {
     return keyStatuses.get(letter.toLowerCase()) || 'unused';
   };
 
+  /**
+   * Defer disabling the keyboard until after the final tile flip completes.
+   *
+   * Problem:
+   * - `gameState.isGameOver` flips to true immediately on a win, which disables
+   *   the keyboard instantly, even though the last row is still animating.
+   *
+   * Goal:
+   * - Keep the keyboard visually/interaction-enabled until the reveal finishes,
+   *   then disable it.
+   *
+   * Notes:
+   * - This only affects the on-screen keyboard `Button` disabled state.
+   * - Physical keyboard bindings are still controlled inside `useKeyboard` via
+   *   its `isGameOver` parameter (left as-is for now).
+   */
   const isGameOver = gameState?.isGameOver || false;
+  const wonGame = Boolean(gameState?.wonGame);
+
+  // Defer until the final tile flip finishes (kept in sync with Box.tsx via constants).
+  const DEFER_DISABLE_MS = REVEAL_TOTAL_MS;
+
+  const [isInputDisabled, setIsInputDisabled] = useState<boolean>(isGameOver);
+
+  // Schedule once per win-completion moment (not on every re-render).
+  // `gameState.gameId` is a number (day number), so keep this ref numeric.
+  const didScheduleDisableForGameIdRef = useRef<number | null>(null);
+  const disableTimerRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    // Clear any pending timer whenever the gameId changes or we reset.
+    if (disableTimerRef.current != null) {
+      window.clearTimeout(disableTimerRef.current);
+      disableTimerRef.current = null;
+    }
+
+    // If the game isn't over, always enable input and reset scheduling guard.
+    if (!isGameOver) {
+      setIsInputDisabled(false);
+      didScheduleDisableForGameIdRef.current = null;
+      return;
+    }
+
+    // Loss: disable immediately.
+    if (!wonGame) {
+      setIsInputDisabled(true);
+      return;
+    }
+
+    // Win: keep enabled through the reveal window, then disable.
+    // We only schedule this once per gameId so it doesn't jitter if state updates during reveal.
+    const gameId = gameState?.gameId ?? null;
+    if (gameId == null) {
+      setIsInputDisabled(true);
+      return;
+    }
+
+    if (didScheduleDisableForGameIdRef.current !== gameId) {
+      didScheduleDisableForGameIdRef.current = gameId;
+      setIsInputDisabled(false);
+
+      disableTimerRef.current = window.setTimeout(() => {
+        setIsInputDisabled(true);
+        disableTimerRef.current = null;
+      }, DEFER_DISABLE_MS);
+      return;
+    }
+
+    // While waiting for the scheduled disable, keep enabled.
+    setIsInputDisabled(false);
+  }, [DEFER_DISABLE_MS, isGameOver, wonGame, gameState?.gameId]);
 
   // Create stable onClick handlers for each key (prevents inline arrow functions)
   const keyHandlers = useMemo(() => {
@@ -101,7 +174,7 @@ export function Keyboard({ store }: KeyboardProps) {
                 letter={letter}
                 status={getKeyStatus(letter)}
                 onClick={handler}
-                disabled={isGameOver}
+                disabled={isInputDisabled}
               />
             );
           })}
@@ -120,7 +193,7 @@ export function Keyboard({ store }: KeyboardProps) {
                 letter={letter}
                 status={getKeyStatus(letter)}
                 onClick={handler}
-                disabled={isGameOver}
+                disabled={isInputDisabled}
               />
             );
           })}
@@ -148,7 +221,7 @@ export function Keyboard({ store }: KeyboardProps) {
                     ? 'large'
                     : 'normal'
                 }
-                disabled={isGameOver}
+                disabled={isInputDisabled}
               />
             );
           })}
