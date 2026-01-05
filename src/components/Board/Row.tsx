@@ -60,7 +60,7 @@ export const Row = memo(function Row({
 
   return (
     <div
-      className="flex gap-1 md:gap-1.5 justify-center"
+      className="flex gap-1.5 md:gap-2 justify-center"
       data-row-index={rowIndex}
       data-is-current={isCurrentRow}
       data-is-submitted={isSubmitted}
@@ -68,7 +68,7 @@ export const Row = memo(function Row({
       {letters.map((letter, position) => (
         <Box
           // biome-ignore lint/suspicious/noArrayIndexKey: Position is stable within row (boxes don't reorder)
-          key={position}
+          key={(rowIndex + 1) * position}
           letter={letter}
           status={statuses[position]}
           position={position}

@@ -78,9 +78,9 @@ export const Box = memo(function Box({
         // Base styles
         'relative uppercase',
         // Size + typography
-        'h-15 w-15 text-4xl font-semibold',
+        'h-15 w-15 text-3xl font-semibold',
         'sm:h-17 sm:w-17 sm:text-4xl font-bold',
-        'md:h-18 md:w-18 md:text-4xl font-bold',
+        'md:h-19 md:w-19 md:text-4xl font-bold',
         // 3D flip container
         'box-3d',
         // Status styles (neutral during reveal)
@@ -116,10 +116,10 @@ export const Box = memo(function Box({
 
 /**
  * Neutral (pre-reveal) tile face styling.
- * This matches the "unrevealed but filled" look (Option A).
+ * This matches the "unrevealed but filled" look.
  */
 function getFrontFaceClasses(): string {
-  return 'flex items-center justify-center border-2 border-[rgb(var(--color-empty))] bg-transparent text-foreground';
+  return 'flex items-center justify-center border-1 border-[var(--color-empty)] bg-transparent text-[var(--color-empty-foreground)]';
 }
 
 /**
@@ -128,14 +128,13 @@ function getFrontFaceClasses(): string {
 function getBackFaceClasses(status: BoxStatus): string {
   switch (status) {
     case 'correct':
-      return 'flex items-center justify-center border-2 border-[rgb(var(--color-correct))] bg-[rgb(var(--color-correct))] text-[rgb(var(--color-correct-foreground))]';
+      return 'flex items-center justify-center border-1 border-[var(--color-correct)] bg-[var(--color-correct)] text-[var(--color-correct-foreground)]';
     case 'present':
-      return 'flex items-center justify-center border-2 border-[rgb(var(--color-present))] bg-[rgb(var(--color-present))] text-[rgb(var(--color-present-foreground))]';
+      return 'flex items-center justify-center border-1 border-[var(--color-present)] bg-[var(--color-present)] text-[var(--color-present-foreground)]';
     case 'absent':
-      return 'flex items-center justify-center border-2 border-[rgb(var(--color-absent))] bg-[rgb(var(--color-absent))] text-[rgb(var(--color-absent-foreground))]';
-    case 'empty':
+      return 'flex items-center justify-center border-1 border-[var(--color-absent)] bg-[var(--color-absent)] text-[var(--color-absent-foreground)]';
     default:
-      return 'flex items-center justify-center border-2 border-[rgb(var(--color-empty))] bg-transparent text-foreground';
+      return 'flex items-center justify-center border-1 border-[var(--color-empty)] bg-transparent text-[var(--color-empty-foreground)]';
   }
 }
 

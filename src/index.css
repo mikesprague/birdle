@@ -6,6 +6,7 @@
 
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-size: 16px;
   line-height: 1.5;
   font-weight: 400;
 
@@ -49,14 +50,14 @@
   --sidebar-ring: oklch(0.708 0 0);
 
   /* Game-specific colors (light theme) */
-  --color-correct: 106 170 100;
-  --color-correct-foreground: 255 255 255;
-  --color-present: 201 180 88;
-  --color-present-foreground: 255 255 255;
-  --color-absent: 120 124 126;
-  --color-absent-foreground: 255 255 255;
-  --color-empty: 211 214 218;
-  --color-empty-foreground: 0 0 0;
+  --color-absent: oklch(0.5 0.0034 286.22);
+  --color-correct: oklch(0.6 0.1112 142.32);
+  --color-present: oklch(0.7 0.1207 96.69);
+  --color-correct-foreground: oklch(1 0 0);
+  --color-present-foreground: oklch(1 0 0);
+  --color-absent-foreground: oklch(1 0 0);
+  --color-empty: oklch(0.67 0.0034 286.22);
+  --color-empty-foreground: oklch(0 0 0);
 }
 
 @theme inline {
@@ -134,14 +135,14 @@
   --sidebar-ring: oklch(0.556 0 0);
 
   /* Game-specific colors (dark theme) */
-  --color-correct: 83 141 78;
-  --color-correct-foreground: 255 255 255;
-  --color-present: 181 159 59;
-  --color-present-foreground: 255 255 255;
-  --color-absent: 58 58 60;
-  --color-absent-foreground: 255 255 255;
-  --color-empty: 58 58 60;
-  --color-empty-foreground: 255 255 255;
+  --color-absent: oklch(0.4 0.0034 286.22);
+  --color-correct: oklch(0.6 0.1112 142.32);
+  --color-present: oklch(0.7 0.1207 96.69);
+  --color-correct-foreground: oklch(1 0 0);
+  --color-present-foreground: oklch(1 0 0);
+  --color-absent-foreground: oklch(1 0 0);
+  --color-empty: oklch(0.67 0.0034 286.22);
+  --color-empty-foreground: oklch(1 0 0);
 }
 
 @layer base {
@@ -173,6 +174,7 @@
   }
 }
 
+/* Ensure buttons and interactive elements have a pointer cursor */
 @layer base {
   button:not(:disabled),
   [role="button"]:not(:disabled) {
@@ -290,40 +292,53 @@
  */
 .keyboard-key[data-status="correct"]:hover,
 .keyboard-key[data-status="correct"]:focus-visible {
-  background-color: rgb(var(--color-correct)) !important;
-  border-color: rgb(var(--color-correct)) !important;
-  color: rgb(var(--color-correct-foreground)) !important;
+  background-color: var(--color-correct) !important;
+  border-color: var(--color-correct) !important;
+  color: var(--color-correct-foreground) !important;
   opacity: 1 !important;
 }
 
 .keyboard-key[data-status="present"]:hover,
 .keyboard-key[data-status="present"]:focus-visible {
-  background-color: rgb(var(--color-present)) !important;
-  border-color: rgb(var(--color-present)) !important;
-  color: rgb(var(--color-present-foreground)) !important;
+  background-color: var(--color-present) !important;
+  border-color: var(--color-present) !important;
+  color: var(--color-present-foreground) !important;
   opacity: 1 !important;
 }
 
 .keyboard-key[data-status="absent"]:hover,
 .keyboard-key[data-status="absent"]:focus-visible {
-  background-color: rgb(var(--color-absent)) !important;
-  border-color: rgb(var(--color-absent)) !important;
-  color: rgb(var(--color-absent-foreground)) !important;
+  background-color: var(--color-absent) !important;
+  border-color: var(--color-absent) !important;
+  color: var(--color-absent-foreground) !important;
   opacity: 1 !important;
 }
 
-/* Focus visible styles for accessibility */
-/* :focus-visible {
-  outline: 2px solid rgb(var(--color-correct));
-  outline-offset: 2px;
-} */
 
-/* Ensure minimum touch target size for accessibility */
-/* @media (pointer: coarse) {
-  button,
-  a,
-  input {
-    min-height: 44px;
-    min-width: 44px;
-  }
-} */
+.landscape-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  color: white;
+  z-index: 9999;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
+
+/* Show overlay in landscape */
+/* @media (orientation: landscape) { */
+  /* .landscape-overlay {
+    /* display: flex; */
+  /* } */
+  /* Optional: Dim main content in landscape */
+  /* .main-content {
+    filter: blur(5px);
+    pointer-events: none; /* Prevent interaction */
+  /* } */

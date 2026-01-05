@@ -37,7 +37,13 @@
       "shadcn",
       "tinybase",
       "wakelock",
-      "Wordle"
+      "Wordle",
+      "Avenir",
+      "sonner",
+      "backface",
+      "oklch",
+      "grayscale",
+      "nums"
     ]
   },
   "extensions": {

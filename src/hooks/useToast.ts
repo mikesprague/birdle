@@ -176,3 +176,27 @@ export function showToastPromise<T>(
     position: TOAST_CONFIG.position,
   });
 }
+
+/**
+ * Show "New version available" toast with reload/dismiss actions
+ * Displayed when a new app version is detected via service worker
+ *
+ * @param onReload - Callback function to execute when user clicks reload
+ */
+export function showUpdateAvailableToast(onReload: () => void): void {
+  toast.info('New version available', {
+    duration: Number.POSITIVE_INFINITY, // Don't auto-dismiss
+    position: TOAST_CONFIG.position,
+    action: {
+      label: 'Reload',
+      onClick: onReload,
+    },
+    cancel: {
+      label: 'Dismiss',
+      onClick: () => {
+        // Toast will auto-dismiss on cancel
+      },
+    },
+    description: 'Click Reload to update to the latest version',
+  });
+}

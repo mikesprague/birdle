@@ -5,9 +5,11 @@
  * streaks, and guess distribution. Uses shadcn Dialog (replaces sweetalert2).
  */
 
+import { Share } from 'lucide-react';
 import { memo, useEffect, useState } from 'react';
 import { Bar, BarChart, XAxis, YAxis } from 'recharts';
 import type { Store } from 'tinybase';
+
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
@@ -20,10 +22,12 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
 import { Separator } from '@/components/ui/separator';
+
 import { useStats } from '@/hooks';
 import { showCopiedToast, showCopyFailedToast } from '@/hooks/useToast';
 import type { GameState } from '@/types';
@@ -321,7 +325,7 @@ export function StatsModal({
           </div> */}
 
           {/* Share Button */}
-          {gameState?.isGameOver && (
+          {/*{gameState?.isGameOver && (
             <>
               <Separator />
               <Button
@@ -333,16 +337,35 @@ export function StatsModal({
                 Share Results
               </Button>
             </>
-          )}
+          )}*/}
 
           {/* Next Birdle Countdown */}
-          {gameState?.isGameOver && (
+          {/*{gameState?.isGameOver && (
             <>
               <Separator />
               <NextBirdleCountdown open={open} isGameOver />
             </>
-          )}
+          )}*/}
         </div>
+
+        {gameState?.isGameOver && (
+          <DialogFooter className="flex-row gap-2 sm:flex-row">
+            <div className="flex-col grow">
+              <Button
+                onClick={handleShare}
+                className="w-full"
+                size="lg"
+                variant="default"
+              >
+                <Share className="mr-2 h-5 w-5" />
+                Share Results
+              </Button>
+            </div>
+            <div className="flex-col grow">
+              <NextBirdleCountdown open={open} isGameOver />
+            </div>
+          </DialogFooter>
+        )}
       </DialogContent>
     </Dialog>
   );

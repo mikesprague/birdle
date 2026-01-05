@@ -58,7 +58,7 @@ export function Header({
               variant="ghost"
               onClick={onInstructionsClick}
               aria-label="How to play"
-              className="hover:bg-accent focus-visible:ring-2 focus-visible:ring-[rgb(var(--color-correct))] focus-visible:ring-offset-2"
+              className="hover:bg-accent focus-visible:ring-2 focus-visible:ring-offset-2"
             >
               <HelpCircle className="h-16 w-16" />
             </Button>
@@ -67,11 +67,11 @@ export function Header({
           {/* Center: Title and game number */}
           <div className="flex flex-col items-center">
             <h1
-              className="text-2xl sm:text-3xl font-bold tracking-tight"
+              className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight"
               aria-label="Birdle"
             >
               BIRDLE
-              <small className="ml-1 text-sm sm:text-base font-normal tracking-tight lowercase">
+              <small className="ml-1 text-xs sm:text-sm md:text-base font-normal tracking-tight lowercase">
                 <a
                   href={`https://github.com/mikesprague/birdle/releases/tag/v${version}`}
                   rel="noopener noreferrer"
@@ -90,7 +90,7 @@ export function Header({
               variant="ghost"
               onClick={onStatsClick}
               aria-label="View statistics"
-              className="hover:bg-accent focus-visible:ring-2 focus-visible:ring-[rgb(var(--color-correct))] focus-visible:ring-offset-2"
+              className="hover:bg-accent focus-visible:ring-2 focus-visible:ring-offset-2"
             >
               <BarChart3 className="h-16 w-16" />
             </Button>
@@ -99,7 +99,7 @@ export function Header({
               variant="ghost"
               onClick={onSettingsClick}
               aria-label="Settings"
-              className="hover:bg-accent focus-visible:ring-2 focus-visible:ring-[rgb(var(--color-correct))] focus-visible:ring-offset-2"
+              className="hover:bg-accent focus-visible:ring-2 focus-visible:ring-offset-2"
             >
               <Settings className="h-16 w-16" />
             </Button>

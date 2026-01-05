@@ -1,4 +1,5 @@
 import { registerSW } from 'virtual:pwa-register';
+import { showUpdateAvailableToast } from '@/hooks/useToast';
 import { pwLogger } from '@/utils/logger';
 
 /**
@@ -12,9 +13,12 @@ export function registerServiceWorker() {
     const updateSW = registerSW({
       immediate: true,
       onNeedRefresh() {
-        pwLogger.info('New version available, updating...');
-        // Auto-update to ensure users always have latest game word list
-        void updateSW(true);
+        pwLogger.info('New version available');
+        // Show toast notification with option to reload
+        showUpdateAvailableToast(() => {
+          pwLogger.info('User initiated app reload for update');
+          void updateSW(true);
+        });
       },
       onOfflineReady() {
         pwLogger.info('App ready to work offline');

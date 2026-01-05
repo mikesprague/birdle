@@ -11,6 +11,33 @@ updates:
       prefix: "chore"
       prefix-development: "chore"
       include: "scope"
+    ignore:
+      - dependency-name: "recharts"
+        versions: ["3.x"]
+    groups:
+      shadcn-ui:
+        patterns:
+          - "@radix-ui/*"
+          - "class-variance-authority"
+          - "clsx"
+          - "lucide-react"
+          - "next-themes"
+          - "recharts"
+          - "sonner"
+          - "tailwind-merge"
+          -- "tw-animate-css"
+      tailwindcss:
+        patterns:
+          - "@tailwindcss/*"
+          - "tailwindcss*"
+      vite:
+        patterns:
+          - "@vitejs/*"
+          - "vite*"
+          - "vite-plugin-*"
+      types:
+        patterns:
+          - "@types/*"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:

@@ -48,27 +48,31 @@ export const Key = memo(function Key({
 
   // Size classes
   const sizeClasses =
-    size === 'large' ? 'min-w-12 px-2' : 'w-8 md:w-12 sm:w-10 w-8 px-2';
+    size === 'large'
+      ? 'w-15 sm:w-17 md:w-19 px-1.5 sm:px-2 md:px-3 font-bold'
+      : 'w-9 sm:w-11 md:w-13 px-1.5 sm:px-2 md:px-3 font-normal';
 
   const interactionClasses =
-    status === 'unused' ? 'hover:scale-105 active:scale-95' : '';
+    status === 'unused'
+      ? 'hover:scale-105 hover:brightness-75 dark:hover:brightness-200 active:scale-95'
+      : '';
 
   return (
     <Button
       onClick={onClick}
       disabled={disabled}
-      variant={'ghost'}
+      variant={'default'}
       className={cn(
         // Base styles
         'keyboard-key flex rounded uppercase transition-all duration-200',
         // Hover/active interactions (only for unused keys)
         interactionClasses,
         // Text size
-        'md:text-xl sm:text-lg text-base leading-6',
+        'md:text-lg sm:text-base text-sm leading-8 font-normal',
         // Height
-        'md:h-15 sm:h-13 h-11',
+        'md:h-17 sm:h-15 h-13',
         // Focus styles
-        'focus-visible:ring-2 focus-visible:ring-[rgb(var(--color-correct))] focus-visible:ring-offset-2',
+        'focus-visible:ring-2 focus-visible:ring-offset-2',
         // Size classes
         sizeClasses,
         statusClasses
@@ -88,7 +92,7 @@ export const Key = memo(function Key({
 function getKeyLabel(letter: string): string {
   switch (letter) {
     case 'enter':
-      return 'ENTER';
+      return '⏎';
     case 'backspace':
       return '⌫';
     default:
@@ -103,15 +107,15 @@ function getKeyLabel(letter: string): string {
 function getStatusClasses(status: KeyStatus): string {
   switch (status) {
     case 'correct':
-      return 'bg-[rgb(var(--color-correct))] hover:opacity-90 text-[rgb(var(--color-correct-foreground))] border-[rgb(var(--color-correct))]';
+      return 'bg-[var(--color-correct)] hover:opacity-90 text-[var(--color-correct-foreground)] border-[var(--color-correct)]';
     case 'present':
-      return 'bg-[rgb(var(--color-present))] hover:opacity-90 text-[rgb(var(--color-present-foreground))] border-[rgb(var(--color-present))]';
+      return 'bg-[var(--color-present)] hover:opacity-90 text-[var(--color-present-foreground)] border-[var(--color-present)]';
     case 'absent':
-      return 'bg-[rgb(var(--color-absent))] hover:opacity-90 text-[rgb(var(--color-absent-foreground))] border-[rgb(var(--color-absent))]';
+      return 'bg-[var(--color-absent)] hover:opacity-90 text-[var(--color-absent-foreground)] border-[var(--color-absent)]';
     case 'unused':
-      return 'bg-muted hover:bg-muted/80 text-muted-foreground border-muted';
+      return 'bg-[var(--color-empty)] hover:bg-[var(--color-empty)]/80 text-[var(--color-absent-foreground)] border-[var(--color-empty)]';
     default:
-      return 'bg-muted hover:bg-muted/80 text-muted-foreground border-muted';
+      return 'bg-[var(--color-empty)] hover:bg-[var(--color-empty)]/80 text-[var(--color-absent-foreground)] border-[var(--color-empty)]';
   }
 }
 

@@ -13,7 +13,7 @@
  *
  * NOTE: Must match the `.box-flip` animation duration in `src/index.css`.
  */
-export const TILE_FLIP_DURATION_MS = 250;
+export const TILE_FLIP_DURATION_MS = 300;
 
 /**
  * Stagger (ms) between each tile's flip start within a row.
@@ -22,7 +22,7 @@ export const TILE_FLIP_DURATION_MS = 250;
  * Setting this equal to `TILE_FLIP_DURATION_MS` yields a strict "one finishes, next starts"
  * sequential reveal.
  */
-export const TILE_FLIP_STAGGER_MS = 250;
+export const TILE_FLIP_STAGGER_MS = 300;
 
 /**
  * Number of tiles in a row (Birdle is 5 letters).

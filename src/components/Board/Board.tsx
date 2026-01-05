@@ -112,7 +112,7 @@ export function Board({ store }: BoardProps) {
         {announcement}
       </output>
 
-      <div className="flex flex-col gap-1 md:gap-1.5 py-2">
+      <div className="flex flex-col gap-1.5 md:gap-2 py-2">
         {rowsData.map((row) => (
           <Row
             key={`row-${row.rowIndex}`}

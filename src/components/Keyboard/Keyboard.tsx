@@ -160,9 +160,9 @@ export function Keyboard({ store }: KeyboardProps) {
       role="group"
       aria-label="Virtual keyboard"
     >
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col gap-1.5 sm:gap-2">
         {/* Row 1: Q W E R T Y U I O P */}
-        <div className="flex justify-center gap-1 flex-row">
+        <div className="flex justify-center gap-1.5 sm:gap-2 flex-row">
           {KEYBOARD_ROWS[0].map((letter) => {
             const handler = keyHandlers.get(letter);
             if (!handler) {
@@ -181,7 +181,7 @@ export function Keyboard({ store }: KeyboardProps) {
         </div>
 
         {/* Row 2: A S D F G H J K L */}
-        <div className="flex justify-center gap-1 flex-row">
+        <div className="flex justify-center gap-1.5 sm:gap-2 flex-row">
           {KEYBOARD_ROWS[1].map((letter) => {
             const handler = keyHandlers.get(letter);
             if (!handler) {
@@ -200,7 +200,7 @@ export function Keyboard({ store }: KeyboardProps) {
         </div>
 
         {/* Row 3: ENTER Z X C V B N M BACKSPACE */}
-        <div className="flex justify-center gap-1 flex-row">
+        <div className="flex justify-center gap-1.5 sm:gap-2 flex-row">
           {KEYBOARD_ROWS[2].map((letter) => {
             const handler = keyHandlers.get(letter);
             if (!handler) {
@@ -217,7 +217,7 @@ export function Keyboard({ store }: KeyboardProps) {
                 }
                 onClick={handler}
                 size={
-                  letter === 'enter' || letter === 'backspace'
+                  letter.trim() === 'enter' || letter === 'backspace'
                     ? 'large'
                     : 'normal'
                 }
