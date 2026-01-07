@@ -69,9 +69,13 @@ export function Board({ store }: BoardProps) {
       return;
     }
 
+    const isGameOver = gameState.isGameOver;
+    const wonGame = gameState.wonGame;
+    const currentRow = gameState.currentRow;
+    const submittedCount = gameState.guessesSubmitted.length;
+
     // When a new guess is submitted in this session, allow the latest row to animate exactly once.
     // This avoids re-animating historical rows on reload/re-mount while still animating new submissions.
-    const submittedCount = gameState.guessesSubmitted.length;
     if (
       submittedCount > 0 &&
       lastAnimatedSubmittedCountRef.current === submittedCount - 1
@@ -79,23 +83,16 @@ export function Board({ store }: BoardProps) {
       lastAnimatedSubmittedCountRef.current = submittedCount;
     }
 
-    if (gameState.isGameOver) {
-      if (gameState.wonGame) {
+    if (isGameOver) {
+      if (wonGame) {
         setAnnouncement(
-          `Congratulations! You won in ${gameState.currentRow + 1} guesses!`
+          `Congratulations! You won in ${currentRow + 1} guesses!`
         );
       } else {
         setAnnouncement(`Game over. The word was ${birdle.word}.`);
       }
     }
-  }, [
-    gameState?.isGameOver,
-    gameState?.wonGame,
-    gameState?.currentRow,
-    gameState?.guessesSubmitted.length,
-    birdle.word,
-    gameState,
-  ]);
+  }, [gameState, birdle.word]);
 
   if (!gameState) {
     return (

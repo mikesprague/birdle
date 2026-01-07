@@ -5,7 +5,13 @@
  * game flow, modal states, and win/loss effects.
  */
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useEffectEvent,
+  useRef,
+  useState,
+} from 'react';
 import type { Store } from 'tinybase';
 import { useCell } from 'tinybase/ui-react';
 
@@ -114,6 +120,24 @@ export function GameShell({ store }: GameShellProps) {
     revealTimeoutId: number | null;
     statsTimeoutId: number | null;
   }>({ gameId: null, revealTimeoutId: null, statsTimeoutId: null });
+
+  /**
+   * Effect Events used by win/loss sequencing timers.
+   *
+   * These avoid stale closures inside setTimeout callbacks and allow the scheduling
+   * effect to depend only on the actual scheduling signal (gameId/isGameOver/wonGame).
+   */
+  const showWinToastEvent = useEffectEvent((attemptRow: number) => {
+    showWinToast(getSuccessMessage(attemptRow));
+  });
+
+  const triggerWinEffectsEvent = useEffectEvent(() => {
+    void triggerWinEffects();
+  });
+
+  const openStatsEvent = useEffectEvent(() => {
+    setStatsOpen(true);
+  });
 
   /**
    * Trigger win celebration effects
@@ -281,34 +305,39 @@ export function GameShell({ store }: GameShellProps) {
       return;
     }
 
+    const gameId = gameState.gameId;
+    const isGameOver = gameState.isGameOver;
+    const wonGame = gameState.wonGame;
+    const currentRow = gameState.currentRow;
+    const guessesSubmittedLen = gameState.guessesSubmitted.length;
+    const lastCountedGameId = stats?.lastCountedGameId;
+
     debugWinSequence('ux effect: evaluate', {
-      gameId: gameState.gameId,
-      isGameOver: gameState.isGameOver,
-      wonGame: gameState.wonGame,
-      currentRow: gameState.currentRow,
-      guessesSubmittedLen: gameState.guessesSubmitted.length,
-      lastCountedGameId: stats?.lastCountedGameId,
+      gameId,
+      isGameOver,
+      wonGame,
+      currentRow,
+      guessesSubmittedLen,
+      lastCountedGameId,
       mountedWithGameOver: mountedWithGameOverRef.current,
-      statsOpen,
     });
 
     // Loss behavior is unchanged: show stats immediately when game ends.
-
     // However, only auto-open once per gameId so the user can dismiss the modal.
-    if (gameState.isGameOver && !gameState.wonGame) {
+    if (isGameOver && !wonGame) {
       debugWinSequence('ux effect: loss -> open stats immediately', {
-        gameId: gameState.gameId,
+        gameId,
       });
 
-      if (winUxStateRef.current.gameId !== gameState.gameId) {
-        winUxStateRef.current.gameId = gameState.gameId;
-        setStatsOpen(true);
+      if (winUxStateRef.current.gameId !== gameId) {
+        winUxStateRef.current.gameId = gameId;
+        openStatsEvent();
       }
 
       return;
     }
 
-    if (!gameState.isGameOver || !gameState.wonGame) {
+    if (!isGameOver || !wonGame) {
       return;
     }
 
@@ -318,13 +347,13 @@ export function GameShell({ store }: GameShellProps) {
       debugWinSequence(
         'ux effect: mounted with game over -> open stats immediately',
         {
-          gameId: gameState.gameId,
+          gameId,
         }
       );
 
-      if (winUxStateRef.current.gameId !== gameState.gameId) {
-        winUxStateRef.current.gameId = gameState.gameId;
-        setStatsOpen(true);
+      if (winUxStateRef.current.gameId !== gameId) {
+        winUxStateRef.current.gameId = gameId;
+        openStatsEvent();
       }
 
       return;
@@ -333,48 +362,52 @@ export function GameShell({ store }: GameShellProps) {
     // If we've already scheduled win UX for this gameId, do nothing.
     // Importantly, do NOT return a cleanup function that cancels already-scheduled timeouts
     // on subsequent effect re-runs.
-    if (winUxStateRef.current.gameId === gameState.gameId) {
+    if (winUxStateRef.current.gameId === gameId) {
       debugWinSequence(
         'ux effect: win UX already scheduled for game; skipping',
         {
-          gameId: gameState.gameId,
+          gameId,
         }
       );
       return;
     }
 
     // Schedule once for this gameId.
-    winUxStateRef.current.gameId = gameState.gameId;
+    winUxStateRef.current.gameId = gameId;
 
     debugWinSequence('ux effect: scheduling post-reveal win sequence', {
-      gameId: gameState.gameId,
+      gameId,
       revealMs: REVEAL_TOTAL_MS,
       toastMs: TOAST_CONFIG.duration,
     });
+
+    // Capture only the reactive scalar we need for the toast message at schedule-time.
+    // Everything else runs through Effect Events to avoid stale closures.
+    const attemptRow = currentRow;
 
     const revealTimeoutId = window.setTimeout(() => {
       debugWinSequence(
         'ux effect: reveal finished -> show toast + start celebrations',
         {
-          gameId: gameState.gameId,
+          gameId,
         }
       );
 
-      showWinToast(getSuccessMessage(gameState.currentRow));
-      triggerWinEffects();
+      showWinToastEvent(attemptRow);
+      triggerWinEffectsEvent();
 
       const statsTimeoutId = window.setTimeout(() => {
         debugWinSequence('ux effect: toast duration elapsed -> open stats', {
-          gameId: gameState.gameId,
+          gameId,
         });
-        setStatsOpen(true);
+        openStatsEvent();
       }, TOAST_CONFIG.duration);
 
       winUxStateRef.current.statsTimeoutId = statsTimeoutId;
     }, REVEAL_TOTAL_MS);
 
     winUxStateRef.current.revealTimeoutId = revealTimeoutId;
-  }, [gameState, stats, triggerWinEffects, statsOpen]);
+  }, [gameState, stats?.lastCountedGameId]);
 
   // Cleanup any scheduled win UX timers on unmount.
   useEffect(() => {

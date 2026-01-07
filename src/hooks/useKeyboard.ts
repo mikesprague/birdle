@@ -10,7 +10,7 @@
  */
 
 import { bindKey, unbindKey } from '@rwh/keystrokes';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useEffectEvent, useMemo, useRef, useState } from 'react';
 import { KEYBOARD_REVEAL_STEP_MS } from '@/constants/revealTiming';
 import type { KeyStatus } from '@/types';
 import { calculateKeyboardStatuses } from '@/utils';
@@ -99,18 +99,17 @@ export function useKeyboard(
   // Ensure we don't re-run the initial mount snap more than once.
   const hasInitializedRevealRef = useRef<boolean>(false);
 
-  // Use ref to store the callback to avoid rebinding keys
-  const onKeyPressRef = useRef(onKeyPress);
-
-  // Update ref when callback changes
-  useEffect(() => {
-    onKeyPressRef.current = onKeyPress;
-  }, [onKeyPress]);
-
-  // Stable handler that uses the ref
-  const handleKeyPress = useCallback((key: string) => {
-    onKeyPressRef.current(key);
-  }, []);
+  /**
+   * Stable key-press handler that always reads the latest `onKeyPress`.
+   *
+   * This is the React 19+ replacement for the old "ref + effect" pattern used to
+   * avoid stale closures in effects and avoid rebinding listeners.
+   *
+   * NOTE: Effect Events must only be *invoked* from inside Effects.
+   */
+  const handleKeyPress = useEffectEvent((key: string) => {
+    onKeyPress(key);
+  });
 
   // Global capture listener to ignore modifier shortcuts before keystrokes processes them.
   // We use capture so we can stop propagation early for Cmd/Ctrl combos (e.g. Cmd+R).
@@ -152,7 +151,7 @@ export function useKeyboard(
         capture: true,
       });
     };
-  }, [handleKeyPress, isGameOver]);
+  }, [isGameOver]);
 
   // Incremental keyboard reveal: reveal one tile per 0.5s for a newly submitted guess.
   useEffect(() => {
@@ -279,7 +278,7 @@ export function useKeyboard(
       unbindKey('Enter');
       unbindKey('Backspace');
     };
-  }, [isGameOver, handleKeyPress]);
+  }, [isGameOver]);
 
   return {
     keyStatuses,

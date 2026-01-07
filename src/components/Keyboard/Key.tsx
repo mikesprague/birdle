@@ -49,8 +49,8 @@ export const Key = memo(function Key({
   // Size classes
   const sizeClasses =
     size === 'large'
-      ? 'w-15 sm:w-17 md:w-19 px-1.5 sm:px-2 md:px-3 font-bold'
-      : 'w-9 sm:w-11 md:w-13 px-1.5 sm:px-2 md:px-3 font-normal';
+      ? 'w-15 sm:w-17 md:w-19 px-1 sm:px-2 font-bold'
+      : 'w-9 sm:w-11 md:w-13 px-1 sm:px-2 font-bold';
 
   const interactionClasses =
     status === 'unused'
