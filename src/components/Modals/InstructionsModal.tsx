@@ -2,7 +2,7 @@
  * InstructionsModal Component
  *
  * Displays game instructions and examples showing how to play Birdle.
- * Uses shadcn Dialog (replaces sweetalert2).
+ * Uses shadcn Dialog component.
  */
 
 import { Box } from '@/components/Board/Box';
