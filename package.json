@@ -51,7 +51,7 @@
     "recharts": "2.15.4",
     "sonner": "2.0.7",
     "tailwind-merge": "3.4.0",
-    "tinybase": "7.3.1"
+    "tinybase": "7.3.2"
   },
   "devDependencies": {
     "@biomejs/biome": "2.3.11",
