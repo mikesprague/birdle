@@ -108,12 +108,12 @@ export function ErrorBoundary({
       fallbackRender={({ error, resetErrorBoundary }) => {
         // Use custom fallback if provided
         if (fallback) {
-          return fallback(error, resetErrorBoundary);
+          return fallback(error as Error, resetErrorBoundary);
         }
         // Use default fallback
         return (
           <DefaultFallback
-            error={error}
+            error={error as Error}
             resetErrorBoundary={resetErrorBoundary}
           />
         );
@@ -122,7 +122,7 @@ export function ErrorBoundary({
         // Log error to console in development
         console.error('ErrorBoundary caught an error:', error, errorInfo);
         // Call optional error handler
-        onError?.(error, errorInfo);
+        onError?.(error as Error, errorInfo);
       }}
     >
       {children}
