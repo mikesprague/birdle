@@ -9,7 +9,7 @@ env:
   # preset for conventional changelog cli
   CHANGELOG_PRESET: conventionalcommits
   # expected config file for conventional changelog cli
-  CHANGELOG_CONFIG_PATH: changelog.config.mjs
+  CHANGELOG_CONFIG_PATH: changelog.config.js
   # fallback config for conventional changelog cli if expected config file is not found
   CHANGELOG_FALLBACK_CONFIG: |
     import { readFileSync } from 'node:fs';
@@ -196,6 +196,7 @@ jobs:
           )"
 
           echo "last_tag: $last_tag"
+          echo "is_prerelease: $is_prerelease"
 
           if [[ -n "$last_tag" ]]; then
             full_changelog_url="https://github.com/${{ github.repository }}/compare/${last_tag}...${new_tag}"
@@ -222,7 +223,7 @@ jobs:
           echo "changelog_config_path: $changelog_config_path"
 
           if [[ ! -f "$changelog_config_path" ]]; then
-            changelog_config_path="$RUNNER_TEMP/changelog.config.mjs"
+            changelog_config_path="$RUNNER_TEMP/changelog.config.js"
             printf '%s\n' "${{ env.CHANGELOG_FALLBACK_CONFIG }}" > "$changelog_config_path"
           fi
 
