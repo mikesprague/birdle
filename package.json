@@ -6,12 +6,15 @@
   "type": "module",
   "scripts": {
     "build": "vite build",
+    "changelog": "npx conventional-changelog -p conventionalcommits -n changelog.config.mjs -i CHANGELOG.md -s && git add CHANGELOG.md",
+    "changelog:preview": "npx conventional-changelog -p conventionalcommits -n changelog.config.mjs -u --stdout -i /dev/null",
     "clean": "rm -rf ./dist",
     "dev": "vite serve --port 3002",
     "start": "cross-env NODE_ENV=development npm run dev",
     "prebuild": "npm run clean && npm install",
     "preview": "vite preview",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "version": "npm run changelog"
   },
   "keywords": [],
   "repository": {
@@ -22,8 +25,8 @@
     "email": "mikesprague@gmail.com"
   },
   "engines": {
-    "node": ">= 22.x",
-    "npm": ">= 10.x"
+    "node": ">= 24.x",
+    "npm": ">= 11.x"
   },
   "packageManager": "npm@11.10.1",
   "license": "MIT",
