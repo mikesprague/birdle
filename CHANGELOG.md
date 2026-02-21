@@ -1,3 +1,29 @@
+## [1.22.0](https://github.com/mikesprague/birdle/compare/v1.21.2...v1.22.0) (2026-02-21)
+
+### 🎨 Style
+
+* **npm:** fix changelog config file name ([29c3df0](https://github.com/mikesprague/birdle/commit/29c3df0a77f1bce03e1a12617b28adfdf9f7daa6))
+
+### 📚 Documentation
+
+* **CHANGELOG:** generate and add file ([9d03bd2](https://github.com/mikesprague/birdle/commit/9d03bd2ed16cbdbbd542d3d533f02df99f799dc8))
+
+### 🔄 Continuous Integration
+
+* **create-releae:** update workflow ([a50a9bf](https://github.com/mikesprague/birdle/commit/a50a9bfd598e959bc0aec770532f3fe7ab5b2a9f))
+
+### 🏗️ Build System
+
+* **changelog:** add config for conventional changelog ([f618392](https://github.com/mikesprague/birdle/commit/f6183922b675f091a98bc26b1157e2a5d9c49a2c))
+* **npm:** add `changelog`, `changelog:preview`, and `version` scripts ([44156e1](https://github.com/mikesprague/birdle/commit/44156e15ffa21949d64444522d38493a74793a1f))
+* **npm:** add `packageManager`; add `overrides` with `minimatch` (closes security alert) ([ea90368](https://github.com/mikesprague/birdle/commit/ea90368054901da24fbab007500a0be0ae280d31))
+
+### 🔧 Chores
+
+* **deps-dev:** add conventional changelog related deps ([e8f2c5f](https://github.com/mikesprague/birdle/commit/e8f2c5f229ddf3f4615dc628e29fcda44281cb19))
+* **deps-dev:** bump lodash (#980) ([4344df0](https://github.com/mikesprague/birdle/commit/4344df069e19c220640a1e83e9c06f730cbb2683)), closes [#980](https://github.com/mikesprague/birdle/issues/980)
+
+
 ## [1.21.2](https://github.com/mikesprague/birdle/compare/v1.21.1...v1.21.2) (2025-12-20)
 
 ### 🔧 Chores
