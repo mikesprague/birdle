@@ -1,9 +1,13 @@
-name: 'Create Release'
+name: Create Release
 
 on:
   push:
     tags:
-      - 'v[0-9]+.[0-9]+.[0-9]+'
+      - "v[0-9]*.[0-9]*.[0-9]*"
+
+env:
+  # get node version from repo variable or default to 24.x
+  NODE_VERSION: ${{ vars.NODE_VERSION  || '24.x' }}
 
 jobs:
   create-github-release:
@@ -12,16 +16,121 @@ jobs:
     permissions:
       contents: write
     steps:
+      # checkout repo with full history to ensure all tags are available for changelog generation
       - name: Checkout Repo
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
-      - name: Set Vars
+
+      # setup Node.js environment with npm caching for node modules to speed up changelog generation
+      - name: Setup Node.js ${{ env.NODE_VERSION }} environment
+        uses: actions/setup-node@v6
+        with:
+          cache: "npm"
+          check-latest: true
+          node-version: ${{ env.NODE_VERSION }}
+
+      # additional caching layer for node_modules to speed up subsequent runs
+      - name: Cache node_modules
+        uses: actions/cache@v5
+        id: cache
+        with:
+          path: ./node_modules
+          key: ${{ runner.os }}-node-${{ env.NODE_VERSION }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-${{ env.NODE_VERSION }}-
+
+      # install conventional changelog dependencies if not cached
+      - name: Install conventional changelog dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm install conventional-changelog conventional-changelog-cli conventional-changelog-conventionalcommits
+
+      # generate and output data for release creation and changelog generation steps
+      - name: Prepare release data
+        id: prep_release
+        shell: bash
         run: |
-          echo "NEW_TAG=$(git tag | sort --version-sort -r | head -1)" >> $GITHUB_ENV
-          echo "LAST_TAG=$(git tag | sort --version-sort -r | head -2 | tail -1)" >> $GITHUB_ENV
+          set -euo pipefail
+
+          new_tag="${GITHUB_REF_NAME}"
+
+          if ! [[ "$new_tag" =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-(alpha|beta|rc)\.[0-9]+)?$ ]]; then
+            echo "Tag '$new_tag' is not strict semver (vX.Y.Z or vX.Y.Z-(alpha|beta|rc).N)."
+            exit 1
+          fi
+
+          echo "new_tag: $new_tag"
+
+          if [[ "$new_tag" =~ -(alpha|beta|rc)\. ]]; then
+            is_prerelease="true"
+            prerelease_flag="--prerelease"
+            last_tag_pattern='^v[0-9]+\.[0-9]+\.[0-9]+-(alpha|beta|rc)\.[0-9]+$'
+          else
+            is_prerelease="false"
+            prerelease_flag=""
+            last_tag_pattern='^v[0-9]+\.[0-9]+\.[0-9]+$'
+          fi
+
+          last_tag="$(
+            git tag --sort=-version:refname \
+            | grep -E "$last_tag_pattern" \
+            | sed -n "/^${new_tag//./\\.}$/d; p; q"
+          )"
+
+          echo "last_tag: $last_tag"
+          echo "is_prerelease: $is_prerelease"
+
+          if [[ -n "$last_tag" ]]; then
+            full_changelog_url="https://github.com/${{ github.repository }}/compare/${last_tag}...${new_tag}"
+          else
+            full_changelog_url="https://github.com/${{ github.repository }}/releases/tag/${new_tag}"
+          fi
+
+          echo "full_changelog_url: $full_changelog_url"
+
+          echo "new_tag=$new_tag" >> "$GITHUB_OUTPUT"
+          echo "last_tag=$last_tag" >> "$GITHUB_OUTPUT"
+          echo "full_changelog_url=$full_changelog_url" >> "$GITHUB_OUTPUT"
+          echo "is_prerelease=$is_prerelease" >> "$GITHUB_OUTPUT"
+          echo "prerelease_flag=$prerelease_flag" >> "$GITHUB_OUTPUT"
+
+      # generate release notes content using conventional changelog cli and create GitHub release via GH CLI
       - name: Generate Release via CLI
+        shell: bash
         run: |
-          echo -e "## What's Changed\n\n$(git log --pretty=format:' * %s %h' ${{ env.LAST_TAG }}..${{ env.NEW_TAG }} --reverse)\n\n**Full Changelog:** https://github.com/${{ github.repository }}/compare/${{ env.LAST_TAG }}...${{ env.NEW_TAG }}" | gh release create "${{ env.NEW_TAG }}" -F -
+          set -euo pipefail
+
+          changelog_config_path="changelog.config.js"
+
+          echo "changelog_config_path: $changelog_config_path"
+
+          changelog_content="$(npx -y conventional-changelog \
+            -p conventionalcommits \
+            -n changelog.config.js \
+            --stdout -u -r 1 -i /dev/null \
+            | sed -n '/^### /,$p')"
+          echo "changelog_content: $changelog_content"
+
+          if [[ -z "$changelog_content" ]]; then
+            changelog_content="$(npx -y conventional-changelog \
+              -p conventionalcommits \
+              -n changelog.config.js \
+              --stdout -u -r 2 -i /dev/null \
+              | sed -n '/^### /,$p')"
+          fi
+          echo "FALLBACK changelog_content: $changelog_content"
+
+          if [[ -z "$changelog_content" ]]; then
+              echo "No changelog content generated. Exiting."
+              exit 1
+          fi
+
+          {
+            echo "## What's Changed"
+            echo
+            echo "$changelog_content"
+            echo
+            echo "**Full Changelog:** ${{ steps.prep_release.outputs.full_changelog_url }}"
+          } | gh release create ${{ steps.prep_release.outputs.new_tag }} -t ${{ steps.prep_release.outputs.new_tag }} ${{ steps.prep_release.outputs.prerelease_flag }} -F -
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
