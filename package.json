@@ -47,7 +47,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.4",
-    "@tailwindcss/vite": "4.2.0",
+    "@tailwindcss/vite": "4.2.1",
     "charts.css": "1.2.0",
     "conventional-changelog": "7.1.1",
     "conventional-changelog-cli": "5.0.0",
