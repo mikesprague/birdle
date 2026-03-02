@@ -1,4 +1,36 @@
+## [1.22.1](https://github.com/mikesprague/birdle/compare/v1.22.0...v1.22.1) (2026-03-02)
+
+### 🔄 Continuous Integration
+
+* **create-release:** fix config file name ([e1bffce](https://github.com/mikesprague/birdle/commit/e1bffcee031c0957b33f970b843b7d5e19a19456))
+* **create-release:** improve logic ([1c662a6](https://github.com/mikesprague/birdle/commit/1c662a62fe0bdebf8022be93cab6103e4c6f4c68))
+* **create-release:** streamline workflow ([a121694](https://github.com/mikesprague/birdle/commit/a121694704d9892b760181bd705ca445bb13a084))
+
+### 🔧 Chores
+
+* **deps-dev:** bump @tailwindcss/vite from 4.2.0 to 4.2.1 (#1018) ([0a95a75](https://github.com/mikesprague/birdle/commit/0a95a755885432ec219305215c3c1f4c67b95d88)), closes [#1018](https://github.com/mikesprague/birdle/issues/1018)
+* **deps-dev:** bump conventional-changelog from 7.1.1 to 7.2.0 (#1021) ([606354d](https://github.com/mikesprague/birdle/commit/606354d476735b024b925f96641cf9d6f31083d8)), closes [#1021](https://github.com/mikesprague/birdle/issues/1021)
+* **deps-dev:** bump conventional-changelog-conventionalcommits (#1022) ([063c32e](https://github.com/mikesprague/birdle/commit/063c32e36eb25f6e74ec8d4e554db2f45a454d14)), closes [#1022](https://github.com/mikesprague/birdle/issues/1022)
+* **deps-dev:** bump stylelint from 17.3.0 to 17.4.0 (#1019) ([fcc0318](https://github.com/mikesprague/birdle/commit/fcc0318cd9235721b6aeaea1f42552a3a45497d3)), closes [#1019](https://github.com/mikesprague/birdle/issues/1019)
+* **deps-dev:** bump tailwindcss from 4.2.0 to 4.2.1 (#1017) ([d23c8e4](https://github.com/mikesprague/birdle/commit/d23c8e41b5531874d5c1cddd67ba723ce4f327b6)), closes [#1017](https://github.com/mikesprague/birdle/issues/1017)
+* **deps:** bump sweetalert2 from 11.26.20 to 11.26.21 (#1023) ([f01008d](https://github.com/mikesprague/birdle/commit/f01008d3f0a9900bd0298748850f5b8bb0a0450c)), closes [#1023](https://github.com/mikesprague/birdle/issues/1023)
+* **overrides:** add `serialize-javascript` to close security alert https://github.com/mikesprague/birdle/security/dependabot/60 ([4cf5dd5](https://github.com/mikesprague/birdle/commit/4cf5dd5bfbf667c9175477e354ca960d414e7522))
+
+### 🏗️ Build System
+
+* **npm:** bump `packageManager` ([1b55013](https://github.com/mikesprague/birdle/commit/1b550135e3cd8b49943b58c38ef6521ffc02f462))
+
+### 🐛 Fixes
+
+* **create-releae:** config file name ([00e130b](https://github.com/mikesprague/birdle/commit/00e130bdeb692870d13c5322265996076f19d33a))
+
 ## [1.22.0](https://github.com/mikesprague/birdle/compare/v1.21.2...v1.22.0) (2026-02-21)
+
+### 🔧 Chores
+
+* **deps-dev:** add conventional changelog related deps ([e8f2c5f](https://github.com/mikesprague/birdle/commit/e8f2c5f229ddf3f4615dc628e29fcda44281cb19))
+* **deps-dev:** bump lodash (#980) ([4344df0](https://github.com/mikesprague/birdle/commit/4344df069e19c220640a1e83e9c06f730cbb2683)), closes [#980](https://github.com/mikesprague/birdle/issues/980)
+* **release:** bump version v1.22.0 ([981e07c](https://github.com/mikesprague/birdle/commit/981e07c578ba318dc058bb065681868085e8208c))
 
 ### 🎨 Style
 
@@ -17,12 +49,6 @@
 * **changelog:** add config for conventional changelog ([f618392](https://github.com/mikesprague/birdle/commit/f6183922b675f091a98bc26b1157e2a5d9c49a2c))
 * **npm:** add `changelog`, `changelog:preview`, and `version` scripts ([44156e1](https://github.com/mikesprague/birdle/commit/44156e15ffa21949d64444522d38493a74793a1f))
 * **npm:** add `packageManager`; add `overrides` with `minimatch` (closes security alert) ([ea90368](https://github.com/mikesprague/birdle/commit/ea90368054901da24fbab007500a0be0ae280d31))
-
-### 🔧 Chores
-
-* **deps-dev:** add conventional changelog related deps ([e8f2c5f](https://github.com/mikesprague/birdle/commit/e8f2c5f229ddf3f4615dc628e29fcda44281cb19))
-* **deps-dev:** bump lodash (#980) ([4344df0](https://github.com/mikesprague/birdle/commit/4344df069e19c220640a1e83e9c06f730cbb2683)), closes [#980](https://github.com/mikesprague/birdle/issues/980)
-
 
 ## [1.21.2](https://github.com/mikesprague/birdle/compare/v1.21.1...v1.21.2) (2025-12-20)
 
@@ -43,7 +69,6 @@
 * **deps:** bump sweetalert2 from 11.26.3 to 11.26.4 (#960) ([084de41](https://github.com/mikesprague/birdle/commit/084de41ff09b130090c59d3adf64079946f2c22b)), closes [#960](https://github.com/mikesprague/birdle/issues/960)
 * **deps:** bump sweetalert2 from 11.26.4 to 11.26.10 (#965) ([7161eb7](https://github.com/mikesprague/birdle/commit/7161eb76330d17dcc38b9f115671e0416450eb68)), closes [#965](https://github.com/mikesprague/birdle/issues/965)
 * **release:** bump version v1.21.2 ([5b230f5](https://github.com/mikesprague/birdle/commit/5b230f5ebc7e9089d242293dd53a4865dc3e6fd4))
-
 
 ## [1.21.1](https://github.com/mikesprague/birdle/compare/v1.21.0...v1.21.1) (2025-11-28)
 
@@ -210,7 +235,6 @@
 
 * **lib/helpers:** update bird balloons settings ([661ee57](https://github.com/mikesprague/birdle/commit/661ee572145078a12b82c5745405bc3aee05bbca))
 
-
 ## [1.21.0](https://github.com/mikesprague/birdle/compare/v1.20.3...v1.21.0) (2025-04-03)
 
 ### 🔧 Chores
@@ -259,7 +283,6 @@
 
 * **lib/helpers:** use bird balloons ([66c39d4](https://github.com/mikesprague/birdle/commit/66c39d4ab0a7a456d3cd8fc1c140db0e3e52334c))
 
-
 ## [1.20.3](https://github.com/mikesprague/birdle/compare/v1.20.2...v1.20.3) (2025-02-21)
 
 ### 🔧 Chores
@@ -276,7 +299,6 @@
 * **deps:** bump sweetalert2 from 11.16.1 to 11.17.2 (#759) ([95f7250](https://github.com/mikesprague/birdle/commit/95f7250366792cf01eea26784304f10d6e893f03)), closes [#759](https://github.com/mikesprague/birdle/issues/759)
 * **release:** bump version v1.20.3 ([d73a0b4](https://github.com/mikesprague/birdle/commit/d73a0b45d3561cc9a7490c377744d06bd4d84c07))
 
-
 ## [1.20.2](https://github.com/mikesprague/birdle/compare/v1.20.1...v1.20.2) (2025-02-08)
 
 ### 🔧 Chores
@@ -288,7 +310,6 @@
 * **deps-dev:** bump vite from 6.0.11 to 6.1.0 (#748) ([4de12ba](https://github.com/mikesprague/birdle/commit/4de12ba8580822d116b487974c56e42c65401dfe)), closes [#748](https://github.com/mikesprague/birdle/issues/748)
 * **deps:** bump sweetalert2 from 11.15.10 to 11.16.0 (#751) ([045db11](https://github.com/mikesprague/birdle/commit/045db117eb668585c05f57841b3dd40b631eae04)), closes [#751](https://github.com/mikesprague/birdle/issues/751)
 * **release:** bump version v1.20.2 ([ce6109a](https://github.com/mikesprague/birdle/commit/ce6109ac38992266550e253b1bff3f28d9ba72cd))
-
 
 ## [1.20.1](https://github.com/mikesprague/birdle/compare/v1.20.0...v1.20.1) (2025-02-04)
 
@@ -309,7 +330,6 @@
 ### 🔄 Continuous Integration
 
 * **dependabot:** update target branch ([f12275c](https://github.com/mikesprague/birdle/commit/f12275ca953f0634acba9eacd8829402a4674172))
-
 
 ## [1.20.0](https://github.com/mikesprague/birdle/compare/v1.19.1...v1.20.0) (2025-01-27)
 
@@ -351,7 +371,6 @@
 
 * upgrade to tailwindcss v4 ([5ba5cc1](https://github.com/mikesprague/birdle/commit/5ba5cc1d32d516d149b3f9585d42455dc328e052))
 
-
 ## [1.19.1](https://github.com/mikesprague/birdle/compare/v1.19.0...v1.19.1) (2024-11-29)
 
 ### 🔧 Chores
@@ -360,7 +379,6 @@
 * **deps-dev:** bump vite from 5.4.11 to 6.0.1 (#707) ([bcab6c9](https://github.com/mikesprague/birdle/commit/bcab6c9b4a71abf7707e986f4df83b9f778e0492)), closes [#707](https://github.com/mikesprague/birdle/issues/707)
 * **deps-dev:** bump vite-plugin-pwa from 0.21.0 to 0.21.1 (#709) ([ea823cf](https://github.com/mikesprague/birdle/commit/ea823cf47b0b441fb25e1192d27c188f124a2b00)), closes [#709](https://github.com/mikesprague/birdle/issues/709)
 * **release:** bump version v1.19.1 ([5ec7327](https://github.com/mikesprague/birdle/commit/5ec73273274f47a41fd39af9f3227f96b2f449c4))
-
 
 ## [1.19.0](https://github.com/mikesprague/birdle/compare/v1.18.0...v1.19.0) (2024-11-22)
 
@@ -391,7 +409,6 @@
 
 * update config files ([f0fbfdf](https://github.com/mikesprague/birdle/commit/f0fbfdf9883aa0aead25344c1ab1d462fedbf81b))
 
-
 ## [1.18.0](https://github.com/mikesprague/birdle/compare/v1.17.1...v1.18.0) (2024-10-24)
 
 ### 🔧 Chores
@@ -416,7 +433,6 @@
 * **deps:** bump sweetalert2 from 11.14.3 to 11.14.4 (#687) ([edd52c5](https://github.com/mikesprague/birdle/commit/edd52c5dd6fe3c37d26c3cbac9b5f6a50b8036c7)), closes [#687](https://github.com/mikesprague/birdle/issues/687)
 * **release:** bump version v1.18.0 ([51f3e0b](https://github.com/mikesprague/birdle/commit/51f3e0b489e379d2d425dbc7f70021320379c373))
 * **volta:** bump node/npm versions ([5827a8e](https://github.com/mikesprague/birdle/commit/5827a8ea949ac1139de37212b298488329796be0))
-
 
 ## [1.17.1](https://github.com/mikesprague/birdle/compare/v1.17.0...v1.17.1) (2024-09-23)
 
@@ -454,7 +470,6 @@
 * **release:** bump version v1.17.1 ([f87554c](https://github.com/mikesprague/birdle/commit/f87554cf5aee6f0730a8404073fa7ad5441da09b))
 * **volta:** bump node/npm versions ([e8a7a9c](https://github.com/mikesprague/birdle/commit/e8a7a9c87b231a19668b4c6f6576c3ffeb6e8f2a))
 
-
 ## [1.17.0](https://github.com/mikesprague/birdle/compare/v1.16.6...v1.17.0) (2024-08-26)
 
 ### 🔧 Chores
@@ -477,7 +492,6 @@
 ### 🏗️ Build System
 
 * **npm:** update port in dev script ([d030ef1](https://github.com/mikesprague/birdle/commit/d030ef1881a07a40fd03f41875f326da1c037837))
-
 
 ## [1.16.6](https://github.com/mikesprague/birdle/compare/v1.16.5...v1.16.6) (2024-08-10)
 
@@ -504,7 +518,6 @@
 
 * **npm:** update script ([9c02ffc](https://github.com/mikesprague/birdle/commit/9c02ffcf2c53c8ce0633706e8c1b81d636e53ecc))
 
-
 ## [1.16.5](https://github.com/mikesprague/birdle/compare/v1.16.4...v1.16.5) (2024-07-21)
 
 ### 🔧 Chores
@@ -515,7 +528,6 @@
 * **deps:** bump dayjs from 1.11.11 to 1.11.12 (#619) ([ce9f66f](https://github.com/mikesprague/birdle/commit/ce9f66f922835c57d4945820dfe30e4404a3772c)), closes [#619](https://github.com/mikesprague/birdle/issues/619)
 * **deps:** bump sweetalert2 from 11.12.2 to 11.12.3 (#620) ([2ee4d74](https://github.com/mikesprague/birdle/commit/2ee4d74eac3c8c5b0f5f1f28e2636ad9c880a2fb)), closes [#620](https://github.com/mikesprague/birdle/issues/620)
 * **release:** bump version v1.16.5 ([124acde](https://github.com/mikesprague/birdle/commit/124acdede1c989ba50b8c6f211c91c96b6e13632))
-
 
 ## [1.16.4](https://github.com/mikesprague/birdle/compare/v1.16.3...v1.16.4) (2024-07-15)
 
@@ -528,7 +540,6 @@
 * **deps:** bump @sweetalert2/theme-dark from 5.0.16 to 5.0.17 (#612) ([f3842e3](https://github.com/mikesprague/birdle/commit/f3842e3560b01be19933a7cb3e59c9ccd53f768a)), closes [#612](https://github.com/mikesprague/birdle/issues/612)
 * **release:** bump version v1.16.4 ([4421e5d](https://github.com/mikesprague/birdle/commit/4421e5dd0ec14fff05198b0ebd705348c720edda))
 * **volta:** bump node/npm versions ([86c6332](https://github.com/mikesprague/birdle/commit/86c63323fd8fb51bb8f36e5e9a330af559417a8d))
-
 
 ## [1.16.3](https://github.com/mikesprague/birdle/compare/v1.16.2...v1.16.3) (2024-07-06)
 
@@ -545,7 +556,6 @@
 * **deps:** bump sweetalert2 from 11.12.1 to 11.12.2 (#611) ([0c8f823](https://github.com/mikesprague/birdle/commit/0c8f8236e460a98d2b6a378a08ebea115cf741e4)), closes [#611](https://github.com/mikesprague/birdle/issues/611)
 * **release:** bump version v1.16.3 ([be4f3d9](https://github.com/mikesprague/birdle/commit/be4f3d91b8c01f932806efc56529ae0816870022))
 
-
 ## [1.16.2](https://github.com/mikesprague/birdle/compare/v1.16.1...v1.16.2) (2024-06-19)
 
 ### 🔧 Chores
@@ -560,7 +570,6 @@
 * **deps:** bump sweetalert2 from 11.11.1 to 11.12.0 (#601) ([69d9ed5](https://github.com/mikesprague/birdle/commit/69d9ed518d68c7ed5344f1c9f32211de3546fa71)), closes [#601](https://github.com/mikesprague/birdle/issues/601)
 * **release:** bump version v1.16.2 ([ad6c3c9](https://github.com/mikesprague/birdle/commit/ad6c3c9fdf9958f80a5c16242ba01d4eab921a6f))
 * **volta:** bump node/npm versions ([a0d1b9c](https://github.com/mikesprague/birdle/commit/a0d1b9c7c1125f4086b582bfd57f8ca015ed5bd5))
-
 
 ## [1.16.1](https://github.com/mikesprague/birdle/compare/v1.16.0...v1.16.1) (2024-06-09)
 
@@ -582,7 +591,6 @@
 ### 🛠️ Code Refactoring
 
 * **styles:** increase bottom padding ([a3b5580](https://github.com/mikesprague/birdle/commit/a3b5580cebcbb5509626f24feb6e326ad8a44636))
-
 
 ## [1.16.0](https://github.com/mikesprague/birdle/compare/v1.15.14...v1.16.0) (2024-05-19)
 
@@ -627,7 +635,6 @@
 * **lib/helpers:** emojisplosions -> emojiBlasts ([5a90c23](https://github.com/mikesprague/birdle/commit/5a90c2312d940d2d8d88b18d111e39947224b4fa))
 * **styles:** update flip animation ([9cd03e8](https://github.com/mikesprague/birdle/commit/9cd03e8d27ba643d0461930f3f64236cb29b7a4e))
 
-
 ## [1.15.14](https://github.com/mikesprague/birdle/compare/v1.15.13...v1.15.14) (2024-04-03)
 
 ### 🔧 Chores
@@ -659,7 +666,6 @@
 * **deps:** bump sweetalert2 from 11.10.6 to 11.10.7 (#546) ([e133fb1](https://github.com/mikesprague/birdle/commit/e133fb111632781e9f23660aa373f4bc2b354fa6)), closes [#546](https://github.com/mikesprague/birdle/issues/546)
 * **release:** bump version v1.15.14 ([d3a376c](https://github.com/mikesprague/birdle/commit/d3a376c573dc967c1b5521d5172ba53b159f6ed6))
 
-
 ## [1.15.13](https://github.com/mikesprague/birdle/compare/v1.15.12...v1.15.13) (2024-03-17)
 
 ### 🔧 Chores
@@ -687,7 +693,6 @@
 * **npm:** add volta config ([a0600aa](https://github.com/mikesprague/birdle/commit/a0600aafd2f1a5260dadf2730afd6e9b1cb57ab1))
 * **npm:** update volta config ([c70ae0f](https://github.com/mikesprague/birdle/commit/c70ae0fab78c96b3aea8dedaeb1817423a5fc38f))
 
-
 ## [1.15.12](https://github.com/mikesprague/birdle/compare/v1.15.11...v1.15.12) (2024-02-26)
 
 ### 🔧 Chores
@@ -704,7 +709,6 @@
 * **deps-dev:** bump vite-plugin-pwa from 0.18.2 to 0.19.0 (#513) ([9c009d7](https://github.com/mikesprague/birdle/commit/9c009d78687a8b998982cbe4b9eef52eed7b87a1)), closes [#513](https://github.com/mikesprague/birdle/issues/513)
 * **release:** bump version v1.15.12 ([a937a0f](https://github.com/mikesprague/birdle/commit/a937a0f53b64d9299d50f0b81ef15f34cc59d783))
 
-
 ## [1.15.11](https://github.com/mikesprague/birdle/compare/v1.15.10...v1.15.11) (2024-02-07)
 
 ### 🔧 Chores
@@ -713,7 +717,6 @@
 * **deps-dev:** bump stylelint from 16.2.0 to 16.2.1 (#499) ([0abf6d5](https://github.com/mikesprague/birdle/commit/0abf6d57df219f4dcb332487db1f8c056b7a6742)), closes [#499](https://github.com/mikesprague/birdle/issues/499)
 * **deps:** bump sweetalert2 from 11.10.4 to 11.10.5 (#500) ([9e68566](https://github.com/mikesprague/birdle/commit/9e685660f0eb1ef9926188a498e69e42ed01fd38)), closes [#500](https://github.com/mikesprague/birdle/issues/500)
 * **release:** bump version v1.15.11 ([e7082f8](https://github.com/mikesprague/birdle/commit/e7082f813029fdf8f26b98da4c7cd666cb3c4e12))
-
 
 ## [1.15.10](https://github.com/mikesprague/birdle/compare/v1.15.9...v1.15.10) (2024-01-27)
 
@@ -730,7 +733,6 @@
 * **deps:** bump sweetalert2 from 11.10.3 to 11.10.4 (#497) ([0aa3bc9](https://github.com/mikesprague/birdle/commit/0aa3bc9b2ba64d93587feed5200445d3d819c0e1)), closes [#497](https://github.com/mikesprague/birdle/issues/497)
 * **release:** bump version v1.15.10 ([4fde7da](https://github.com/mikesprague/birdle/commit/4fde7dad1f3fc0e1e6a742c77c5103a52d8dcdc3))
 
-
 ## [1.15.9](https://github.com/mikesprague/birdle/compare/v1.15.8...v1.15.9) (2024-01-14)
 
 ### 🔧 Chores
@@ -745,7 +747,6 @@
 * **deps:** bump @sweetalert2/theme-dark from 5.0.15 to 5.0.16 (#487) ([cc23075](https://github.com/mikesprague/birdle/commit/cc2307558a7757c40d30ddfcff285713d717d273)), closes [#487](https://github.com/mikesprague/birdle/issues/487)
 * **deps:** bump sweetalert2 from 11.10.2 to 11.10.3 (#488) ([8fd38a6](https://github.com/mikesprague/birdle/commit/8fd38a6472043bccb737bd06f91a71fffc71a38e)), closes [#488](https://github.com/mikesprague/birdle/issues/488)
 * **release:** bump version v1.15.9 ([72f22de](https://github.com/mikesprague/birdle/commit/72f22de094c5356d47beba75924b74c6f129297e))
-
 
 ## [1.15.8](https://github.com/mikesprague/birdle/compare/v1.15.7...v1.15.8) (2024-01-03)
 
@@ -762,7 +763,6 @@
 
 * **instructions:** fix example verbiage ([b7b883f](https://github.com/mikesprague/birdle/commit/b7b883f05eb681577bcfbceb3a850c96bed48a80))
 * **instructions:** update 3rd example ([d31e991](https://github.com/mikesprague/birdle/commit/d31e99118394e0b3a8b031834bb427e54c170b7b))
-
 
 ## [1.15.7](https://github.com/mikesprague/birdle/compare/v1.15.6...v1.15.7) (2023-12-25)
 
@@ -804,7 +804,6 @@
 
 * **biome:** tweak config ([07b5ba2](https://github.com/mikesprague/birdle/commit/07b5ba20c622b60a27a4596472bd8812902f78ba))
 
-
 ## [1.15.6](https://github.com/mikesprague/birdle/compare/v1.15.5...v1.15.6) (2023-11-19)
 
 ### 🔧 Chores
@@ -813,7 +812,6 @@
 * **deps:** bump sweetalert2 from 11.10.0 to 11.10.1 (#449) ([f747925](https://github.com/mikesprague/birdle/commit/f747925a2c0c3be048a195d019c7dcddb79e9373)), closes [#449](https://github.com/mikesprague/birdle/issues/449)
 * **release:** bump version v1.15.6 ([848518d](https://github.com/mikesprague/birdle/commit/848518d4ba7ec3235cdb57fc187689fdfe109272))
 
-
 ## [1.15.5](https://github.com/mikesprague/birdle/compare/v1.15.4...v1.15.5) (2023-11-17)
 
 ### 🔧 Chores
@@ -821,7 +819,6 @@
 * **deps-dev:** bump vite from 4.5.0 to 5.0.0 (#448) ([a9d4268](https://github.com/mikesprague/birdle/commit/a9d426825973e0140b551af74a39c04aa8b0a29e)), closes [#448](https://github.com/mikesprague/birdle/issues/448)
 * **deps:** bump sweetalert2 from 11.9.0 to 11.10.0 (#447) ([b158cb3](https://github.com/mikesprague/birdle/commit/b158cb3262bb11c48a17bdf05d5b3494a9312a2d)), closes [#447](https://github.com/mikesprague/birdle/issues/447)
 * **release:** bump version v1.15.5 ([28e643e](https://github.com/mikesprague/birdle/commit/28e643e0bbcb1f583254ad104df339ab117a13a3))
-
 
 ## [1.15.4](https://github.com/mikesprague/birdle/compare/v1.15.3...v1.15.4) (2023-11-09)
 
@@ -833,7 +830,6 @@
 * **deps:** bump @rwh/keystrokes from 1.2.3 to 1.4.0 (#446) ([3b6d754](https://github.com/mikesprague/birdle/commit/3b6d754bd0cadf9f627030959f4cd33ef85e58b9)), closes [#446](https://github.com/mikesprague/birdle/issues/446)
 * **release:** bump version v1.15.4 ([44d768f](https://github.com/mikesprague/birdle/commit/44d768f13dcd9a0aa84eebed501f1c653ee8bd49))
 
-
 ## [1.15.3](https://github.com/mikesprague/birdle/compare/v1.15.2...v1.15.3) (2023-10-30)
 
 ### 🔧 Chores
@@ -841,7 +837,6 @@
 * **deps-dev:** bump vite-plugin-pwa from 0.16.5 to 0.16.6 (#440) ([bc5c215](https://github.com/mikesprague/birdle/commit/bc5c215902c3a75d96e3c971945d4bd681873369)), closes [#440](https://github.com/mikesprague/birdle/issues/440)
 * **deps:** bump sweetalert2 from 11.7.32 to 11.9.0 ([bf8d1f0](https://github.com/mikesprague/birdle/commit/bf8d1f0c93aabc8a73f471d0e934bbd0749f405b))
 * **release:** bump version v1.15.3 ([54783c5](https://github.com/mikesprague/birdle/commit/54783c5d647f184f42c1f5e81d06cb9049db0b35))
-
 
 ## [1.15.2](https://github.com/mikesprague/birdle/compare/v1.15.1...v1.15.2) (2023-10-28)
 
@@ -862,7 +857,6 @@
 
 * update emojiCount logic; remove unused import ([b263853](https://github.com/mikesprague/birdle/commit/b263853a1b65b56199174b3c1ffdf98d58869b63))
 
-
 ## [1.15.1](https://github.com/mikesprague/birdle/compare/v1.15.0...v1.15.1) (2023-10-16)
 
 ### 🔧 Chores
@@ -873,7 +867,6 @@
 
 * fix timing of emojisplosions ([eadcf30](https://github.com/mikesprague/birdle/commit/eadcf30ae64623c947b610278eb0583a04ff16e1))
 * use birds in emojisplosion ([4d0debc](https://github.com/mikesprague/birdle/commit/4d0debc992fcaf6d0c07f9b449689506f97244be))
-
 
 ## [1.15.0](https://github.com/mikesprague/birdle/compare/v1.14.7...v1.15.0) (2023-10-16)
 
@@ -889,7 +882,6 @@
 
 * add emojisplosion to wins ([5dd5b7f](https://github.com/mikesprague/birdle/commit/5dd5b7fbd4298d6a77da5496e6c155250f05d72d))
 
-
 ## [1.14.7](https://github.com/mikesprague/birdle/compare/v1.14.6...v1.14.7) (2023-10-06)
 
 ### 🔧 Chores
@@ -902,7 +894,6 @@
 * **deps:** bump sweetalert2 from 11.7.31 to 11.7.32 (#427) ([91ff56e](https://github.com/mikesprague/birdle/commit/91ff56e07fac203ef3de539c4fe0355ee95c25b4)), closes [#427](https://github.com/mikesprague/birdle/issues/427)
 * **release:** bump version v1.14.7 ([ec06c81](https://github.com/mikesprague/birdle/commit/ec06c815bc9c8ef6cad1ee8cd223a46351328a86))
 
-
 ## [1.14.6](https://github.com/mikesprague/birdle/compare/v1.14.5...v1.14.6) (2023-09-26)
 
 ### 🔧 Chores
@@ -914,7 +905,6 @@
 
 * remove extraneous comments ([9eb65ec](https://github.com/mikesprague/birdle/commit/9eb65ecae1c3b4254e623e94846f96b2056cb4fd))
 
-
 ## [1.14.5](https://github.com/mikesprague/birdle/compare/v1.14.4...v1.14.5) (2023-09-25)
 
 ### 🔧 Chores
@@ -924,7 +914,6 @@
 * **deps:** bump sweetalert2 from 11.7.28 to 11.7.29 (#421) ([6c5b76a](https://github.com/mikesprague/birdle/commit/6c5b76a9424753c624dc54cffbc956f158077463)), closes [#421](https://github.com/mikesprague/birdle/issues/421)
 * **release:** bump version v1.14.5 ([d9fa4f7](https://github.com/mikesprague/birdle/commit/d9fa4f79c786372cf4b6c12278f9f7a7abb3b83d))
 
-
 ## [1.14.4](https://github.com/mikesprague/birdle/compare/v1.14.3...v1.14.4) (2023-09-19)
 
 ### 🔧 Chores
@@ -932,7 +921,6 @@
 * **deps-dev:** bump postcss from 8.4.29 to 8.4.30 (#418) ([27c988a](https://github.com/mikesprague/birdle/commit/27c988a358116f1f2dd73fd9241611db340e5ce5)), closes [#418](https://github.com/mikesprague/birdle/issues/418)
 * **deps:** bump dayjs from 1.11.9 to 1.11.10 (#417) ([1028d27](https://github.com/mikesprague/birdle/commit/1028d2711172a9f2b6387eb06d878c01af44bb67)), closes [#417](https://github.com/mikesprague/birdle/issues/417)
 * **release:** bump version v1.14.4 ([596697e](https://github.com/mikesprague/birdle/commit/596697e7158f47c6e1a1ef4c20f5483ba14c3ecc))
-
 
 ## [1.14.3](https://github.com/mikesprague/birdle/compare/v1.14.2...v1.14.3) (2023-09-18)
 
@@ -951,7 +939,6 @@
 
 * **biome:** formatter/linter fixes ([ddf4c3e](https://github.com/mikesprague/birdle/commit/ddf4c3ec92958ac4902ee066861d17738e35c219))
 * **biomejs:** formatter/linter fixes ([cca305f](https://github.com/mikesprague/birdle/commit/cca305f74eda907883fbc58cb0e4304927702941))
-
 
 ## [1.14.2](https://github.com/mikesprague/birdle/compare/v1.14.1...v1.14.2) (2023-09-14)
 
@@ -973,7 +960,6 @@
 
 * **actions:** remove dash before commit hash in create-release ([2c5734d](https://github.com/mikesprague/birdle/commit/2c5734dd55c735451da37be82898709c679c4892))
 
-
 ## [1.14.1](https://github.com/mikesprague/birdle/compare/v1.14.0...v1.14.1) (2023-09-04)
 
 ### 🔧 Chores
@@ -988,7 +974,6 @@
 * **deps-dev:** bump prettier from 3.0.2 to 3.0.3 (#405) ([deb1e60](https://github.com/mikesprague/birdle/commit/deb1e60af10b316139fedc648e12d4449615b79f)), closes [#405](https://github.com/mikesprague/birdle/issues/405)
 * **deps:** bump @rwh/keystrokes from 1.2.1 to 1.2.3 (#409) ([611b36b](https://github.com/mikesprague/birdle/commit/611b36bbfc992c1a38c19e6b769dfc87468f04c9)), closes [#409](https://github.com/mikesprague/birdle/issues/409)
 * **release:** bump version v1.14.1 ([e79991f](https://github.com/mikesprague/birdle/commit/e79991f1ba3a05a87d19cf1852f3c5ef8ad88805))
-
 
 ## [1.14.0](https://github.com/mikesprague/birdle/compare/v1.13.53...v1.14.0) (2023-08-20)
 
@@ -1011,7 +996,6 @@
 
 * **eslint:** config ([76f51c7](https://github.com/mikesprague/birdle/commit/76f51c7911f3de38dd6e3227d1f26d722809687f))
 
-
 ## [1.13.53](https://github.com/mikesprague/birdle/compare/v1.13.52...v1.13.53) (2023-08-15)
 
 ### 🔧 Chores
@@ -1021,7 +1005,6 @@
 * **deps-dev:** bump prettier from 3.0.1 to 3.0.2 (#397) ([ede0658](https://github.com/mikesprague/birdle/commit/ede0658179514238e12cd2393b36f79ed13a9b2c)), closes [#397](https://github.com/mikesprague/birdle/issues/397)
 * **deps:** bump sweetalert2 from 11.7.22 to 11.7.23 (#396) ([b2ccd0d](https://github.com/mikesprague/birdle/commit/b2ccd0de1468613ebd7dcbf1dd532f33267572e6)), closes [#396](https://github.com/mikesprague/birdle/issues/396)
 * **release:** bump version v1.13.53 ([077da75](https://github.com/mikesprague/birdle/commit/077da759aa4c60b7e931764aeb6a1b67e083abd6))
-
 
 ## [1.13.52](https://github.com/mikesprague/birdle/compare/v1.13.51...v1.13.52) (2023-08-10)
 
@@ -1051,7 +1034,6 @@
 
 * **actions:** reverse order of commits in release notes ([f0ed2a6](https://github.com/mikesprague/birdle/commit/f0ed2a6c5036bb8f64dfd1b74522cd1216be95fa))
 
-
 ## [1.13.51](https://github.com/mikesprague/birdle/compare/v1.13.50...v1.13.51) (2023-07-24)
 
 ### 🔧 Chores
@@ -1066,7 +1048,6 @@
 * **deps:** bump sweetalert2 from 11.7.18 to 11.7.20 (#373) ([1e443de](https://github.com/mikesprague/birdle/commit/1e443de4c45b1b6f66c30e8ca8abc5c128f2ea3b)), closes [#373](https://github.com/mikesprague/birdle/issues/373)
 * **release:** bump version v1.13.51 ([b81cda2](https://github.com/mikesprague/birdle/commit/b81cda26faa585926469de25566118914f74f923))
 
-
 ## [1.13.50](https://github.com/mikesprague/birdle/compare/v1.13.49...v1.13.50) (2023-07-15)
 
 ### 🔧 Chores
@@ -1080,7 +1061,6 @@
 * **deps:** bump sweetalert2 from 11.7.16 to 11.7.18 ([195a893](https://github.com/mikesprague/birdle/commit/195a8932630b9a2ee9adb98298a27ac7fed0b061))
 * **release:** bump version v1.13.50 ([99d27dd](https://github.com/mikesprague/birdle/commit/99d27ddda71db5fd35b00cbb56fd5ecbdc431ccd))
 
-
 ## [1.13.49](https://github.com/mikesprague/birdle/compare/v1.13.48...v1.13.49) (2023-07-11)
 
 ### 🔧 Chores
@@ -1089,7 +1069,6 @@
 * **deps-dev:** bump vite from 4.4.2 to 4.4.3 (#359) ([e3b8583](https://github.com/mikesprague/birdle/commit/e3b858304dec46333ebd5b342f8af55b91be2ade)), closes [#359](https://github.com/mikesprague/birdle/issues/359)
 * **deps:** bump sweetalert2 from 11.7.12 to 11.7.16 (#361) ([40a7b5c](https://github.com/mikesprague/birdle/commit/40a7b5ce9bf5d3abccc6eb65832dcee1c065c8f4)), closes [#361](https://github.com/mikesprague/birdle/issues/361)
 * **release:** bump version v1.13.49 ([c9c4bc3](https://github.com/mikesprague/birdle/commit/c9c4bc31a4fdac1cacc687338c0d3144b1b32471))
-
 
 ## [1.13.48](https://github.com/mikesprague/birdle/compare/v1.13.47...v1.13.48) (2023-07-10)
 
@@ -1115,7 +1094,6 @@
 
 * **stylelint:** config ([12be565](https://github.com/mikesprague/birdle/commit/12be565c0daa1696674275d18dc4505109ff9db2))
 
-
 ## [1.13.47](https://github.com/mikesprague/birdle/compare/v1.13.46...v1.13.47) (2023-07-03)
 
 ### 🔧 Chores
@@ -1133,7 +1111,6 @@
 * **deps:** bump dayjs from 1.11.8 to 1.11.9 (#344) ([9d7ead6](https://github.com/mikesprague/birdle/commit/9d7ead6a8a2ec99d247f2e58a36adf139c18c458)), closes [#344](https://github.com/mikesprague/birdle/issues/344)
 * **release:** bump version v1.13.47 ([ed73a82](https://github.com/mikesprague/birdle/commit/ed73a82b95093c6e34c194cfb616fa54b0e5c4e9))
 
-
 ## [1.13.46](https://github.com/mikesprague/birdle/compare/v1.13.45...v1.13.46) (2023-06-09)
 
 ### 🔧 Chores
@@ -1146,7 +1123,6 @@
 * **deps:** bump sweetalert2 from 11.7.11 to 11.7.12 (#330) ([7ea2642](https://github.com/mikesprague/birdle/commit/7ea2642f56139d5e92664baf887581cb42d864ce)), closes [#330](https://github.com/mikesprague/birdle/issues/330)
 * **release:** bump version v1.13.46 ([c75b508](https://github.com/mikesprague/birdle/commit/c75b508b174761eaed5cbd7c7cef195a13cda495))
 
-
 ## [1.13.45](https://github.com/mikesprague/birdle/compare/v1.13.44...v1.13.45) (2023-06-06)
 
 ### 🔧 Chores
@@ -1155,7 +1131,6 @@
 * **deps-dev:** bump stylelint from 15.6.3 to 15.7.0 (#327) ([2a128b2](https://github.com/mikesprague/birdle/commit/2a128b2c4306c85ffc21c9ae802eef91829504d7)), closes [#327](https://github.com/mikesprague/birdle/issues/327)
 * **deps:** bump sweetalert2 from 11.7.10 to 11.7.11 (#326) ([ef708ef](https://github.com/mikesprague/birdle/commit/ef708ef17571d17d5f200665dc05bc08c9e5576f)), closes [#326](https://github.com/mikesprague/birdle/issues/326)
 * **release:** bump version v1.13.45 ([f80252f](https://github.com/mikesprague/birdle/commit/f80252fb9bc649b1486415026c8f11c0e2462529))
-
 
 ## [1.13.44](https://github.com/mikesprague/birdle/compare/v1.13.43...v1.13.44) (2023-06-02)
 
@@ -1166,14 +1141,12 @@
 * **deps:** bump dayjs from 1.11.7 to 1.11.8 (#324) ([ed049a5](https://github.com/mikesprague/birdle/commit/ed049a5aef7c52fa2961478de1344cd96c20051a)), closes [#324](https://github.com/mikesprague/birdle/issues/324)
 * **release:** bump version v1.13.44 ([df46e5a](https://github.com/mikesprague/birdle/commit/df46e5a3eb9b2d2b96609742d9c905bff653298b))
 
-
 ## [1.13.43](https://github.com/mikesprague/birdle/compare/v1.13.42...v1.13.43) (2023-05-31)
 
 ### 🔧 Chores
 
 * **deps:** bump sweetalert2 from 11.7.9 to 11.7.10 (#322) ([1348be2](https://github.com/mikesprague/birdle/commit/1348be26b7c64740224fc7680e16514e429b42f6)), closes [#322](https://github.com/mikesprague/birdle/issues/322)
 * **release:** bump version v1.13.43 ([ce5b717](https://github.com/mikesprague/birdle/commit/ce5b717432bce480c1306916b00b1546c03b2410))
-
 
 ## [1.13.42](https://github.com/mikesprague/birdle/compare/v1.13.41...v1.13.42) (2023-05-30)
 
@@ -1182,7 +1155,6 @@
 * **deps-dev:** bump vite-plugin-pwa from 0.15.1 to 0.15.2 (#321) ([bf3d879](https://github.com/mikesprague/birdle/commit/bf3d879de56322933b72e8f4f790f19b973385e6)), closes [#321](https://github.com/mikesprague/birdle/issues/321)
 * **deps:** bump sweetalert2 from 11.7.8 to 11.7.9 (#320) ([0c46161](https://github.com/mikesprague/birdle/commit/0c4616174085080fb5784a2b12bdfebc3ffa92bd)), closes [#320](https://github.com/mikesprague/birdle/issues/320)
 * **release:** bump version v1.13.42 ([9565252](https://github.com/mikesprague/birdle/commit/956525250a6e76d69f5fb23734419469beeb6eab))
-
 
 ## [1.13.41](https://github.com/mikesprague/birdle/compare/v1.13.40...v1.13.41) (2023-05-29)
 
@@ -1204,7 +1176,6 @@
 * **deps:** bump sweetalert2 from 11.7.5 to 11.7.8 (#317) ([f08231b](https://github.com/mikesprague/birdle/commit/f08231bfbd6e6d8d9baf3a9487db8a3ac8773c9e)), closes [#317](https://github.com/mikesprague/birdle/issues/317)
 * **release:** bump version v1.13.41 ([35e6a7a](https://github.com/mikesprague/birdle/commit/35e6a7ad49efb90e8fdaf470196ef7968e817ed2))
 
-
 ## [1.13.40](https://github.com/mikesprague/birdle/compare/v1.13.39...v1.13.40) (2023-05-05)
 
 ### 🔧 Chores
@@ -1213,7 +1184,6 @@
 * **deps-dev:** bump stylelint from 15.6.0 to 15.6.1 (#304) ([80574cb](https://github.com/mikesprague/birdle/commit/80574cb53604b71857ababbd0aad9f1a76ee2902)), closes [#304](https://github.com/mikesprague/birdle/issues/304)
 * **deps:** bump sweetalert2 from 11.7.3 to 11.7.5 (#305) ([59e9c25](https://github.com/mikesprague/birdle/commit/59e9c2517ab2bc507228fd28d598c3c9bc5b9419)), closes [#305](https://github.com/mikesprague/birdle/issues/305)
 * **release:** bump version v1.13.40 ([a1e0c34](https://github.com/mikesprague/birdle/commit/a1e0c3408639b09e9f8f1380573b68b2d4c672e2))
-
 
 ## [1.13.39](https://github.com/mikesprague/birdle/compare/v1.13.38...v1.13.39) (2023-05-02)
 
@@ -1240,7 +1210,6 @@
 * **deps-dev:** bump vite from 4.3.3 to 4.3.4 ([48dbb62](https://github.com/mikesprague/birdle/commit/48dbb627bd4bb8f96093cc65d810fee88619f3c8))
 * **release:** bump version v1.13.39 ([9aca172](https://github.com/mikesprague/birdle/commit/9aca172342b17cc36028a612e4ee3afd096cdd13))
 
-
 ## [1.13.38](https://github.com/mikesprague/birdle/compare/v1.13.37...v1.13.38) (2023-04-11)
 
 ### 🔧 Chores
@@ -1259,7 +1228,6 @@
 ### 🔄 Continuous Integration
 
 * **actions:** add workflow to automate releases ([48234d7](https://github.com/mikesprague/birdle/commit/48234d7a51a60e6440aa6d4271f1f0052e33de4a))
-
 
 ## [1.13.37](https://github.com/mikesprague/birdle/compare/v1.13.36...v1.13.37) (2023-03-28)
 
@@ -1283,7 +1251,6 @@
 * **deps-dev:** bump vite-plugin-pwa from 0.14.6 to 0.14.7 (#274) ([6f291b9](https://github.com/mikesprague/birdle/commit/6f291b9e5b4b9e7d131dd02673d98599b0634b7e)), closes [#274](https://github.com/mikesprague/birdle/issues/274)
 * **release:** bump version v1.13.37 ([84cda50](https://github.com/mikesprague/birdle/commit/84cda5057260d8df24d1a72d197bb317139f2464))
 
-
 ## [1.13.36](https://github.com/mikesprague/birdle/compare/v1.13.35...v1.13.36) (2023-03-14)
 
 ### 🔧 Chores
@@ -1306,7 +1273,6 @@
 * **deps:** bump sweetalert2 from 11.7.2 to 11.7.3 (#252) ([5d1b4bf](https://github.com/mikesprague/birdle/commit/5d1b4bfef82097a55b282aa275e0d57d73460e06)), closes [#252](https://github.com/mikesprague/birdle/issues/252)
 * **release:** bump version v1.13.36 ([b11a983](https://github.com/mikesprague/birdle/commit/b11a9838e584001d5eabe7004f2f63eb8d192d7f))
 
-
 ## [1.13.35](https://github.com/mikesprague/birdle/compare/v1.13.34...v1.13.35) (2023-02-20)
 
 ### 🔧 Chores
@@ -1317,7 +1283,6 @@
 * **deps-dev:** bump vite from 4.1.1 to 4.1.2 (#245) ([43e7a56](https://github.com/mikesprague/birdle/commit/43e7a56788863c4f806b38b765ff2f920a08775a)), closes [#245](https://github.com/mikesprague/birdle/issues/245)
 * **deps:** bump sweetalert2 from 11.7.1 to 11.7.2 (#244) ([a40ec31](https://github.com/mikesprague/birdle/commit/a40ec3141c26052d091cf0b29d29b2db30a8bc95)), closes [#244](https://github.com/mikesprague/birdle/issues/244)
 * **release:** bump version v1.13.35 ([eaf3c16](https://github.com/mikesprague/birdle/commit/eaf3c162ad80538138f74c10bc33aec4bb680c6f))
-
 
 ## [1.13.34](https://github.com/mikesprague/birdle/compare/v1.13.33...v1.13.34) (2023-02-17)
 
@@ -1336,7 +1301,6 @@
 * **deps-dev:** bump vite-plugin-pwa from 0.14.2 to 0.14.3 (#231) ([a1f0b17](https://github.com/mikesprague/birdle/commit/a1f0b17a4dbaf8dcc3fbc20d6a47d3922cce5833)), closes [#231](https://github.com/mikesprague/birdle/issues/231)
 * **deps-dev:** bump vite-plugin-pwa from 0.14.3 to 0.14.4 (#236) ([fd9e69d](https://github.com/mikesprague/birdle/commit/fd9e69dc9520b13f52f26dc34cc351d9774ab5f7)), closes [#236](https://github.com/mikesprague/birdle/issues/236)
 * **release:** bump version v1.13.34 ([e9bb850](https://github.com/mikesprague/birdle/commit/e9bb850c327634cfcbaed1ce2b90db8d3da9636d))
-
 
 ## [1.13.33](https://github.com/mikesprague/birdle/compare/v1.13.32...v1.13.33) (2023-02-02)
 
@@ -1368,7 +1332,6 @@
 * **actions:** remove codeql v1 workflow ([ecb3e81](https://github.com/mikesprague/birdle/commit/ecb3e8189fa1bc10237262b129d6b882cb876dfc))
 * **actions:** update secret name ([ebcf4a2](https://github.com/mikesprague/birdle/commit/ebcf4a2836d0e6fe743a4f45da1c2462cfe8e7d4))
 
-
 ## [1.13.32](https://github.com/mikesprague/birdle/compare/v1.13.31...v1.13.32) (2022-12-20)
 
 ### 🔧 Chores
@@ -1392,7 +1355,6 @@
 * **actions:** use reusable workflow ([a944dc6](https://github.com/mikesprague/birdle/commit/a944dc6134b58e244232d5d018e76547b741b071))
 * **actions:** use reusable workflow ([819fa06](https://github.com/mikesprague/birdle/commit/819fa06e30d7293c2a7fab7569c4abffc8ce4e40))
 
-
 ## [1.13.31](https://github.com/mikesprague/birdle/compare/v1.13.30...v1.13.31) (2022-12-12)
 
 ### 🔧 Chores
@@ -1405,7 +1367,6 @@
 ### 🔄 Continuous Integration
 
 * **actions:** add lighthouse workflow ([6ceaa39](https://github.com/mikesprague/birdle/commit/6ceaa39a06d4851306d7935f17c306d3e207d22c))
-
 
 ## [1.13.30](https://github.com/mikesprague/birdle/compare/v1.13.29...v1.13.30) (2022-12-07)
 
@@ -1423,7 +1384,6 @@
 * **dependabot:** add workflow to auto-merge dependabot PRs ([5212aa8](https://github.com/mikesprague/birdle/commit/5212aa8d4f1a684d033fdaeaf7481b08465d539a))
 * **dependabot:** tweak config ([32e70a7](https://github.com/mikesprague/birdle/commit/32e70a771a9e1704aa6b3ecfebfb132c61152137))
 
-
 ## [1.13.29](https://github.com/mikesprague/birdle/compare/v1.13.28...v1.13.29) (2022-11-30)
 
 ### 🔧 Chores
@@ -1433,283 +1393,188 @@
 * **deps:** ⬆️ upgrade sweetalert2  11.6.14  →  11.6.15 (#196) ([55e187c](https://github.com/mikesprague/birdle/commit/55e187cb83e9a60a5c604eaf1144bd46f2f163a1)), closes [#196](https://github.com/mikesprague/birdle/issues/196)
 * **release:** 🔖 bump version v1.13.29 ([96cc1ca](https://github.com/mikesprague/birdle/commit/96cc1caffdbde8ffaf20abce6e2bbb62b1e87ff6))
 
-
 ## [1.13.28](https://github.com/mikesprague/birdle/compare/v1.13.27...v1.13.28) (2022-11-28)
-
 
 ## [1.13.27](https://github.com/mikesprague/birdle/compare/v1.13.26...v1.13.27) (2022-11-23)
 
-
 ## [1.13.26](https://github.com/mikesprague/birdle/compare/v1.13.25...v1.13.26) (2022-11-17)
-
 
 ## [1.13.25](https://github.com/mikesprague/birdle/compare/v1.13.24...v1.13.25) (2022-11-10)
 
-
 ## [1.13.24](https://github.com/mikesprague/birdle/compare/v1.13.23...v1.13.24) (2022-11-07)
-
 
 ## [1.13.23](https://github.com/mikesprague/birdle/compare/v1.13.22...v1.13.23) (2022-11-07)
 
-
 ## [1.13.22](https://github.com/mikesprague/birdle/compare/v1.13.21...v1.13.22) (2022-11-04)
-
 
 ## [1.13.21](https://github.com/mikesprague/birdle/compare/v1.13.20...v1.13.21) (2022-10-30)
 
-
 ## [1.13.20](https://github.com/mikesprague/birdle/compare/v1.13.19...v1.13.20) (2022-10-28)
-
 
 ## [1.13.19](https://github.com/mikesprague/birdle/compare/v1.13.18...v1.13.19) (2022-10-25)
 
-
 ## [1.13.18](https://github.com/mikesprague/birdle/compare/v1.13.17...v1.13.18) (2022-10-22)
-
 
 ## [1.13.17](https://github.com/mikesprague/birdle/compare/v1.13.16...v1.13.17) (2022-10-19)
 
-
 ## [1.13.16](https://github.com/mikesprague/birdle/compare/v1.13.15...v1.13.16) (2022-10-18)
-
 
 ## [1.13.15](https://github.com/mikesprague/birdle/compare/v1.13.14...v1.13.15) (2022-10-12)
 
-
 ## [1.13.14](https://github.com/mikesprague/birdle/compare/v1.13.13...v1.13.14) (2022-10-10)
-
 
 ## [1.13.13](https://github.com/mikesprague/birdle/compare/v1.13.12...v1.13.13) (2022-10-07)
 
-
 ## [1.13.12](https://github.com/mikesprague/birdle/compare/v1.13.11...v1.13.12) (2022-09-28)
-
 
 ## [1.13.11](https://github.com/mikesprague/birdle/compare/v1.13.10...v1.13.11) (2022-09-24)
 
-
 ## [1.13.10](https://github.com/mikesprague/birdle/compare/v1.13.9...v1.13.10) (2022-09-19)
-
 
 ## [1.13.9](https://github.com/mikesprague/birdle/compare/v1.13.8...v1.13.9) (2022-09-17)
 
-
 ## [1.13.8](https://github.com/mikesprague/birdle/compare/v1.13.7...v1.13.8) (2022-09-14)
-
 
 ## [1.13.7](https://github.com/mikesprague/birdle/compare/v1.13.6...v1.13.7) (2022-09-07)
 
-
 ## [1.13.6](https://github.com/mikesprague/birdle/compare/v1.13.5...v1.13.6) (2022-09-06)
-
 
 ## [1.13.5](https://github.com/mikesprague/birdle/compare/v1.13.4...v1.13.5) (2022-09-05)
 
-
 ## [1.13.4](https://github.com/mikesprague/birdle/compare/v1.13.3...v1.13.4) (2022-08-27)
-
 
 ## [1.13.3](https://github.com/mikesprague/birdle/compare/v1.13.2...v1.13.3) (2022-08-26)
 
-
 ## [1.13.2](https://github.com/mikesprague/birdle/compare/v1.13.1...v1.13.2) (2022-08-24)
-
 
 ## [1.13.1](https://github.com/mikesprague/birdle/compare/v1.13.0...v1.13.1) (2022-08-17)
 
-
 ## [1.13.0](https://github.com/mikesprague/birdle/compare/v1.12.3...v1.13.0) (2022-08-16)
-
 
 ## [1.12.3](https://github.com/mikesprague/birdle/compare/v1.12.2...v1.12.3) (2022-08-06)
 
-
 ## [1.12.2](https://github.com/mikesprague/birdle/compare/v1.12.1...v1.12.2) (2022-07-31)
-
 
 ## [1.12.1](https://github.com/mikesprague/birdle/compare/v1.12.0...v1.12.1) (2022-07-23)
 
-
 ## [1.12.0](https://github.com/mikesprague/birdle/compare/v1.11.0...v1.12.0) (2022-07-19)
-
 
 ## [1.11.0](https://github.com/mikesprague/birdle/compare/v1.10.0...v1.11.0) (2022-07-18)
 
-
 ## [1.10.0](https://github.com/mikesprague/birdle/compare/v1.9.11...v1.10.0) (2022-07-17)
-
 
 ## [1.9.11](https://github.com/mikesprague/birdle/compare/v1.9.10...v1.9.11) (2022-07-14)
 
-
 ## [1.9.10](https://github.com/mikesprague/birdle/compare/v1.9.9...v1.9.10) (2022-07-05)
-
 
 ## [1.9.9](https://github.com/mikesprague/birdle/compare/v1.9.8...v1.9.9) (2022-06-27)
 
-
 ## [1.9.8](https://github.com/mikesprague/birdle/compare/v1.9.7...v1.9.8) (2022-06-22)
-
 
 ## [1.9.7](https://github.com/mikesprague/birdle/compare/v1.9.6...v1.9.7) (2022-06-19)
 
-
 ## [1.9.6](https://github.com/mikesprague/birdle/compare/v1.9.5...v1.9.6) (2022-06-14)
-
 
 ## [1.9.5](https://github.com/mikesprague/birdle/compare/v1.9.4...v1.9.5) (2022-06-10)
 
-
 ## [1.9.4](https://github.com/mikesprague/birdle/compare/v1.9.3...v1.9.4) (2022-06-06)
-
 
 ## [1.9.3](https://github.com/mikesprague/birdle/compare/v1.9.2...v1.9.3) (2022-05-28)
 
-
 ## [1.9.2](https://github.com/mikesprague/birdle/compare/v1.9.1...v1.9.2) (2022-05-26)
-
 
 ## [1.9.1](https://github.com/mikesprague/birdle/compare/v1.9.0...v1.9.1) (2022-05-21)
 
-
 ## [1.9.0](https://github.com/mikesprague/birdle/compare/v1.8.0...v1.9.0) (2022-05-20)
-
 
 ## [1.8.0](https://github.com/mikesprague/birdle/compare/v1.7.9...v1.8.0) (2022-05-17)
 
-
 ## [1.7.9](https://github.com/mikesprague/birdle/compare/v1.7.8...v1.7.9) (2022-05-13)
-
 
 ## [1.7.8](https://github.com/mikesprague/birdle/compare/v1.7.7...v1.7.8) (2022-05-09)
 
-
 ## [1.7.7](https://github.com/mikesprague/birdle/compare/v1.7.6...v1.7.7) (2022-05-07)
-
 
 ## [1.7.6](https://github.com/mikesprague/birdle/compare/v1.7.5...v1.7.6) (2022-05-04)
 
-
 ## [1.7.4](https://github.com/mikesprague/birdle/compare/v1.7.3...v1.7.4) (2022-04-25)
-
 
 ## [1.7.3](https://github.com/mikesprague/birdle/compare/v1.7.2...v1.7.3) (2022-04-19)
 
-
 ## [1.7.2](https://github.com/mikesprague/birdle/compare/v1.7.1...v1.7.2) (2022-04-16)
-
 
 ## [1.7.1](https://github.com/mikesprague/birdle/compare/v1.7.0...v1.7.1) (2022-04-13)
 
-
 ## [1.7.0](https://github.com/mikesprague/birdle/compare/v1.6.21...v1.7.0) (2022-04-10)
-
 
 ## [1.6.21](https://github.com/mikesprague/birdle/compare/v1.6.20...v1.6.21) (2022-04-07)
 
-
 ## [1.6.20](https://github.com/mikesprague/birdle/compare/v1.6.19...v1.6.20) (2022-04-04)
-
 
 ## [1.6.19](https://github.com/mikesprague/birdle/compare/v1.6.18...v1.6.19) (2022-03-30)
 
-
 ## [1.6.18](https://github.com/mikesprague/birdle/compare/v1.6.17...v1.6.18) (2022-03-28)
-
 
 ## [1.6.17](https://github.com/mikesprague/birdle/compare/v1.6.16...v1.6.17) (2022-03-26)
 
-
 ## [1.6.16](https://github.com/mikesprague/birdle/compare/v1.6.15...v1.6.16) (2022-03-24)
-
 
 ## [1.6.15](https://github.com/mikesprague/birdle/compare/v1.6.14...v1.6.15) (2022-03-23)
 
-
 ## [1.6.14](https://github.com/mikesprague/birdle/compare/v1.6.13...v1.6.14) (2022-03-21)
-
 
 ## [1.6.13](https://github.com/mikesprague/birdle/compare/v1.6.12...v1.6.13) (2022-03-19)
 
-
 ## [1.6.12](https://github.com/mikesprague/birdle/compare/v1.6.11...v1.6.12) (2022-03-17)
-
 
 ## [1.6.11](https://github.com/mikesprague/birdle/compare/v1.6.10...v1.6.11) (2022-03-16)
 
-
 ## [1.6.10](https://github.com/mikesprague/birdle/compare/v1.6.9...v1.6.10) (2022-03-14)
-
 
 ## [1.6.9](https://github.com/mikesprague/birdle/compare/v1.6.8...v1.6.9) (2022-03-13)
 
-
 ## [1.6.8](https://github.com/mikesprague/birdle/compare/v1.6.7...v1.6.8) (2022-03-12)
-
 
 ## [1.6.7](https://github.com/mikesprague/birdle/compare/v1.6.6...v1.6.7) (2022-03-08)
 
-
 ## [1.6.6](https://github.com/mikesprague/birdle/compare/v1.6.5...v1.6.6) (2022-03-07)
-
 
 ## [1.6.5](https://github.com/mikesprague/birdle/compare/v1.6.4...v1.6.5) (2022-03-05)
 
-
 ## [1.6.4](https://github.com/mikesprague/birdle/compare/v1.6.3...v1.6.4) (2022-03-04)
-
 
 ## [1.6.3](https://github.com/mikesprague/birdle/compare/v1.6.2...v1.6.3) (2022-03-02)
 
-
 ## [1.6.2](https://github.com/mikesprague/birdle/compare/v1.6.1...v1.6.2) (2022-03-01)
-
 
 ## [1.6.1](https://github.com/mikesprague/birdle/compare/v1.6.0...v1.6.1) (2022-02-28)
 
-
 ## [1.6.0](https://github.com/mikesprague/birdle/compare/v1.5.0...v1.6.0) (2022-02-28)
-
 
 ## [1.5.0](https://github.com/mikesprague/birdle/compare/v1.4.1...v1.5.0) (2022-02-25)
 
-
 ## [1.4.1](https://github.com/mikesprague/birdle/compare/v1.4.0...v1.4.1) (2022-02-23)
-
 
 ## [1.4.0](https://github.com/mikesprague/birdle/compare/v1.3.4...v1.4.0) (2022-02-23)
 
-
 ## [1.3.4](https://github.com/mikesprague/birdle/compare/v1.3.3...v1.3.4) (2022-02-21)
-
 
 ## [1.3.3](https://github.com/mikesprague/birdle/compare/v1.3.2...v1.3.3) (2022-02-20)
 
-
 ## [1.3.2](https://github.com/mikesprague/birdle/compare/v1.3.1...v1.3.2) (2022-02-19)
-
 
 ## [1.3.1](https://github.com/mikesprague/birdle/compare/v1.3.0...v1.3.1) (2022-02-17)
 
-
 ## [1.3.0](https://github.com/mikesprague/birdle/compare/v1.2.0...v1.3.0) (2022-02-17)
-
 
 ## [1.2.0](https://github.com/mikesprague/birdle/compare/v1.1.3...v1.2.0) (2022-02-16)
 
-
 ## [1.1.3](https://github.com/mikesprague/birdle/compare/v1.1.2...v1.1.3) (2022-02-15)
-
 
 ## [1.1.2](https://github.com/mikesprague/birdle/compare/v1.1.1...v1.1.2) (2022-02-15)
 
-
 ## [1.1.1](https://github.com/mikesprague/birdle/compare/v1.1.0...v1.1.1) (2022-02-14)
-
 
 ## [1.1.0](https://github.com/mikesprague/birdle/compare/v1.0.0...v1.1.0) (2022-02-13)
 
-
 ## 1.0.0 (2022-02-12)
-
-
