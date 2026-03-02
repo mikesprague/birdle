@@ -125,7 +125,7 @@ jobs:
 
           changelog_content="$(npx -y conventional-changelog \
             -p conventionalcommits \
-            -n changelog.config.mjs \
+            -n changelog.config.js \
             --stdout -u -r 1 -i /dev/null \
             | sed -n '/^### /,$p')"
           echo "changelog_content: $changelog_content"
@@ -133,7 +133,7 @@ jobs:
           if [[ -z "$changelog_content" ]]; then
             changelog_content="$(npx -y conventional-changelog \
               -p conventionalcommits \
-              -n changelog.config.mjs \
+              -n changelog.config.js \
               --stdout -u -r 2 -i /dev/null \
               | sed -n '/^### /,$p')"
           fi
