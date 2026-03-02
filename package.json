@@ -64,7 +64,8 @@
   },
   "overrides": {
     "@conventional-changelog/git-client": "^2.6.0",
-    "minimatch": "^10.2.4"
+    "minimatch": "^10.2.4",
+    "serialize-javascript": "^7.0.3"
   },
   "browserslist": {
     "development": [
