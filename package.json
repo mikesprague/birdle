@@ -10,6 +10,9 @@
     "changelog:preview": "npx conventional-changelog -p conventionalcommits -n changelog.config.js -u --stdout -i /dev/null",
     "clean": "rm -rf ./dist",
     "dev": "vite serve --port 3002",
+    "format": "npx oxfmt src",
+    "format:check": "npx oxfmt --check src",
+    "lint": "npx oxlint src",
     "start": "cross-env NODE_ENV=development npm run dev",
     "prebuild": "npm run clean && npm install",
     "preview": "vite preview",
@@ -28,7 +31,7 @@
     "node": ">= 24.x",
     "npm": ">= 11.x"
   },
-  "packageManager": "npm@11.12.1",
+  "packageManager": "npm@11.13.0",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/mikesprague/birdle/issues"
@@ -46,12 +49,13 @@
     "sweetalert2": "11.26.24"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.4.14",
     "@tailwindcss/vite": "4.2.4",
     "charts.css": "1.2.0",
     "conventional-changelog": "7.2.0",
     "conventional-changelog-conventionalcommits": "9.3.1",
     "cz-git": "^1.13.0",
+    "oxfmt": "0.48.0",
+    "oxlint": "1.63.0",
     "prettier": "3.8.3",
     "prettier-plugin-tailwindcss": "0.8.0",
     "stylelint": "17.11.0",
@@ -64,8 +68,7 @@
   "overrides": {
     "@conventional-changelog/git-client": "^2.7.0",
     "minimatch": "^10.2.5",
-    "serialize-javascript": "^7.0.5",
-    "vite": "8.0.10"
+    "serialize-javascript": "^7.0.5"
   },
   "browserslist": {
     "development": [
@@ -83,7 +86,7 @@
     }
   },
   "volta": {
-    "node": "25.9.0",
-    "npm": "11.12.1"
+    "node": "26.0.0",
+    "npm": "11.13.0"
   }
 }
