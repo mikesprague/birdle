@@ -46,7 +46,7 @@
     "cross-env": "10.1.0",
     "dayjs": "1.11.20",
     "emoji-blast": "0.11.0",
-    "sweetalert2": "11.26.24"
+    "sweetalert2": "11.26.25"
   },
   "devDependencies": {
     "@tailwindcss/vite": "4.3.0",
