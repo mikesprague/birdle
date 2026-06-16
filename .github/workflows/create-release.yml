@@ -22,13 +22,14 @@ jobs:
     steps:
       # checkout repo with full history to ensure all tags are available for changelog generation
       - name: Checkout Repo
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           fetch-depth: 0
+          persist-credentials: false
 
       # setup Node.js environment with npm caching for node modules to speed up changelog generation
       - name: Setup Node.js ${{ env.NODE_VERSION }} environment
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
         with:
           cache: "npm"
           check-latest: true
@@ -36,7 +37,7 @@ jobs:
 
       # additional caching layer for node_modules to speed up subsequent runs
       - name: Cache node_modules
-        uses: actions/cache@v5
+        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
         id: cache
         with:
           path: ./node_modules
@@ -47,7 +48,7 @@ jobs:
       # install conventional changelog dependencies if not cached
       - name: Install conventional changelog dependencies
         if: steps.cache.outputs.cache-hit != 'true'
-        run: npm install conventional-changelog conventional-changelog-cli conventional-changelog-conventionalcommits
+        run: npm install conventional-changelog conventional-changelog-conventionalcommits
 
       # generate and output data for release creation and changelog generation steps
       - name: Prepare release data

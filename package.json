@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "vite build",
-    "changelog": "npx conventional-changelog -p conventionalcommits -n changelog.config.js -r 0 -i CHANGELOG.md -s && git add CHANGELOG.md",
+    "changelog": "npx conventional-changelog -p conventionalcommits -n changelog.config.js -i CHANGELOG.md -s && git add CHANGELOG.md",
     "changelog:preview": "npx conventional-changelog -p conventionalcommits -n changelog.config.js -u --stdout -i /dev/null",
     "clean": "rm -rf ./dist",
     "dev": "vite serve --port 3002",
