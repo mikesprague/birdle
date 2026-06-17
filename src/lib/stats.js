@@ -138,6 +138,7 @@ export const handleShareClick = (e) => {
             html: '<strong>Copied results to clipboard<strong>',
             showConfirmButton: false,
             toast: true,
+            theme: 'dark',
             timer: 2500,
             timerProgressBar: true,
             position: 'top',
@@ -160,6 +161,7 @@ export const handleShareClick = (e) => {
       html: '<strong>Copied results to clipboard<strong>',
       showConfirmButton: false,
       toast: true,
+      theme: 'dark',
       timer: 2500,
       timerProgressBar: true,
       position: 'top',
@@ -224,6 +226,7 @@ export const showStats = () => {
   Swal.fire({
     background: isSystemDarkTheme ? '#181818' : '#dedede',
     color: isSystemDarkTheme ? '#dedede' : '#181818',
+    theme: 'dark',
     showCloseButton: true,
     position: 'center',
     backdrop: true,

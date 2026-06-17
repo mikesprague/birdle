@@ -4,6 +4,7 @@ import { isSystemDarkTheme } from './helpers.js';
 
 export const showInstructions = () => {
   Swal.fire({
+    theme: 'dark',
     background: isSystemDarkTheme ? '#181818' : '#dedede',
     color: isSystemDarkTheme ? '#dedede' : '#181818',
     showCloseButton: true,

@@ -1,6 +1,4 @@
-@import 'tailwindcss';
-@import '@sweetalert2/theme-dark/dark';
-@import 'charts.css/dist/charts.min.css';
+@import "tailwindcss";
 
 @theme {
   --color-gray-50: var(--color-zinc-50);
@@ -65,8 +63,7 @@ body {
 
 /* animations from https://animista.net/ */
 .flip-horizontal {
-  animation: flip-horizontal 0.4s cubic-bezier(0.455, 0.03, 0.515, 0.955)
-    reverse both;
+  animation: flip-horizontal 0.4s cubic-bezier(0.455, 0.03, 0.515, 0.955) reverse both;
 }
 
 @keyframes flip-horizontal {
@@ -138,4 +135,3 @@ body {
     opacity: 0;
   }
 }
-

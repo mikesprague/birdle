@@ -8,10 +8,10 @@ export default defineConfig({
   root: 'src',
   build: {
     outDir: '../dist',
+    emptyOutDir: true,
   },
   publicDir: '../public',
   base: './',
-  outDir: './',
   appType: 'spa',
   server: {
     strictPort: true,

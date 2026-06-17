@@ -347,6 +347,7 @@ export const checkWord = () => {
       Swal.fire({
         html: '<strong>Not in word list</strong>',
         showConfirmButton: false,
+        theme: 'dark',
         toast: true,
         timer: 2500,
         timerProgressBar: true,
@@ -514,6 +515,7 @@ export const checkWord = () => {
           html: `<strong>${successStrings[currentRow]}</strong>`,
           showConfirmButton: false,
           toast: true,
+          theme: 'dark',
           position: 'top',
           allowEscapeKey: false,
           background: isSystemDarkTheme ? '#333' : '#dedede',
@@ -573,6 +575,7 @@ export const checkWord = () => {
           html: `<strong>Womp womp!<br>Today's Birdle was: <em class="uppercase">${birdle.word}</em></strong>`,
           showConfirmButton: false,
           toast: true,
+          theme: 'dark',
           position: 'top',
           allowEscapeKey: true,
           background: isSystemDarkTheme ? '#333' : '#dedede',
