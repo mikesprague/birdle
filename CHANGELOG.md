@@ -1,3 +1,20 @@
+## [1.23.1](https://github.com/mikesprague/birdle/compare/v1.23.0...v1.23.1) (2026-06-19)
+
+### 🔧 Chores
+
+* **deps:** bump actions/checkout from 6.0.2 to 6.0.3 (#1099) ([e6d6477](https://github.com/mikesprague/birdle/commit/e6d64770ccb7784cb1de314b414a541fbb56b97e)), closes [#1099](https://github.com/mikesprague/birdle/issues/1099)
+* **deps:** bump actions/checkout from 6.0.3 to 7.0.0 (#1100) ([c9e59ca](https://github.com/mikesprague/birdle/commit/c9e59ca513b0f6542680a2d64d90c39b524045f8)), closes [#1100](https://github.com/mikesprague/birdle/issues/1100)
+* **overrides:** bump serialize-javascript ([6b69cae](https://github.com/mikesprague/birdle/commit/6b69cae04ab7c3887a5b443a4d68fc0c337419dc))
+* **overrides:** change @babel/core version to fix build error ([50082eb](https://github.com/mikesprague/birdle/commit/50082ebb5419322e66494dcbba0f02d41d697645))
+
+### 🏗️ Build System
+
+* **vscode:** remove out of date settings from workspace ([4dcabce](https://github.com/mikesprague/birdle/commit/4dcabcef1e680cd815dd9d79eb5c3f2ac809760f))
+
+### 🛠️ Code Refactoring
+
+* misc fixes/updates ([4bafcea](https://github.com/mikesprague/birdle/commit/4bafcea736694574c843cd0b4ba6e2e481710113))
+
 ## [1.23.0](https://github.com/mikesprague/birdle/compare/v1.22.1...v1.23.0) (2026-06-16)
 
 ### 🏗️ Build System
