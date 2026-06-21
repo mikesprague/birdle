@@ -1,0 +1,16 @@
+name: birdle-devcontainer
+
+services:
+  devcontainer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ../..:/workspaces:cached
+      - birdle-devcontainer-bash-history:/command-history
+    command: ["sleep", "infinity"]
+    platform: linux/amd64
+    network_mode: bridge
+
+volumes:
+  birdle-devcontainer-bash-history:

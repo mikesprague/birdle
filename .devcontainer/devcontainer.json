@@ -1,40 +1,47 @@
-// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/typescript-node
 {
-  "name": "JS",
-  "build": {
-    "dockerfile": "Dockerfile",
-    // Update 'VARIANT' to pick a Node version: 14, 16, 18
-    "args": {
-      "VARIANT": "18"
+  "name": "birdle",
+  // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+  "dockerComposeFile": "./compose.yaml",
+  "service": "devcontainer",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  "forwardPorts": [3000],
+  "otherPortsAttributes": {
+    "onAutoForward": "ignore"
+  },
+  // Features to add to the dev container. More info: https://containers.dev/features.
+  "features": {
+    "ghcr.io/devcontainers/features/github-cli:1": {
+      "installDirectlyFromGitHubRelease": true,
+      "version": "latest"
     }
   },
 
-  // Set *default* container specific settings.json values on container create.
-  "settings": {
-    "git.enableCommitSigning": true,
-    "terminal.integrated.defaultProfile.linux": "zsh",
-    "terminal.integrated.fontSize": 16,
-    "terminal.integrated.lineHeight": 1.2,
-    "terminal.integrated.fontWeight": "400",
-    "terminal.integrated.copyOnSelection": true,
-    "terminal.integrated.cursorBlinking": true,
-    "terminal.integrated.fontFamily": "Operator Mono Lig, Dank Mono, Cascadia Code, Victor Mono, Fira Code",
-    "editor.bracketPairColorization.enabled": true,
-    "editor.guides.bracketPairs": "active"
+  "containerEnv": {
+    "NODE_ENV": "development",
+    "TZ": "America/New_York"
   },
 
-  // Add the IDs of extensions you want installed when the container is created.
-  "extensions": [
-    "ms-azuretools.vscode-docker",
-    "mutantdino.resourcemonitor"
+  "mounts": [
+    // Workaround to ignore local node_modules folder as there's no official way to do this with devcontainers
+    // NOTE: must set "remoteUser" to "root" or change ownership to the "node" user after devcontainer is created
+    "type=volume,target=/workspaces/${localWorkspaceFolderBasename}/node_modules/",
+    // save bash history in a volume so it persists across devcontainer restarts
+    "source=birdle-devcontainer-bash-history,target=/command-history,type=volume"
   ],
 
-  // Use 'forwardPorts' to make a list of ports inside the container available locally.
-  "forwardPorts": [3000],
-
   // Use 'postCreateCommand' to run commands after the container is created.
-  "postCreateCommand": "npm install"
+  "postCreateCommand": "sudo chown -R $(whoami) node_modules && sudo chown -R $(whoami) /command-history",
 
-  // Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
-  // "remoteUser": "node"
+  "postStartCommand": ["npm", "install"]
+
+  // "extensions": ["oxc.oxc-vscode", "ms-azuretools.vscode-containers", "mutantdino.resourcemonitor"]
+
+  // Configure tool-specific properties.
+  // "customizations": {},
+
+  // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+  // "remoteUser": "root"
 }
