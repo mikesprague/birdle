@@ -1,3 +1,27 @@
+## [1.24.0](https://github.com/mikesprague/birdle/compare/v1.23.1...v1.24.0) (2026-06-29)
+
+### 🏗️ Build System
+
+* **conventional-changelog:** update config for v8 changes ([d7ccc56](https://github.com/mikesprague/birdle/commit/d7ccc564f4502c5f3c54d6126ea909a6563dba36))
+* **devcontainer:** improve/modernize ([ba70f18](https://github.com/mikesprague/birdle/commit/ba70f18157d1c35cc9cc57943d20cd45fa8a719f))
+* **npm:** bump `packageManager`; clean up `overrrides` ([c3e55b2](https://github.com/mikesprague/birdle/commit/c3e55b2ad195652bc9a86256660bc3bec21ca18c))
+
+### 🔧 Chores
+
+* **deps-dev:** bump @tailwindcss/vite from 4.3.1 to 4.3.2 (#1112) ([f59b56a](https://github.com/mikesprague/birdle/commit/f59b56a6383eff577a2a222a595aed2a1f65e66d)), references [#1112](https://github.com/mikesprague/birdle/issues/1112)
+* **deps-dev:** bump conventional-changelog from 7.2.0 to 7.2.1 (#1101) ([0390a1a](https://github.com/mikesprague/birdle/commit/0390a1a7806ff14f747de7473659339033ff93c9)), references [#1101](https://github.com/mikesprague/birdle/issues/1101)
+* **deps-dev:** bump conventional-changelog from 7.2.1 to 8.0.0 (#1110) ([6b0ceae](https://github.com/mikesprague/birdle/commit/6b0ceae841d95af928d851251f06c72f93aa209b)), references [#1110](https://github.com/mikesprague/birdle/issues/1110)
+* **deps-dev:** bump conventional-changelog-conventionalcommits (#1109) ([9cc12ff](https://github.com/mikesprague/birdle/commit/9cc12ff956d02cd2ca43823dec9c106826f1a2f0)), references [#1109](https://github.com/mikesprague/birdle/issues/1109)
+* **deps-dev:** bump oxfmt from 0.55.0 to 0.56.0 (#1103) ([f4fccf1](https://github.com/mikesprague/birdle/commit/f4fccf1285e9f6966235b1086f98c90619164abb)), references [#1103](https://github.com/mikesprague/birdle/issues/1103)
+* **deps-dev:** bump oxlint from 1.70.0 to 1.71.0 (#1102) ([6202a40](https://github.com/mikesprague/birdle/commit/6202a4075e5fa0df8ed4ff80178797c7271a3667)), references [#1102](https://github.com/mikesprague/birdle/issues/1102)
+* **deps-dev:** bump prettier from 3.8.4 to 3.8.5 (#1107) ([2270311](https://github.com/mikesprague/birdle/commit/2270311d88e92c43f9e60e56cde981612c902063)), references [#1107](https://github.com/mikesprague/birdle/issues/1107)
+* **deps-dev:** bump prettier from 3.8.5 to 3.9.3 (#1111) ([91ee8ab](https://github.com/mikesprague/birdle/commit/91ee8ab65df089dd054d978143418212920e39da)), references [#1111](https://github.com/mikesprague/birdle/issues/1111)
+* **deps-dev:** bump stylelint from 17.13.0 to 17.14.0 (#1106) ([928c202](https://github.com/mikesprague/birdle/commit/928c2022f6dc5967b65d6883adc9a608c82795eb)), references [#1106](https://github.com/mikesprague/birdle/issues/1106)
+* **deps-dev:** bump tailwindcss from 4.3.1 to 4.3.2 (#1113) ([50bca45](https://github.com/mikesprague/birdle/commit/50bca45d8090c01236e72fec392f01993a1a6aaf)), references [#1113](https://github.com/mikesprague/birdle/issues/1113)
+* **deps-dev:** bump vite from 8.0.16 to 8.1.0 (#1104) ([9615142](https://github.com/mikesprague/birdle/commit/961514269a72d9080ccfadb9e088dd4fd4adae67)), references [#1104](https://github.com/mikesprague/birdle/issues/1104)
+* **deps:** bump actions/cache from 5.0.5 to 6.0.0 (#1105) ([cb69fff](https://github.com/mikesprague/birdle/commit/cb69fff4347c3351e20edb6ec5b1600da8861ee8)), references [#1105](https://github.com/mikesprague/birdle/issues/1105)
+* **deps:** bump actions/cache from 6.0.0 to 6.1.0 (#1108) ([e266668](https://github.com/mikesprague/birdle/commit/e2666680ca5cd5c4a708fd05d9519fce56986fa4)), references [#1108](https://github.com/mikesprague/birdle/issues/1108)
+
 ## [1.23.1](https://github.com/mikesprague/birdle/compare/v1.23.0...v1.23.1) (2026-06-19)
 
 ### 🔧 Chores
