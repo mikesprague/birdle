@@ -50,7 +50,7 @@
     "conventional-changelog-conventionalcommits": "10.2.0",
     "cz-git": "^1.13.1",
     "oxfmt": "0.56.0",
-    "oxlint": "1.71.0",
+    "oxlint": "1.72.0",
     "prettier": "3.9.3",
     "prettier-plugin-tailwindcss": "0.8.0",
     "stylelint": "17.14.0",
