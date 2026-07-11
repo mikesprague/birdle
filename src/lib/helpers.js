@@ -1,7 +1,7 @@
-import { registerSW } from 'virtual:pwa-register';
 import { textBalloons } from 'balloons-js';
 import { emojiBlasts } from 'emoji-blast';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { registerSW } from 'virtual:pwa-register';
 
 import { allowed } from './allowed.js';
 import { showInstructions } from './instructions.js';
@@ -55,7 +55,7 @@ const lockWakeState = async () => {
 
   try {
     wakelock = await navigator.wakeLock.request();
-    // biome-ignore lint/correctness/noUnusedVariables: <explanation>
+    // oxlint-disable-next-line no-unused-vars
   } catch (e) {
     // console.error('failed to lock wake state:', e.message);
     wakelock = null;
