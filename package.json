@@ -48,7 +48,7 @@
     "charts.css": "1.2.0",
     "conventional-changelog": "8.1.1",
     "conventional-changelog-conventionalcommits": "10.4.0",
-    "cz-git": "^1.13.1",
+    "cz-git": "^1.14.0",
     "oxfmt": "0.64.0",
     "oxlint": "1.79.0",
     "stylelint": "17.14.1",
