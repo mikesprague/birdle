@@ -47,7 +47,7 @@
     "@tailwindcss/vite": "4.3.3",
     "charts.css": "1.2.0",
     "conventional-changelog": "8.1.1",
-    "conventional-changelog-conventionalcommits": "10.2.1",
+    "conventional-changelog-conventionalcommits": "10.4.0",
     "cz-git": "^1.13.1",
     "oxfmt": "0.64.0",
     "oxlint": "1.79.0",
