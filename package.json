@@ -40,7 +40,7 @@
     "common-tags": "1.8.2",
     "cross-env": "10.1.0",
     "dayjs": "1.11.23",
-    "emoji-blast": "0.11.0",
+    "emoji-blast": "0.11.1",
     "sweetalert2": "11.26.25"
   },
   "devDependencies": {
