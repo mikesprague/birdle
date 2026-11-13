@@ -2,7 +2,8 @@ import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'vite';
 import { createHtmlPlugin } from 'vite-plugin-html';
 import { VitePWA } from 'vite-plugin-pwa';
-import { version } from './package.json';
+
+import * as pkg from './package.json' with { type: 'json' };
 
 export default defineConfig({
   root: 'src',
@@ -22,7 +23,7 @@ export default defineConfig({
       template: 'index.html',
       inject: {
         data: {
-          appVersion: version,
+          appVersion: pkg.version,
         },
       },
     }),
@@ -42,7 +43,7 @@ export default defineConfig({
         name: 'BIRDLE',
         short_name: 'BIRDLE',
         description: 'A new BIRDLE every day',
-        version,
+        version: pkg.version,
         icons: [
           {
             src: 'https://res.cloudinary.com/mikesprague/image/upload/fl_preserve_transparency,w_32,h_32,c_scale/birdle/favicon.png',
