@@ -390,20 +390,22 @@ export const checkWord = () => {
     const halloweenEmojis = [
       '👻',
       '🎃',
+      '☠️',
       '🦇',
       '🕷️',
-      '🕸️',
       '🧙‍♀️',
       '🧛‍♂️',
+      '🕸️',
       '🧟‍♀️',
-      '🧟‍♂️',
-      '👾',
       '👹',
       '👽',
-      '☠️',
       '💀',
       '🤡',
       '😱',
+      '🧛‍♀️',
+      '😈',
+      '👾',
+      '🧙‍♂️',
     ];
 
     const thanksGivingEmojis = [
@@ -440,39 +442,39 @@ export const checkWord = () => {
     ];
 
     const christmasEmojis = [
+      '☃️',
+      '🎄',
+      '🌟',
       '🔔',
-      '🍴',
-      '🎁',
-      '👶',
-      '🕯️',
+      '❄️',
+      '🛷',
+      '🦌',
       '🎅',
-      '👼',
+      '🎁',
+      '🍪',
+      '🥛',
+      '🔥',
+      '🧦',
+      '🌨️',
       '🎶',
+      '👼',
+      '🕯️',
+      '🍴',
+      '👶',
       '🛐',
       '⛪',
       '🤶',
       '✝️',
-      '❄️',
-      '☃️',
       '👪',
       '⛄',
-      '🌟',
-      '🔥',
-      '🎄',
       '🍷',
-      '🦌',
-      '🍪',
-      '🥛',
       '🧝‍♀️',
-      '🧦',
       '🧝‍♂️',
       '🧑‍🎄',
       '🧝',
       '🥕',
       '💝',
-      '🌨️',
       '💟',
-      '🛷',
       '📜',
       '⭐',
       '🍰',
@@ -501,15 +503,17 @@ export const checkWord = () => {
 
     if (guess.toLowerCase() === birdle.word) {
       setTimeout(() => {
+        const emojis = isHalloween
+          ? halloweenEmojis
+          : isThanksgiving
+            ? thanksGivingEmojis
+            : isChristmas
+              ? christmasEmojis
+              : defaultBirds;
+
         const { cancel } = emojiBlasts({
           emojiCount: (guessesRows.length * 10) / (currentRow + 1),
-          emojis: isHalloween
-            ? halloweenEmojis
-            : isThanksgiving
-              ? thanksGivingEmojis
-              : isChristmas
-                ? christmasEmojis
-                : defaultBirds,
+          emojis: emojis,
         });
         Swal.fire({
           html: `<strong>${successStrings[currentRow]}</strong>`,
@@ -525,22 +529,22 @@ export const checkWord = () => {
           didDestroy: () => {
             textBalloons([
               {
-                text: defaultBirds.slice(0, 4).join(''),
+                text: emojis.slice(0, 4).join(''),
                 fontSize: Math.min(window.innerWidth / 5, 160),
                 color: '#000000',
               },
               {
-                text: defaultBirds.slice(4, 8).join(''),
+                text: emojis.slice(4, 8).join(''),
                 fontSize: Math.min(window.innerWidth / 5, 160),
                 color: '#000000',
               },
               {
-                text: defaultBirds.slice(8, 12).join(''),
+                text: emojis.slice(8, 12).join(''),
                 fontSize: Math.min(window.innerWidth / 5, 160),
                 color: '#000000',
               },
               {
-                text: defaultBirds.slice(12, 16).join(''),
+                text: emojis.slice(12, 16).join(''),
                 fontSize: Math.min(window.innerWidth / 5, 160),
                 color: '#000000',
               },
