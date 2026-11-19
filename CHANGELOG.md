@@ -1,3 +1,15 @@
+## [1.25.1](https://github.com/mikesprague/birdle/compare/v1.25.0...v1.25.1) (2026-11-19)
+
+### 🔧 Chores
+
+* **deps-dev:** bump oxfmt from 0.78.0 to 0.79.0 (#1191) ([350f87b](https://github.com/mikesprague/birdle/commit/350f87b39e4fc0e7920bf815a7e3c267b6e2e228)), references [#1191](https://github.com/mikesprague/birdle/issues/1191)
+* **deps-dev:** bump oxlint from 1.93.0 to 1.94.0 (#1190) ([556da63](https://github.com/mikesprague/birdle/commit/556da6390681a29965b40a9fb196580ec27bb388)), references [#1190](https://github.com/mikesprague/birdle/issues/1190)
+* **deps:** bump @rwh/keystrokes ([01b0e81](https://github.com/mikesprague/birdle/commit/01b0e8161af1d19d55718a448046ec80011053cd))
+
+### 🛠️ Code Refactoring
+
+* **lib/helpers:** improve holiday logic ([031a613](https://github.com/mikesprague/birdle/commit/031a61303e84d7a11deb097ce982aa50844e626c))
+
 ## [1.25.0](https://github.com/mikesprague/birdle/compare/v1.24.2...v1.25.0) (2026-11-13)
 
 ### 🏗️ Build System
