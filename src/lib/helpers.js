@@ -331,6 +331,14 @@ export const colorGuess = (currentRow) => {
   }
 };
 
+export const getThanksgiving = () => {
+  const y = new Date().getFullYear();
+  const firstDayOfNovember = new Date(`11/1/${y}`);
+  const dayOfWeekNovemberFirst = firstDayOfNovember.getDay();
+  const thanksgivingDay = 22 + ((11 - dayOfWeekNovemberFirst) % 7);
+  return new Date(`11/${thanksgivingDay}/${y}`);
+};
+
 export const checkWord = () => {
   const gameState = getData('gameState');
   const { currentRow, currentGuess, guessesRows, guessesSubmitted } = gameState;
@@ -494,9 +502,12 @@ export const checkWord = () => {
     // var that returns true if today is in October
     const isHalloween =
       today.getMonth() === 9 && today.getDate() > 21 && today.getDate() <= 31;
-    // var that returns true if today is in Novermber
+    // var that returns true if today is in November
+    const thanksgivingDate = getThanksgiving();
     const isThanksgiving =
-      today.getMonth() === 10 && today.getDate() > 20 && today.getDate() <= 28;
+      today.getMonth() === 10 &&
+      today.getDate() > thanksgivingDate.getDate() - 8 &&
+      today.getDate() <= thanksgivingDate.getDate();
 
     const isChristmas =
       today.getMonth() === 11 && today.getDate() > 10 && today.getDate() <= 25;
